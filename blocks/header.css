@@ -1,9 +1,21 @@
 .header {
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 55%;
 }
 
 .header__logo {
-    position: absolute;
-    left: 200px;
-    top: 45px;
+    width: 173px;
+    height: 33px;
+}
+
+.header__logo_image {
+    width: 100%;
+}
+
+.header__divider {
+    margin: 40px 0 40px 0;
+    border-bottom: 1px solid #545454;
+    width: 100%;
 }
