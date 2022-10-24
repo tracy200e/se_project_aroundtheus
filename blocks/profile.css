@@ -1,0 +1,35 @@
+.profile {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin: 36px 0 36px 0;
+}
+
+.profile__image {
+    border-radius: 50%;
+    width: 127px;
+    height: 127px;
+}
+
+.profile__title {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__name {
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 42px;
+    line-height: 48px;
+    margin: 0 18px 0 0;
+}
+
+.profile__tag {
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 0;
+}

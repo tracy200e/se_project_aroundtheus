@@ -1,5 +1,5 @@
 .content {
-    display: flex;
-    justify-content: center;
-    margin-top: 45px;
+    margin: 0 auto 0 auto;
+    padding: 45px 0 145px 0;
+    max-width: calc(100% - 400px);
 }
