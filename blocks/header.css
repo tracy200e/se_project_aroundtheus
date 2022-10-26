@@ -6,13 +6,26 @@
 }
 
 .header__logo {
+    position: relative;
     width: 173px;
     height: 33px;
-    background: transparent url(../images/Vector-2.svg) center no-repeat;
+    background: transparent url(../images/around-the-us-logo.svg) center no-repeat;
 }
 
 .header__divider {
     margin-top: 41px;
     margin-bottom: 0;
     border-bottom: 1px solid #545454;
+}
+
+@media screen and (max-width: 320px) {
+    .header__logo {
+        width: 126px;
+        background: transparent url(../images/around-the-us-logo.svg) center no-repeat;
+        margin: 0 auto 0 27px;
+    }
+    .header__divider {
+        margin-top: 32px;
+        margin-bottom: 0;
+    }
 }

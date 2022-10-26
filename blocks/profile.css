@@ -56,6 +56,42 @@
     width: 150px;
     height: 50px;
     background: transparent url("../images/add-button.svg") center no-repeat;
-    border: 2px solid #FFFFFF;
+    border: none;
     margin-left: auto;
+}
+
+@media screen and (max-width: 320px) {
+    .profile__image {
+        margin: 0 auto;
+    }
+    .profile__info {
+        grid-template-columns: minmax(auto, 196px) auto;
+        grid-gap: 14px 10px;
+        margin: 26.25px auto 36px auto;
+    }
+    .profile__name {
+        font-weight: 500;
+        font-size: 18.5px;
+        line-height: 27px;
+        margin-left: 14px;
+    }
+    .profile__tag {
+        font-size: 14px;
+        line-height: 17px;
+        margin: auto;
+    }
+    .profile__edit-button {
+        padding: 0;
+        margin: 0;
+        width: 18px;
+        height: 18px;
+        align-self: center;
+    }
+    .profile__add-button {
+        width: 282px;
+        height: 50px;
+        background: transparent url("../images/add-button-large.svg") center no-repeat;
+        border: 2px solid #FFFFFF;
+        margin: auto;
+    }
 }

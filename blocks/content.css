@@ -3,3 +3,28 @@
     padding-top: 45px;
     max-width: calc(100% - 400px);
 }
+
+@media screen and (max-width: 1024px) {
+    .content {
+        max-width: calc(100% - 70px);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .content {
+        max-width: calc(100% - 60px);
+    }
+}
+
+@media screen and (max-width: 544px) {
+    .content {
+        max-width: calc(100% - 50px);
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .content {
+        max-width: 100%;
+        padding-top: 28px;
+    }
+}
