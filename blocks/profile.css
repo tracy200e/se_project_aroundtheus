@@ -1,45 +1,61 @@
 .profile {
+    font-family: 'Inter', Arial, sans-serif;
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start;
-    margin: 36px 0 36px 0;
+    align-items: center;
+    margin: 36.25px 0 47.25px 0;
 }
 
 .profile__image {
     border-radius: 50%;
     width: 127px;
     height: 127px;
+    object-fit: cover;
 }
 
-.profile__title {
-    display: flex;
-    flex-direction: column;
+.profile__info {
+    display: grid;
+    grid-template-areas:
+        "name button"
+        "tag tag";
+    grid-template-columns: minmax(auto, 373px) auto;
+    grid-gap: 9px 17px;
+    margin-left: 24.5px;
 }
 
 .profile__name {
-    font-family: 'Inter', Arial, sans-serif;
     font-weight: 500;
-    font-style: normal;
     font-size: 42px;
     line-height: 48px;
-    margin: 0 18px 0 0;
+    margin: 0;
+    grid-area: name;
+    letter-spacing: 1.56px;
 }
 
 .profile__tag {
-    font-family: 'Inter', Arial, sans-serif;
-    font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 22px;
-    margin: 0 0;
+    margin: 0;
+    grid-area: tag;
 }
 
-.profile__edit {
+.profile__edit-button {
+    padding: 0;
+    margin: 0;
     width: 24px;
     height: 24px;
+    background-color: transparent;
+    border: none;
+    grid-area: button;
+    align-self: center;
 }
 
-.profile__add {
+.profile__add-button {
     width: 150px;
     height: 50px;
+    background-color: transparent;
+    border: none;
+    justify-self: flex-end;
+    margin-left: auto;
 }
