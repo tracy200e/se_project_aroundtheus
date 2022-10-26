@@ -28,10 +28,10 @@
 }
 
 .card__like-button {
-    background-color: transparent;
+    background: transparent url(../images/like-button-inactive.svg) center no-repeat;
+    border: none;
     width: 21px;
     height: 18px;
     padding: 0;
-    border: none;
     flex: 0 0 21px;
 }

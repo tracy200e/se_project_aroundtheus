@@ -8,6 +8,7 @@
 .header__logo {
     width: 173px;
     height: 33px;
+    background: transparent url(../images/Vector-2.svg) center no-repeat;
 }
 
 .header__divider {

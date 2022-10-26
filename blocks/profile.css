@@ -8,9 +8,10 @@
 
 .profile__image {
     border-radius: 50%;
-    width: 127px;
-    height: 127px;
+    width: 120px;
+    height: 120px;
     object-fit: cover;
+    margin: 0 29px 0 0;
 }
 
 .profile__info {
@@ -20,7 +21,7 @@
         "tag tag";
     grid-template-columns: minmax(auto, 373px) auto;
     grid-gap: 9px 17px;
-    margin-left: 24.5px;
+    margin: 0;
 }
 
 .profile__name {
@@ -45,8 +46,8 @@
     margin: 0;
     width: 24px;
     height: 24px;
-    background-color: transparent;
-    border: none;
+    background: transparent url("../images/edit-button.svg") center no-repeat;
+    border: 1px solid #FFFFFF;
     grid-area: button;
     align-self: center;
 }
@@ -54,8 +55,7 @@
 .profile__add-button {
     width: 150px;
     height: 50px;
-    background-color: transparent;
-    border: none;
-    justify-self: flex-end;
+    background: transparent url("../images/add-button.svg") center no-repeat;
+    border: 2px solid #FFFFFF;
     margin-left: auto;
 }
