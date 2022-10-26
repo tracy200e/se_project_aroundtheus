@@ -1,4 +1,4 @@
-.cards_list {
+.cards__list {
     display: grid;
     grid-template-columns: repeat(auto-fit, 282px);
     justify-content: center;
