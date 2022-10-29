@@ -53,6 +53,10 @@
     align-self: center;
 }
 
+.profile__edit-button:hover {
+    cursor: pointer;
+}
+
 .profile__add-button {
     width: 150px;
     height: 50px;
@@ -60,6 +64,10 @@
     border: 1px solid #FFFFFF;
     background-size: 22px 22px;
     margin-left: auto;
+}
+
+.profile__add-button:hover {
+    cursor: pointer;
 }
 
 @media screen and (max-width: 320px) {
