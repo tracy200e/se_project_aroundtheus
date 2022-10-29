@@ -1,5 +1,6 @@
 .footer {
     padding: 67px 0 60px 0;
+    margin: 0;
 }
 
 .footer__copyright {
@@ -8,6 +9,7 @@
     color: #545454;
     font-style: normal;
     font-size: 18px;
+    margin: 0;
 }
 
 @media screen and (max-width: 320px) {
@@ -16,12 +18,7 @@
         padding: 0;
     }
     .footer__copyright {
-        font-family: 'Inter', Arial, sans-serif;
-        font-weight: 400;
-        color: #545454;
-        font-style: normal;
         font-size: 14px;
         line-height: 17px;
-        margin: 0;
     }
 }

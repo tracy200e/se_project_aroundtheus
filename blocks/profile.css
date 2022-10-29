@@ -4,6 +4,7 @@
     flex-wrap: wrap;
     align-items: center;
     margin: 36.25px 0 47.25px 0;
+    padding: 0;
 }
 
 .profile__image {
@@ -58,6 +59,7 @@
 }
 
 .profile__add-button {
+    padding: 0;
     width: 150px;
     height: 50px;
     background: transparent url("../images/add-button.svg") center no-repeat;
