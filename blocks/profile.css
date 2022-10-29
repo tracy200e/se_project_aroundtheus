@@ -47,7 +47,8 @@
     width: 24px;
     height: 24px;
     background: transparent url("../images/edit-button.svg") center no-repeat;
-    border: none;
+    background-size: 10px 10px;
+    border: 1px solid #FFFFFF;
     grid-area: button;
     align-self: center;
 }
@@ -56,6 +57,7 @@
     width: 150px;
     height: 50px;
     background: transparent url("../images/add-button.svg") center no-repeat;
-    border: none;
+    border: 1px solid #FFFFFF;
+    background-size: 22px 22px;
     margin-left: auto;
 }
