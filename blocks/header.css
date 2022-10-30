@@ -27,6 +27,19 @@
     }
 }
 
+@media screen and (max-width: 488px) {
+    .header {
+        max-width: 100%;
+        padding-top: 28px;
+    }
+    .header__logo {
+        margin: 0 0 0 27px;
+    }
+    .header__divider {
+        margin-top: 32px;
+    }
+}
+
 @media screen and (max-width: 320px) {
     .header__logo {
         width: 126px;
