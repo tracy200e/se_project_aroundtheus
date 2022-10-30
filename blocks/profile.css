@@ -1,10 +1,10 @@
 .profile {
     font-family: 'Inter', Arial, sans-serif;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    margin: 36.25px 0 47.25px 0;
+    margin: 36.25px auto 47.25px auto;
     padding: 0;
+    width: 880px;
 }
 
 .profile__image {
@@ -70,6 +70,12 @@
 
 .profile__add-button:hover {
     cursor: pointer;
+}
+
+@media screen and (max-width: 918px) {
+    .profile {
+        max-width: calc(100% - 4.3%);
+    }
 }
 
 @media screen and (max-width: 320px) {
