@@ -2,21 +2,16 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 45px 0 0 0;
+    padding: 45px 0 41px 0;
     margin: 0 auto 0 auto;
     width: 880px;
+    border-bottom: 1px solid rgba(84, 84, 84, 0.7);
 }
 
 .header__logo {
     width: 173px;
     height: 33px;
     background: transparent url(../images/around-the-us-logo.svg) center no-repeat;
-}
-
-.header__divider {
-    margin-top: 41px;
-    margin-bottom: 0;
-    border-bottom: 1px solid #545454;
 }
 
 @media screen and (max-width: 918px) {
