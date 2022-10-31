@@ -8,7 +8,6 @@
 }
 
 .header__logo {
-    position: relative;
     width: 173px;
     height: 33px;
     background: transparent url(../images/around-the-us-logo.svg) center no-repeat;
@@ -42,6 +41,7 @@
 @media screen and (max-width: 320px) {
     .header__logo {
         width: 126px;
+        height: 24px;
         background: transparent url(../images/around-the-us-logo.svg) center no-repeat;
         margin: 0 auto 0 27px;
     }
