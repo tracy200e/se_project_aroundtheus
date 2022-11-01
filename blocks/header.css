@@ -24,12 +24,10 @@
     .header {
         max-width: 100%;
         padding-top: 28px;
+        padding-bottom: 42px;
     }
     .header__logo {
         margin: 0 0 0 27px;
-    }
-    .header__divider {
-        margin-top: 32px;
     }
 }
 
@@ -37,11 +35,6 @@
     .header__logo {
         width: 126px;
         height: 24px;
-        background: transparent url(../images/around-the-us-logo.svg) center no-repeat;
         margin: 0 auto 0 27px;
-    }
-    .header__divider {
-        margin-top: 32px;
-        margin-bottom: 0;
     }
 }
