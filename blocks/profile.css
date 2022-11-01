@@ -52,7 +52,6 @@
     background: transparent url("../images/edit-button.svg") center no-repeat;
     background-size: 10px 10px;
     border: 1px solid #FFFFFF;
-    border-radius: 2px;
     grid-area: button;
     align-self: center;
 }
@@ -70,6 +69,7 @@
     border: 2px solid #FFFFFF;
     background-size: 22px 22px;
     margin-left: auto;
+    border-radius: 2px;
 }
 
 .profile__add-button:hover {
@@ -110,6 +110,9 @@
         flex-direction: column;
         margin: 38.25px auto 36px auto;
         max-width: calc(100% - 11.9%);
+    }
+    .profile__image {
+        margin: 0;
     }
     .profile__info {
         margin-top: 30px;
