@@ -10,7 +10,6 @@
     justify-content: space-between;
     padding: 25px 20px;
     background-color: #FFFFFF;
-    line-height: 27px;
 }
 
 .card__image {
@@ -27,6 +26,7 @@
     white-space: nowrap;
     margin: 0;
     padding: 0;
+    line-height: 29px;
 }
 
 .card__like-button {
@@ -39,12 +39,6 @@
 }
 
 .card__like-button:hover {
-    background: transparent url(../images/like-button-inactive.svg) center no-repeat;
     cursor: pointer;
-    border: none;
-    width: 21px;
-    height: 18px;
-    padding: 0;
-    flex: 0 0 21px;
     opacity: 0.5;
 }
