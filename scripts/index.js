@@ -1,26 +1,26 @@
 let initialCards = [
     {
         "name": "Yosemite Valley",
-        "link": URL("../images/yosemite.jpg")
+        "link": URL("../images/yosemite-valley.png")
     },
     {
         "name": "Lake Louise",
-        "link": URL("../images/lake-louise.jpg")
+        "link": URL("../images/lake-louise.png")
     },
     {
         "name": "Bald Mountains",
-        "link": URL("../images/bald-mountains.jpg")
+        "link": URL("../images/bald-mountains.png")
     },
     {
         "name": "Latemar",
-        "link": URL("../images/latemar.jpg")
+        "link": URL("../images/latemar.png")
     },
     {
         "name": "Vanoise National Park",
-        "link": URL("../images/vanoise.jpg")
+        "link": URL("../images/vanoise-national-park.png")
     },
     {
         "name": "Lago di Braies",
-        "link": URL("../images/lago.jpg")
+        "link": URL("../images/lago-di-braise.png")
     },
 ]
