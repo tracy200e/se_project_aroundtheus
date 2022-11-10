@@ -10,6 +10,29 @@
     <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
+    <modal class="modal modal_opened">
+        <div class="modal__container">
+            <h2 class="modal__title">Edit profile</h2>
+            <form class="form modal__form">
+                <fieldset class="form__fieldset">
+                    <input
+                    type="text"
+                    placeholder="Jacques Cousteau"
+                    class="form__input"
+                    id="name"
+                    >
+                    <input
+                    type="text"
+                    placeholder="Explorer"
+                    class="form__input"
+                    id="description"
+                    >
+                    <button
+                    type="submit" class="form__button">Save</button>
+                </fieldset>
+            </form>
+        </div>
+    </modal>
     <header class="header">
         <div class="header__logo"></div>
     </header>
@@ -100,13 +123,6 @@
     <footer class="footer">
         <p class="footer__copyright">© 2022 Around The U.S.</p>
     </footer>
-    <div class="modal">
-        <div class="modal__container modal_opened">
-            <h2 class="modal__title">Edit profile</h2>
-            <p class="modal__form-field">Name</p>
-            <p class="modal__form-field">Description</p>
-        </div>
-    </div>
     <script src="./scripts/index.js"></script>
 </body>
 </html>
