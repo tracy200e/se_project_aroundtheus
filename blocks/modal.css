@@ -2,8 +2,10 @@
     display: none;
     position: fixed;
     background: rgba(0, 0, 0, 0.5);
-    min-width: 100%;
-    min-height: 100%;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
     z-index: 1;
 }
 
@@ -15,6 +17,7 @@
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     margin: auto;
     padding: 0;
+    position: relative;
 }
 
 .modal_opened {
@@ -22,9 +25,16 @@
 }
 
 .modal__title {
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 24px;
     color: #000000;
     font-weight: 900;
-    margin: 36px 36px 54px 36px;
+    margin: 34px 36px 50px 36px;
+}
+
+.modal__form {
+    padding: 0;
+    margin: 0;
 }
 
 .modal__form-field {
@@ -36,8 +46,11 @@
     background-size: 40px 40px;
     border: none;
     position: absolute;
-    left: 50%;
-    top: 10%;
+    display: block;
     height: 40px;
     width: 40px;
+    cursor: pointer;
+    padding: 0;
+    top: -40px;
+    right: -45px;
 }

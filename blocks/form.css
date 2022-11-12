@@ -7,30 +7,31 @@
 .form__input {
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    width: 81%;
+    width: 83%;
     color: #000000;
-    font-size: 17px;
+    font-size: 14px;
     line-height: 17px;
-    margin: 0 36px 30px 36px;
+    margin: 0 36px 29px 36px;
     overflow: hidden;
-    padding-bottom: 13.5px;
+    padding: 0 0 11px 0;
 }
 
 .form__input:last-child {
     margin-bottom: 0;
-    padding-bottom: 0;
 }
 
 .form__button {
     background: #000000;
     border-radius: 2px;
     width: 83%;
-    height: 50.15px;
+    height: 50px;
     font-family: 'Inter', Arial, sans-serif;
     color: #FFFFFF;
     font-weight: 400;
     font-size: 18px;
     text-align: center;
-    margin: 48px 36px 36px 36px;
+    margin: 43px 36px 0 36px;
     border-style: none;
+    padding: 0;
+    cursor: pointer;
 }
