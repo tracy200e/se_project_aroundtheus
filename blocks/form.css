@@ -1,26 +1,36 @@
 .form__fieldset {
     border: none;
     padding: 0;
+    margin: 0;
 }
 
 .form__input {
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-    width: 100%;
+    width: 81%;
     color: #000000;
     font-size: 17px;
     line-height: 17px;
+    margin: 0 36px 30px 36px;
+    overflow: hidden;
+    padding-bottom: 13.5px;
+}
+
+.form__input:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
 }
 
 .form__button {
     background: #000000;
     border-radius: 2px;
-    width: 100%;
+    width: 83%;
     height: 50.15px;
     font-family: 'Inter', Arial, sans-serif;
     color: #FFFFFF;
     font-weight: 400;
     font-size: 18px;
     text-align: center;
-    margin-top: 48px;
+    margin: 48px 36px 36px 36px;
+    border-style: none;
 }
