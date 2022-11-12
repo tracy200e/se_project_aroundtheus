@@ -35,3 +35,14 @@
     padding: 0;
     cursor: pointer;
 }
+
+@media screen and (max-width: 488px) {
+    .form__input {
+        margin: 0 7.8% 9.3% 7.8%;
+    }
+    .form__button {
+        margin: 14% 7.8% 7.8% 7.8%;
+        height: 46px;
+        font-size: 14px;
+    }
+}

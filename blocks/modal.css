@@ -42,7 +42,7 @@
 }
 
 .modal__close-button {
-    background: transparent url("../images/close-icon.svg") center no-repeat;
+    background: transparent url("../images/close-icon-large.svg") center no-repeat;
     background-size: 40px 40px;
     border: none;
     position: absolute;
@@ -53,4 +53,21 @@
     padding: 0;
     top: -40px;
     right: -45px;
+}
+
+@media screen and (max-width: 488px) {
+    .modal__container {
+        width: 282px;
+        height: 322px;
+    }
+    .modal__close-button {
+        background: transparent url("../images/close-icon-small.svg") center no-repeat;
+        top: -35px;
+        right: -15px;
+    }
+    .modal__title {
+        font-size: 18px;
+        line-height: 22px;
+        margin: 8% 7.8% 27% 7.8%;
+    }
 }
