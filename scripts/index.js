@@ -25,21 +25,23 @@ let initialCards = [
     }
 ]
 
-// Identify edit button as an element
+// Identify edit and close buttons as elements
 const editButton = document.querySelector('.profile__edit-button');
+const closeButton = document.querySelector('.modal__close-button');
 
-// // Identify the modal as an element
-// let modal = document.querySelector('.modal');
+// Identify the modal as an element
+let modal = document.querySelector('.modal');
 
-// // Add class to open modal
-// function renderModal() {
-//     if (modal.classList.contains('modal_opened') != true) {
-//         modal.classList.add('modal_opened');
-//     };
-// };
+// Open the modal when users click on the edit button
+editButton.addEventListener("click", function () {
+    if (modal.classList.contains('modal_opened') != true) {
+        modal.classList.add('modal_opened');
+    };
+});
 
-// Listen for 'click' events on the Edit Button
-editButton.addEventListener("click", function(e) {
-    const eventTarget = e.target;
-    eventTarget.classList.add('modal_opened');
+// Close the modal when users click on the cross button
+closeButton.addEventListener("click", function() {
+    if (modal.classList.contains('modal_opened')) {
+        modal.classList.remove('modal_opened');
+    }
 });
