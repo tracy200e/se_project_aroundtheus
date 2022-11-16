@@ -32,16 +32,12 @@ const closeButton = document.querySelector('.modal__close-button');
 // Identify the modal as an element
 let modal = document.querySelector('.modal');
 
+function toggleModal () {
+    modal.classList.toggle('.modal_opened');
+}
+
 // Open the modal when users click on the edit button
-editButton.addEventListener("click", function () {
-    if (modal.classList.contains('modal_opened') != true) {
-        modal.classList.add('modal_opened');
-    };
-});
+editButton.addEventListener("click", toggleModal);
 
 // Close the modal when users click on the cross button
-closeButton.addEventListener("click", function() {
-    if (modal.classList.contains('modal_opened')) {
-        modal.classList.remove('modal_opened');
-    }
-});
+closeButton.addEventListener("click", toggleModal);
