@@ -33,7 +33,7 @@ const closeButton = document.querySelector('.modal__close-button');
 let modal = document.querySelector('.modal');
 
 function toggleModal () {
-    modal.classList.toggle('.modal_opened');
+    modal.classList.toggle('modal_opened');
 }
 
 // Open the modal when users click on the edit button
