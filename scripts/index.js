@@ -1,3 +1,4 @@
+// Create an initial list of cards
 let initialCards = [
     {
         name: "Yosemite Valley",
@@ -32,6 +33,7 @@ const closeButton = document.querySelector('.modal__close-button');
 // Identify the modal as an element
 let modal = document.querySelector('.modal');
 
+// Toggle modal
 function toggleModal () {
     modal.classList.toggle('modal_opened');
 }
@@ -41,3 +43,16 @@ editButton.addEventListener("click", toggleModal);
 
 // Close the modal when users click on the cross button
 closeButton.addEventListener("click", toggleModal);
+
+// Select profile elements
+const profileName = document.querySelector('.profile__name');
+const profileTag = document.querySelector('.profile__tag');
+
+// Select form input elements
+let formInputName = document.querySelector('#name');
+let formInputTag = document.querySelector('#about-me');
+
+// Fill the "Name" and "About me" fields with the values displayed on the page
+formInputName.value = profileName.textContent;
+formInputTag.value = profileTag.textContent;
+
