@@ -22,7 +22,7 @@ let initialCards = [
     },
     {
         name: "Lago di Braies",
-        link: "../images/lago-di-braise.png"
+        link: "../images/lago-di-braies.png"
     }
 ]
 
@@ -98,7 +98,17 @@ function getCardElement(data) {
     return cardElement;
 }
 
-// Iterate over the cards array and create cards
-for (i = 0; i < initialCards.length; i++) {
-    getCardElement(i);
+function createCardsList(card) {
+
+    // Find the cards list
+    const cardsList = document.querySelector('.cards__list');
+
+    // Create the new card element
+    const newCardElement = getCardElement(card);
+
+    // Prepend the new cards
+    cardsList.prepend(newCardElement);
 }
+
+// Create cards list
+initialCards.forEach(createCardsList);
