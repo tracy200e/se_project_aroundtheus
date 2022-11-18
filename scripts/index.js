@@ -75,3 +75,30 @@ function handleProfileFormSubmit(e) {
 
 // Connect the handler to the form and watch for the submit event
 profileFormElement.addEventListener('submit', handleProfileFormSubmit);
+
+// Card element retriever
+function getCardElement(data) {
+
+    // Find the card template
+    let cardTemplate = document.querySelector('#card-element').content;
+
+    // Clone the content of the template tag
+    let cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+
+    // Find the card title and image elements
+    let cardTitle = cardElement.querySelector('.card__title');
+    let cardImage = cardElement.querySelector('.card__image');
+
+    // Fill in the data's name and link to the corresponding fields
+    cardTitle.textContent = data.name;
+    cardImage.src = data.link;
+    cardImage.alt = data.name;
+
+    // Return the ready HTML element with the filled-in data
+    return cardElement;
+}
+
+// Iterate over the cards array and create cards
+for (i = 0; i < initialCards.length; i++) {
+    getCardElement(i);
+}
