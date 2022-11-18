@@ -44,15 +44,34 @@ editButton.addEventListener("click", toggleModal);
 // Close the modal when users click on the cross button
 closeButton.addEventListener("click", toggleModal);
 
-// Select profile elements
+// Find profile elements
 const profileName = document.querySelector('.profile__name');
 const profileTag = document.querySelector('.profile__tag');
 
-// Select form input elements
-let formInputName = document.querySelector('#name');
-let formInputTag = document.querySelector('#about-me');
+// Find form input elements
+const formInputName = document.querySelector('#name');
+const formInputTag = document.querySelector('#about-me');
 
 // Fill the "Name" and "About me" fields with the values displayed on the page
 formInputName.value = profileName.textContent;
 formInputTag.value = profileTag.textContent;
 
+// Find the form in the DOM
+const profileFormElement = document.querySelector('.modal__form');
+
+// Form submission handler
+function handleProfileFormSubmit(e) {
+
+    // Prevent browser default behavior
+    e.preventDefault();
+
+    // Insert form values and display them on the page
+    profileName.textContent = formInputName.value;
+    profileTag.textContent = formInputTag.value;
+
+    // Close the modal
+    toggleModal();
+}
+
+// Connect the handler to the form and watch for the submit event
+profileFormElement.addEventListener('submit', handleProfileFormSubmit);
