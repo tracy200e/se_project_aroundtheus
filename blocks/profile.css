@@ -43,6 +43,9 @@
     margin: 0;
     grid-area: tag;
     text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 373px;
 }
 
 .profile__edit-button {
@@ -95,6 +98,7 @@
     .profile__tag {
         font-size: 18px;
         line-height: 20px;
+        max-width: 215px;
     }
     .profile__add-button {
         width: 50px;
@@ -129,6 +133,7 @@
         margin: 0 auto 36px auto;
         font-size: 14px;
         line-height: 17px;
+        max-width: 175px;
     }
     .profile__add-button {
         width: 100%;
