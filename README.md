@@ -20,7 +20,7 @@ The design is implemented using HTML and CSS. More specifically, Flexbox and Gri
  
 **GitHub Link**  
   
-* [Link to the project on GitHub](https://tracy200e.github.io/se_project_aroundtheus/)
+* [Link to the project on GitHub](https://github.com/tracy200e/se_project_aroundtheus)
 
 **Feedback**
 
