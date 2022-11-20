@@ -34,7 +34,12 @@
     border-style: none;
     padding: 0;
     cursor: pointer;
+    margin-bottom: 36px;
 }
+
+.form__button:hover {
+    opacity: 0.8;
+} 
 
 @media screen and (max-width: 488px) {
     .form__input {
