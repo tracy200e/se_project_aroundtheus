@@ -18,6 +18,10 @@
     display: block;
 }
 
+.card__image:hover {
+    cursor: pointer;
+}
+
 .card__delete-button {
     background: transparent url(../images/trash-icon.svg) center no-repeat;
     border: none;

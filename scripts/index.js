@@ -114,7 +114,7 @@ function createCardElement(card) {
         cardLikeButton.classList.toggle('card__like-button_active');
     });
 
-    // Add event listener for delete
+    // Add event listener for the delete button
     const cardDeleteButton = cardElement.querySelector('.card__delete-button');
     
     // Remove element from the DOM on click
@@ -122,7 +122,7 @@ function createCardElement(card) {
         e.target.closest('.card').remove();
     });
 
-    // Add event listener image
+    // Add event listener for image
         // Open the modal
         // Find image element inside the modal
         // Replace src with card link
