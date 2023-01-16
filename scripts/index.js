@@ -50,12 +50,8 @@ const cardTemplate = document.querySelector('#card-element').content;
 // Find the cards list
 const cardsList = document.querySelector('.cards__list');
 
-function closeModal(modal) {
-    modal.classList.remove('modal_opened');
-}
-
-function openModal(modal) {
-    modal.classList.add('modal_opened');
+function toggleModal(modal) {
+    modal.classList.toggle('modal_opened');
 }
 
 // Open the modal when users click on the edit button
@@ -65,22 +61,22 @@ editButton.addEventListener("click", () => {
     formInputName.value = profileName.textContent;
     formInputTag.value = profileTag.textContent;
 
-    openModal(editModal);
+    toggleModal(editModal);
 });
 
 // Open the modal when users click on the add button
 addButton.addEventListener("click", () => {
-    openModal(addModal)
+    toggleModal(addModal)
 });
 
 // Close the modal when users click on the cross button
 closeEditButton.addEventListener("click", () => {
-    closeModal(editModal);
+    toggleModal(editModal);
 });
 
 // Close the modal when users click on the cross button
 closeAddButton.addEventListener("click", () => {
-    closeModal(addModal);
+    toggleModal(addModal);
 });
 
 // Find the edit and add forms in the DOM
@@ -109,12 +105,21 @@ function createCardElement(card) {
     cardImage.src = card.link;
     cardImage.alt = card.name;
 
-    // add event listner for like button
+    // Add event listner for like button
     const cardLikeButton = cardElement.querySelector('.card__like-button');
     cardLikeButton.addEventListener('click', () => {
         // add active class to card's like button
         cardLikeButton.classList.toggle('card__like-button_active');
     });
+
+    // Add event listener for delete
+        // Remove element from the DOM using cardElement.remove();
+
+    // Add event listener image
+        // Open the modal
+        // Find image element inside the modal
+        // Replace src with card link
+        // Replace alt with card title
 
     return cardElement;
 }
@@ -129,8 +134,8 @@ profileFormElement.addEventListener('submit', (event) => {
     profileName.textContent = formInputName.value;
     profileTag.textContent = formInputTag.value;
 
-    // Close the modal
-    closeModal();
+    // Close the edit modal
+    toggleModal(editModal);
 });
 
 // Submit add form
@@ -153,7 +158,7 @@ cardFormElement.addEventListener('submit', (e) => {
     renderCard(cardView, cardsList);
 
     // Close the add card modal
-    closeModal(addModal);
+    toggleModal(addModal);
 })
 
 // Create cards list

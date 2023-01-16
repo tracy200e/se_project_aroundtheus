@@ -1,12 +1,17 @@
 .modal {
-    display: none;
     position: fixed;
+    display: flex;
     background: rgba(0, 0, 0, 0.5);
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
     z-index: 1;
+
+    /* Reference: https://stackoverflow.com/questions/3331353/transitions-on-the-css-display-property */
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.5s, opacity 0.5s;
 }
 
 .modal__container {
@@ -17,10 +22,16 @@
     margin: auto;
     padding: 0;
     position: relative;
+    
 }
 
 .modal_opened {
     display: flex;
+
+    /* Reference: https://stackoverflow.com/questions/3331353/transitions-on-the-css-display-property */
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.5s;
 }
 
 .modal__title {
@@ -62,11 +73,13 @@
     .modal__container {
         width: 282px;
     }
+
     .modal__close-button {
         background: transparent url("../images/close-icon-small.svg") center no-repeat;
         top: -35px;
         right: -15px;
     }
+
     .modal__title {
         font-size: 18px;
         line-height: 22px;
