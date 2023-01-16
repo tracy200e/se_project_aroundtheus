@@ -109,6 +109,13 @@ function createCardElement(card) {
     cardImage.src = card.link;
     cardImage.alt = card.name;
 
+    // add event listner for like button
+    const cardLikeButton = cardElement.querySelector('.card__like-button');
+    cardLikeButton.addEventListener('click', () => {
+        // add active class to card's like button
+        cardLikeButton.classList.toggle('card__like-button_active');
+    });
+
     return cardElement;
 }
 
