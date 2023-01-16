@@ -26,12 +26,15 @@ const initialCards = [
     }
 ]
 
+// Identify the modals as elements
+const editModal = document.querySelector('#edit-modal');
+const addModal = document.querySelector('#add-modal');
+
 // Identify edit and close buttons as elements
 const editButton = document.querySelector('.profile__edit-button');
-const closeButton = document.querySelector('.modal__close-button');
-
-// Identify the modal as an element
-const modal = document.querySelector('.modal');
+const addButton = document.querySelector('.profile__add-button');
+const closeEditButton = editModal.querySelector('.modal__close-button');
+const closeAddButton = addModal.querySelector('.modal__close-button');
 
 // Find profile elements
 const profileName = document.querySelector('.profile__name');
@@ -41,79 +44,113 @@ const profileTag = document.querySelector('.profile__tag');
 const formInputName = document.querySelector('#name');
 const formInputTag = document.querySelector('#about-me');
 
-// Toggle modal
-function toggleModal () {
+// Find the card template
+const cardTemplate = document.querySelector('#card-element').content;
 
-    // Toggal modal
-    modal.classList.toggle('modal_opened');
+// Find the cards list
+const cardsList = document.querySelector('.cards__list');
 
-    // Make sure the saved profile details are filled in the form when modal is opened
-    if (modal.classList.contains('modal_opened')) {
-        formInputName.value = profileName.textContent;
-        formInputTag.value = profileTag.textContent;
-    }
-    
+function closeModal(modal) {
+    modal.classList.remove('modal_opened');
+}
+
+function openModal(modal) {
+    modal.classList.add('modal_opened');
 }
 
 // Open the modal when users click on the edit button
-editButton.addEventListener("click", toggleModal);
+editButton.addEventListener("click", () => {
+
+    // Make sure the saved profile details are filled in the form when modal is opened
+    formInputName.value = profileName.textContent;
+    formInputTag.value = profileTag.textContent;
+
+    openModal(editModal);
+});
+
+// Open the modal when users click on the add button
+addButton.addEventListener("click", () => {
+    openModal(addModal)
+});
 
 // Close the modal when users click on the cross button
-closeButton.addEventListener("click", toggleModal);
+closeEditButton.addEventListener("click", () => {
+    closeModal(editModal);
+});
 
-// Find the form in the DOM
-const profileFormElement = document.querySelector('.modal__form');
+// Close the modal when users click on the cross button
+closeAddButton.addEventListener("click", () => {
+    closeModal(addModal);
+});
 
-// Form submission handler
-function handleProfileFormSubmit(e) {
+// Find the edit and add forms in the DOM
+const profileFormElement = document.querySelector('#edit-profile-form');
+const cardFormElement = document.querySelector('#add-card-form');
+
+// Render card
+function renderCard(cardElement, container) {
+
+    // Prepend the new card
+    container.prepend(cardElement);
+}
+
+// Create card
+function createCardElement(card) {
+
+    // Clone the content of the template tag
+    const cardElement = cardTemplate.cloneNode(true);
+
+    // Find the card title and image elements
+    const cardTitle = cardElement.querySelector('.card__title');
+    const cardImage = cardElement.querySelector('.card__image');
+
+    // Fill in the card's name and link to the corresponding fields
+    cardTitle.textContent = card.name;
+    cardImage.src = card.link;
+    cardImage.alt = card.name;
+
+    return cardElement;
+}
+
+// Submit edit form
+profileFormElement.addEventListener('submit', (event) => {
 
     // Prevent browser default behavior
-    e.preventDefault();
+    event.preventDefault();
 
     // Insert form values and display them on the page
     profileName.textContent = formInputName.value;
     profileTag.textContent = formInputTag.value;
 
     // Close the modal
-    toggleModal();
-}
+    closeModal();
+});
 
-// Connect the handler to the form and watch for the submit event
-profileFormElement.addEventListener('submit', handleProfileFormSubmit);
+// Submit add form
+cardFormElement.addEventListener('submit', (e) => {
 
-// Card element retriever
-function getCardElement(data) {
+    // Prevent browser default behavior
+    e.preventDefault();
 
-    // Find the card template
-    const cardTemplate = document.querySelector('#card-element').content;
+    // Find form elements
+    const name = e.target.title.value;
+    const link = e.target.link.value;
 
-    // Clone the content of the template tag
-    const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+    // Create card
+    const cardView = createCardElement({
+        name,
+        link,
+    });
 
-    // Find the card title and image elements
-    const cardTitle = cardElement.querySelector('.card__title');
-    const cardImage = cardElement.querySelector('.card__image');
+    // Render card
+    renderCard(cardView, cardsList);
 
-    // Fill in the data's name and link to the corresponding fields
-    cardTitle.textContent = data.name;
-    cardImage.src = data.link;
-    cardImage.alt = data.name;
-
-    // Return the ready HTML element with the filled-in data
-    return cardElement;
-}
-
-function createCardsList(card) {
-
-    // Find the cards list
-    const cardsList = document.querySelector('.cards__list');
-
-    // Create the new card element
-    const newCardElement = getCardElement(card);
-
-    // Prepend the new cards
-    cardsList.prepend(newCardElement);
-}
+    // Close the add card modal
+    closeModal(addModal);
+})
 
 // Create cards list
-initialCards.forEach(createCardsList);
+initialCards.forEach(function (cardData) {
+    const cardView = createCardElement(cardData);
+    renderCard(cardView, cardsList);
+});

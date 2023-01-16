@@ -43,11 +43,11 @@
     <footer class="footer">
         <p class="footer__copyright">© 2022 Around The U.S.</p>
     </footer>
-    <div class="modal">
+    <div class="modal" id="edit-modal">
         <div class="modal__container">
             <button type="button" class="modal__close-button"></button>
             <h2 class="modal__title">Edit profile</h2>
-            <form class="form modal__form" name="profile-form">
+            <form class="form modal__form" id="edit-profile-form" name="profile-form">
                 <fieldset class="form__fieldset">
                     <input
                     type="text"
@@ -63,6 +63,31 @@
                     >
                 </fieldset>
                 <button type="submit" class="form__button">Save</button>
+            </form>
+        </div>
+    </div>
+    <div class="modal" id="add-modal">
+        <div class="modal__container">
+            <button type="button" class="modal__close-button"></button>
+            <h2 class="modal__title">New place</h2>
+            <form class="form modal__form" id="add-card-form" name="place-form">
+                <fieldset class="form__fieldset">
+                    <input
+                    type="text"
+                    class="form__input"
+                    id="title"
+                    name="title"
+                    placeholder="Title"
+                    >
+                    <input
+                    type="text"
+                    class="form__input"
+                    id="link"
+                    name="link"
+                    placeholder="Image link"
+                    >
+                </fieldset>
+                <button type="submit" class="form__button">Create</button>
             </form>
         </div>
     </div>
