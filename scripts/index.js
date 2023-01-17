@@ -36,6 +36,7 @@ const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 const closeEditButton = editModal.querySelector('.modal__close-button');
 const closeAddButton = addModal.querySelector('.modal__close-button');
+const closeImageButton = imageModal.querySelector('.modal__close-button');
 
 // Find profile elements
 const profileName = document.querySelector('.profile__name');
@@ -70,14 +71,19 @@ addButton.addEventListener("click", () => {
     toggleModal(addModal)
 });
 
-// Close the modal when users click on the cross button
+// Close the edit modal when users click on the cross button
 closeEditButton.addEventListener("click", () => {
     toggleModal(editModal);
 });
 
-// Close the modal when users click on the cross button
+// Close the add modal when users click on the cross button
 closeAddButton.addEventListener("click", () => {
     toggleModal(addModal);
+});
+
+// Close the image modal when users click on the cross button
+closeImageButton.addEventListener("click", () => {
+    toggleModal(imageModal);
 });
 
 // Find the edit and add forms in the DOM
@@ -130,8 +136,8 @@ function createCardElement(card) {
         toggleModal(imageModal);
 
         // Find image and its name inside the modal
-        const modalCardImage = imageModal.querySelector('.modal__card-image');
-        const modalCardName = imageModal.querySelector('.modal__card-name');
+        const modalCardImage = imageModal.querySelector('.modal__popup-image');
+        const modalCardName = imageModal.querySelector('.modal__popup-name');
 
         // Replace src with card link
         modalCardImage.src = card.link;

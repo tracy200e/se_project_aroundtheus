@@ -86,9 +86,21 @@
     }
 }
 
+.modal__popup {
+    display: block;
+    margin: auto;
+    padding: 0;
+    position: relative;
+}
+
 .modal__popup-image {
     max-width: 75vw;
     max-height: 75vh;
-    display: block;
-    margin: auto;
+}
+
+.modal__popup-name {
+    font-size: 12px;
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 400;
+    margin-top: 10px;
 }
