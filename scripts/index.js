@@ -136,8 +136,8 @@ function createCardElement(card) {
         toggleModal(imageModal);
 
         // Find image and its name inside the modal
-        const modalCardImage = imageModal.querySelector('.modal__popup-image');
-        const modalCardName = imageModal.querySelector('.modal__popup-name');
+        const modalCardImage = imageModal.querySelector('.modal__popup_image');
+        const modalCardName = imageModal.querySelector('.modal__popup_name');
 
         // Replace src with card link
         modalCardImage.src = card.link;

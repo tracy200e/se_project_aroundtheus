@@ -68,9 +68,30 @@
     opacity: 0.6;
 }
 
+.modal__popup {
+    margin: auto;
+    position: relative;
+}
+
+.modal__popup_image {
+    max-width: 75vw;
+    max-height: 75vh;
+}
+
+.modal__popup_name {
+    font-size: 12px;
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: 400;
+    margin-top: 10px;
+}
+
 @media screen and (max-width: 488px) {
     .modal__container {
         width: 282px;
+    }
+
+    .modal__popup {
+        width: 240px;
     }
 
     .modal__close-button {
@@ -84,23 +105,4 @@
         line-height: 22px;
         margin: 8% 7.8% 27% 7.8%;
     }
-}
-
-.modal__popup {
-    display: block;
-    margin: auto;
-    padding: 0;
-    position: relative;
-}
-
-.modal__popup-image {
-    max-width: 75vw;
-    max-height: 75vh;
-}
-
-.modal__popup-name {
-    font-size: 12px;
-    font-family: 'Inter', Arial, sans-serif;
-    font-weight: 400;
-    margin-top: 10px;
 }
