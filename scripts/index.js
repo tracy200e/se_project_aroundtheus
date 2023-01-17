@@ -2,33 +2,34 @@
 const initialCards = [
     {
         name: "Lago di Braies",
-        link: "./images/lago-di-braies.png"
+        link: "./images/lago-di-braies.jpg"
     },
     {
         name: "Vanoise National Park",
-        link: "./images/vanoise-national-park.png"
+        link: "./images/vanoise-national-park.jpg"
     },
     {
         name: "Lake Louise",
-        link: "./images/lake-louise.png"
+        link: "./images/lake-louise.jpg"
     },
     {
         name: "Latemar",
-        link: "./images/latemar.png"
+        link: "./images/latemar.jpg"
     },
     {
         name: "Bald Mountains",
-        link: "./images/bald-mountains.png"
+        link: "./images/bald-mountains.jpg"
     },
     {
         name: "Yosemite Valley",
-        link: "./images/yosemite-valley.png"
+        link: "./images/yosemite-valley.jpg"
     }
 ]
 
 // Identify the modals as elements
 const editModal = document.querySelector('#edit-modal');
 const addModal = document.querySelector('#add-modal');
+const imageModal = document.querySelector('#image-modal');
 
 // Identify edit and close buttons as elements
 const editButton = document.querySelector('.profile__edit-button');
@@ -123,10 +124,22 @@ function createCardElement(card) {
     });
 
     // Add event listener for image
+    cardImage.addEventListener('click', (e) => {
+
         // Open the modal
-        // Find image element inside the modal
+        toggleModal(imageModal);
+
+        // Find image and its name inside the modal
+        const modalCardImage = imageModal.querySelector('.modal__card-image');
+        const modalCardName = imageModal.querySelector('.modal__card-name');
+
         // Replace src with card link
+        modalCardImage.src = card.link;
+
         // Replace alt with card title
+        modalCardImage.alt = card.name;
+        modalCardName.textContent = card.name;
+    });
 
     return cardElement;
 }

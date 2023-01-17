@@ -22,7 +22,6 @@
     margin: auto;
     padding: 0;
     position: relative;
-    
 }
 
 .modal_opened {
@@ -85,4 +84,11 @@
         line-height: 22px;
         margin: 8% 7.8% 27% 7.8%;
     }
+}
+
+.modal__popup-image {
+    max-width: 75vw;
+    max-height: 75vh;
+    display: block;
+    margin: auto;
 }
