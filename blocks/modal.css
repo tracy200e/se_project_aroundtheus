@@ -73,12 +73,12 @@
     position: relative;
 }
 
-.modal__popup_image {
+.modal__image {
     max-width: 75vw;
     max-height: 75vh;
 }
 
-.modal__popup_name {
+.modal__name {
     font-size: 12px;
     font-family: 'Inter', Arial, sans-serif;
     font-weight: 400;
@@ -90,7 +90,7 @@
         width: 282px;
     }
 
-    .modal__popup_image {
+    .modal__image {
         max-width: 240px;
     }
 
