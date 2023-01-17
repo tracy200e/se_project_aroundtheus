@@ -1,0 +1,6 @@
+@media screen and (max-width: 488px) {
+    #close-image {
+        top: -28px;
+        right: -42px;
+    }
+}

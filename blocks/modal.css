@@ -90,8 +90,8 @@
         width: 282px;
     }
 
-    .modal__popup {
-        width: 240px;
+    .modal__popup_image {
+        max-width: 240px;
     }
 
     .modal__close-button {
