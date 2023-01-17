@@ -2,6 +2,8 @@
     border-radius: 10px;
     overflow: hidden;
     position: relative;
+    width: 282px;
+    height: 361px;
 }
 
 .card__description {
@@ -14,7 +16,9 @@
 }
 
 .card__image {
-    max-width: 100%;
+    object-fit: cover;
+    width: 100%;
+    height: 280px;
     display: block;
 }
 
