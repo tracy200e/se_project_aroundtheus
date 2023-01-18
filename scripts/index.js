@@ -31,12 +31,10 @@ const editModal = document.querySelector('#edit-modal');
 const addModal = document.querySelector('#add-modal');
 const imageModal = document.querySelector('#image-modal');
 
-// Identify edit and close buttons as elements
+// Identify edit, add and close buttons as elements
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
-const closeEditButton = editModal.querySelector('.modal__close-button');
-const closeAddButton = addModal.querySelector('.modal__close-button');
-const closeImageButton = imageModal.querySelector('.modal__close-button');
+const closeButtons = document.querySelectorAll('.modal__close-button');
 
 // Find profile elements
 const profileName = document.querySelector('.profile__name');
@@ -52,8 +50,22 @@ const cardTemplate = document.querySelector('#card-element').content;
 // Find the cards list
 const cardsList = document.querySelector('.cards__list');
 
-function toggleModal(modal) {
-    modal.classList.toggle('modal_opened');
+// Find the edit and add forms in the DOM
+const profileFormElement = document.querySelector('#edit-profile-form');
+const cardFormElement = document.querySelector('#add-card-form');
+
+// Find image and its name inside the modal
+const modalCardImage = imageModal.querySelector('.modal__image');
+const modalCardName = imageModal.querySelector('.modal__name');
+
+// Open modal
+function openModal(modal) {
+    modal.classList.add('modal_opened');
+}
+
+// Close modal
+function closeModal(modal) {
+    modal.classList.remove('modal_opened');
 }
 
 // Open the modal when users click on the edit button
@@ -63,32 +75,24 @@ editButton.addEventListener("click", () => {
     formInputName.value = profileName.textContent;
     formInputTag.value = profileTag.textContent;
 
-    toggleModal(editModal);
+    // Open modal
+    openModal(editModal);
 });
 
 // Open the modal when users click on the add button
 addButton.addEventListener("click", () => {
-    toggleModal(addModal)
+    openModal(addModal)
 });
 
-// Close the edit modal when users click on the cross button
-closeEditButton.addEventListener("click", () => {
-    toggleModal(editModal);
-});
+// Close button
+closeButtons.forEach((button) => {
 
-// Close the add modal when users click on the cross button
-closeAddButton.addEventListener("click", () => {
-    toggleModal(addModal);
-});
+    // Find the closest modal
+    const modal = button.closest('.modal');
 
-// Close the image modal when users click on the cross button
-closeImageButton.addEventListener("click", () => {
-    toggleModal(imageModal);
+    // Set the listener
+    button.addEventListener('click', () => closeModal(modal));
 });
-
-// Find the edit and add forms in the DOM
-const profileFormElement = document.querySelector('#edit-profile-form');
-const cardFormElement = document.querySelector('#add-card-form');
 
 // Render card
 function renderCard(cardElement, container) {
@@ -135,10 +139,6 @@ function createCardElement(card) {
         // Open the modal
         toggleModal(imageModal);
 
-        // Find image and its name inside the modal
-        const modalCardImage = imageModal.querySelector('.modal__image');
-        const modalCardName = imageModal.querySelector('.modal__name');
-
         // Replace src with card link
         modalCardImage.src = card.link;
 
@@ -182,9 +182,12 @@ cardFormElement.addEventListener('submit', (e) => {
 
     // Render card
     renderCard(cardView, cardsList);
+    
+    // Clear the inputs
+    e.target.reset();
 
     // Close the add card modal
-    toggleModal(addModal);
+    closeModal(addModal);
 })
 
 // Create cards list
