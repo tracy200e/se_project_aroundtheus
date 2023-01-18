@@ -137,7 +137,7 @@ function createCardElement(card) {
     cardImage.addEventListener('click', (e) => {
 
         // Open the modal
-        toggleModal(imageModal);
+        openModal(imageModal);
 
         // Replace src with card link
         modalCardImage.src = card.link;
@@ -161,7 +161,7 @@ profileFormElement.addEventListener('submit', (event) => {
     profileTag.textContent = formInputTag.value;
 
     // Close the edit modal
-    toggleModal(editModal);
+    closeModal(editModal);
 });
 
 // Submit add form
