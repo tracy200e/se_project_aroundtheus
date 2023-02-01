@@ -1,5 +1,5 @@
 // Import functions and objects from validate.js
-import { options, hasInvalidInput, toggleButtonState } from "./validate.js";
+import { options, toggleButtonState } from "./validate.js";
 
 // Create an initial list of cards
 const initialCards = [
