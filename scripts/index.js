@@ -26,10 +26,11 @@ const initialCards = [
     }
 ]
 
-// Identify the modals as elements
+// Identify the modals and their overlays as elements
 const editModal = document.querySelector('#edit-modal');
 const addModal = document.querySelector('#add-modal');
 const imageModal = document.querySelector('#image-modal');
+const modals = document.querySelectorAll('.modal');
 
 // Identify edit, add and close buttons as elements
 const editButton = document.querySelector('.profile__edit-button');
@@ -64,8 +65,10 @@ function openModal(modal) {
 }
 
 // Close modal
-function closeModal(modal) {
-    modal.classList.remove('modal_opened');
+function closeModal(editModal, addModal, imageModal) {
+    editModal.classList.remove('modal_opened');
+    addModal.classList.remove('modal_opened');
+    imageModal.classList.remove('modal_opened');
 }
 
 // Open the modal when users click on the edit button
@@ -93,6 +96,34 @@ closeButtons.forEach((button) => {
     // Set the listener
     button.addEventListener('click', () => closeModal(modal));
 });
+
+// Close modals when users click on the overlay
+function closeModalOnClick (e) {
+
+    // If the target event is the overlay, close the current modal
+    if (e.target.classList.contains('modal')) {
+        closeModal(editModal, addModal, imageModal);
+    }
+}
+
+// Close the modal when users click on the overlay
+modals.forEach(modal => {
+    modal.addEventListener("click", closeModalOnClick);
+})
+
+// Close modals when users press Esc
+function closeModalOnEscape (e) {
+
+    // If the key being pressed is Esc, close modals
+    if (e.key === "Escape") {
+        closeModal(editModal, addModal, imageModal);
+    }
+}
+
+// Close modals when users press Esc
+modals.forEach(modal => {
+    modal.addEventListener("keydown", closeModalOnEscape);
+})
 
 // Render card
 function renderCard(cardElement, container) {

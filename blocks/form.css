@@ -1,4 +1,4 @@
-.form__fieldset {
+.form {
     border: none;
     padding: 0;
     margin: 0;
@@ -11,7 +11,7 @@
     color: #000000;
     font-size: 14px;
     line-height: 17px;
-    margin: 0 36px 29px 36px;
+    margin: 29px 36px 0 36px;
     overflow: hidden;
     padding: 0 0 11px 0;
 }
@@ -50,4 +50,24 @@
         height: 46px;
         font-size: 14px;
     }
+}
+
+.form__error {
+    font-size: 12px;
+    line-height: 15px;
+    color: #ff0000;
+    position: inherit;
+    top: calc(100% - 5px);
+    left: 0;
+    transition: opacity 0.3s;
+    margin: 0;
+    padding: 0 36px 0 36px;
+}
+
+.form__input_type_error {
+    border-bottom: 1px solid #ff0000;
+}
+
+.form__button_disabled {
+    opacity: 0.2;
 }
