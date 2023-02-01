@@ -1,6 +1,3 @@
-// Enabling validation by calling enableValidation()
-// Pass all the settings on call
-
 function showInputError(formElement, inputElement, {inputErrorClass, errorClass}) {
     // Generate the id for error for the target element
     const errorMessageElement = formElement.querySelector(`#${inputElement.id}-error`);
@@ -40,28 +37,33 @@ function checkInputValidity(formElement, inputElement, options) {
     hideInputError(formElement, inputElement, options);
 };
 
+// Check if the input list has one invalid input
 function hasInvalidInput(inputList) {
-    // Check if the input list has one invalid input
     return !inputList.every((inputElement) => inputElement.validity.valid);
 }
 
+// Disable button
 function disableButton(submitButton, inactiveButtonClass) {
     submitButton.classList.add(inactiveButtonClass);
     submitButton.disabled = true;
 }
 
+// Enable button
 function enableButton (submitButton, {inactiveButtonClass}) {
     submitButton.classList.remove(inactiveButtonClass);
     submitButton.disabled = false;
 }
 
+// Toggle button depending on the input's validity
 function toggleButtonState(inputElements, submitButton, {inactiveButtonClass}) {
 
+    // If the input is invalid, disable the button
     if (hasInvalidInput(inputElements)) {
         disableButton(submitButton, inactiveButtonClass);
         return;
     }
 
+    // Otherwise, enable the button
     enableButton(submitButton, inactiveButtonClass);
 };
 
@@ -85,6 +87,7 @@ function setEventListeners(formElement, options) {
     });
 };
 
+// Enable validation of the forms
 function enableValidation(options) {
     const formElements = [...document.querySelectorAll(options.formSelector)];
     formElements.forEach((formElement) => {
@@ -97,6 +100,7 @@ function enableValidation(options) {
     }); 
 }
 
+// Form objects
 const options = {
     formSelector: ".form",
     inputSelector: ".form__input",
@@ -106,4 +110,5 @@ const options = {
     errorClass: "form__error_visible",
 }
 
+// Validate forms
 enableValidation(options);
