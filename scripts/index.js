@@ -85,7 +85,8 @@ editButton.addEventListener("click", () => {
 
 // Open the modal when users click on the add button
 addButton.addEventListener("click", () => {
-    openModal(addModal)
+    openModal(addModal);
+    openModalOnKeydown(addModal);
 });
 
 // Close button
@@ -115,32 +116,32 @@ modals.forEach(modal => {
 function openModalOnKeydown(modal) {
     // Add class to modal
     document.addEventListener("keydown", closeModalOnEscape);
-  }
+}
   
-  function closeModalOnKeydown(modal) {
-    // Remove class from modal
+function closeModalOnKeydown(modal) {
+// Remove class from modal
     document.removeEventListener("keydown", closeModalOnEscape);
-  }
+}
   
-  // Close modals when users press Esc
-  function closeModalOnEscape(e) {
-
+// Close modals when users press Esc
+function closeModalOnEscape(e) {
+    
     // If the key being pressed is Esc, close modals
     if (evt.key === "Escape") {
 
-      // Search for an opened modal
-      const openedModal = document.querySelector('.modal__opened');
-       // Close it
-       closeModal(openedModal);
+        // Search for an opened modal
+        const openedModal = document.querySelector('.modal__opened');
+        // Close it
+        closeModal(openedModal);
     }
-  } 
+} 
 
 // Close modals when users press Esc
 modals.forEach(modal => {
     modal.addEventListener('click', (e) => {
         openModalOnKeydown(modal);
         closeModalOnKeydown(modal);
-        closeModalOnEscape(e);
+        closeModalOnEscape(e.target);
     })
 });
 
