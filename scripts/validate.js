@@ -78,6 +78,9 @@ function setEventListeners(formElement, options) {
     // Find the button
     const submitButton = formElement.querySelector('.form__button');
 
+    // Disable the button
+    toggleButtonState(inputElements, submitButton, options);
+
     // Listen for the "type" event on each input
     inputElements.forEach(inputElement => {
         inputElement.addEventListener("input", (e) => {
@@ -112,3 +115,6 @@ const options = {
 
 // Validate forms
 enableValidation(options);
+
+// Export vairables and functions
+export { options, hasInvalidInput, toggleButtonState };

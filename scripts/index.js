@@ -1,3 +1,6 @@
+// Import functions and objects from validate.js
+import { options, hasInvalidInput, toggleButtonState } from "./validate.js";
+
 // Create an initial list of cards
 const initialCards = [
     {
@@ -65,10 +68,8 @@ function openModal(modal) {
 }
 
 // Close modal
-function closeModal(editModal, addModal, imageModal) {
-    editModal.classList.remove('modal_opened');
-    addModal.classList.remove('modal_opened');
-    imageModal.classList.remove('modal_opened');
+function closeModal(modal) {
+    modal.classList.remove('modal_opened');
 }
 
 // Open the modal when users click on the edit button
@@ -102,7 +103,7 @@ function closeModalOnClick (e) {
 
     // If the target event is the overlay, close the current modal
     if (e.target.classList.contains('modal')) {
-        closeModal(editModal, addModal, imageModal);
+        closeModal(e.target);
     }
 }
 
@@ -111,19 +112,37 @@ modals.forEach(modal => {
     modal.addEventListener("click", closeModalOnClick);
 })
 
-// Close modals when users press Esc
-function closeModalOnEscape (e) {
+function openModalOnKeydown(modal) {
+    // Add class to modal
+    document.addEventListener("keydown", closeModalOnEscape);
+  }
+  
+  function closeModalOnKeydown(modal) {
+    // Remove class from modal
+    document.removeEventListener("keydown", closeModalOnEscape);
+  }
+  
+  // Close modals when users press Esc
+  function closeModalOnEscape(e) {
 
     // If the key being pressed is Esc, close modals
-    if (e.key === "Escape") {
-        closeModal(editModal, addModal, imageModal);
+    if (evt.key === "Escape") {
+
+      // Search for an opened modal
+      const openedModal = document.querySelector('.modal__opened');
+       // Close it
+       closeModal(openedModal);
     }
-}
+  } 
 
 // Close modals when users press Esc
 modals.forEach(modal => {
-    modal.addEventListener("keydown", closeModalOnEscape);
-})
+    modal.addEventListener('click', (e) => {
+        openModalOnKeydown(modal);
+        closeModalOnKeydown(modal);
+        closeModalOnEscape(e);
+    })
+});
 
 // Render card
 function renderCard(cardElement, container) {
@@ -216,6 +235,11 @@ cardFormElement.addEventListener('submit', (e) => {
     
     // Clear the inputs
     e.target.reset();
+
+    // Disable button
+    const formElements = [...document.querySelectorAll(options.formSelector)];
+    const submitButton = e.target.querySelector('.form__button');
+    toggleButtonState(formElements, submitButton, options);
 
     // Close the add card modal
     closeModal(addModal);

@@ -68,6 +68,6 @@
     border-bottom: 1px solid #ff0000;
 }
 
-.form__button_disabled {
+.form__button_disabled:hover {
     opacity: 0.2;
-}
+} 
