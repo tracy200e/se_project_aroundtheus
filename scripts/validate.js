@@ -49,7 +49,7 @@ function disableButton(submitButton, inactiveButtonClass) {
 }
 
 // Enable button
-function enableButton (submitButton, {inactiveButtonClass}) {
+function enableButton (submitButton, inactiveButtonClass) {
     submitButton.classList.remove(inactiveButtonClass);
     submitButton.disabled = false;
 }
