@@ -76,7 +76,7 @@ function setEventListeners(formElement, options) {
     const inputElements = [...formElement.querySelectorAll(inputSelector)];
 
     // Find the button
-    const submitButton = formElement.querySelector('.form__button');
+    const submitButton = formElement.querySelector(options.submitButtonSelector);
 
     // Disable the button
     toggleButtonState(inputElements, submitButton, options);
