@@ -221,8 +221,8 @@ cardFormElement.addEventListener('submit', (e) => {
     e.target.reset();
 
     // Disable button
-    const formElements = [...document.querySelectorAll(options.formSelector)];
-    const submitButton = e.target.querySelector('.form__button');
+    const formElements = [e.target.title, e.target.link];
+    const submitButton = e.target.querySelector(options.submitButtonSelector);
     toggleButtonState(formElements, submitButton, options);
 
     // Close the add card modal
