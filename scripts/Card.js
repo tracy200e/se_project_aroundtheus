@@ -36,12 +36,12 @@ class Card {
     _setEventListeners() {
 
         // Add event listner for like button
-        this.likeButton = this._element.querySelector('.card__like-button');
-        this.likeButton.addEventListener('click', () => this._handleLikeIcon);
+        // this.likeButton = this._element.querySelector('.card__like-button');
+        this._element.addEventListener('click', () => this._handleLikeIcon);
 
          // Add event listener for the delete button
-        this.deleteButton = this._element.querySelector('.card__delete-button');
-        this._cardDeleteButton.addEventListener('click', () => this._handleDeleteCard);
+        // this.deleteButton = this._element.querySelector('.card__delete-button');
+        this._element.addEventListener('click', () => this._handleDeleteCard);
 
         // Add event listener for image
         this._element.addEventListener('click', () => this._handlePreviewPicture(imageModal));
@@ -49,24 +49,24 @@ class Card {
 
     _handleLikeIcon() {
         // Add active class to card's like button
-        _cardLikeButton.classList.toggle('card__like-button_active');
+        this._element.classList.toggle('card__like-button_active');
     }
 
-    _handleDeleteCard(e) {
+    _handleDeleteCard() {
         // Remove element from the DOM on click
-        e.target.closest('.card').remove();
+        this._element.remove();
     }
 
     _handlePreviewPicture(imageModal) {
-        // Open the modal
-        _openModal(imageModal);
-
         // Replace src with card link
         modalCardImage.src = this._link;
 
         // Replace alt with card title
         modalCardImage.alt = this._name;
         modalCardName.textContent = this._name;
+
+        // Open the modal
+        _openModal(imageModal);
     }
 
     _openModal(modal) {
@@ -77,10 +77,12 @@ class Card {
     _getTemplate() {
 
         // Get card template
-        return document
+        const cardTemplate = document
             .querySelector(this._cardSelector)
             .content.querySelector('#card-element')
             .cloneNode(true);
+        
+        return cardTemplate;
     }
 
     getView() {

@@ -54,6 +54,9 @@ const formInputTag = document.querySelector('#about-me');
 // Find the card template
 const cardTemplate = document.querySelector('#card-element').content;
 
+// Define the card selector
+const cardSelector = '#card-element';
+
 // Find the cards list
 const cardsList = document.querySelector('.cards__list');
 
@@ -152,7 +155,7 @@ function closeModalOnEscape(e) {
 // Render card
 function renderCard(cardElement, container) {
 
-    const card = new Card(cardElement, cardTemplate);
+    const card = new Card(cardElement, cardSelector);
 
     // Prepend the new card
     container.prepend(card.getView());
