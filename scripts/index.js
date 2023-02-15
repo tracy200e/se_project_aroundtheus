@@ -1,3 +1,6 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+
 // Import functions and objects from validate.js
 import { options, toggleButtonState } from "./validate.js";
 
@@ -54,24 +57,42 @@ const cardTemplate = document.querySelector('#card-element').content;
 // Find the cards list
 const cardsList = document.querySelector('.cards__list');
 
-// Find the edit and add forms in the DOM
-const profileFormElement = document.querySelector('#edit-profile-form');
-const cardFormElement = document.querySelector('#add-card-form');
-
 // Find image and its name inside the modal
 const modalCardImage = imageModal.querySelector('.modal__image');
 const modalCardName = imageModal.querySelector('.modal__name');
 
+//////////////////////////////////////////////////
+///////////////// Validation /////////////////////
+//////////////////////////////////////////////////
+
+const validationSettings = {
+    inputSelector: ".form__input",
+    submitButtonSelector: ".form__button",
+    inactiveButtonClass: "form__button_disabled",
+    inputErrorClass: "form__input_type_error",
+    errorClass: "form__error_visible",
+}
+
+// Find the edit and add forms in the DOM
+const editFormElement = editModal.querySelector('.modal__form');
+const addFormElement = addModal.querySelector('.modal__form');
+
+const editValidator = new FormValidator(validationSettings, editFormElement);
+const addValidator = new FormValidator(validationSettings, addFormElement);
+
+editValidator.enableValidation();
+addValidator.enableValidation();
+
 // Open modal
 function openModal(modal) {
     modal.classList.add('modal_opened');
-    document.addEventListener("keydown", closeModalOnEscape);
+    document.addEventListener('keydown', closeModalOnEscape);
 }
 
 // Close modal
 function closeModal(modal) {
     modal.classList.remove('modal_opened');
-    document.removeEventListener("keydown", closeModalOnEscape);
+    document.removeEventListener('keydown', closeModalOnEscape);
 }
 
 // Open the modal when users click on the edit button
@@ -131,8 +152,10 @@ function closeModalOnEscape(e) {
 // Render card
 function renderCard(cardElement, container) {
 
+    const card = new Card(cardElement, cardTemplate);
+
     // Prepend the new card
-    container.prepend(cardElement);
+    container.prepend(card.getView());
 }
 
 // Create card
@@ -185,7 +208,7 @@ function createCardElement(card) {
 }
 
 // Submit edit form
-profileFormElement.addEventListener('submit', (event) => {
+editFormElement.addEventListener('submit', (event) => {
 
     // Prevent browser default behavior
     event.preventDefault();
@@ -199,7 +222,7 @@ profileFormElement.addEventListener('submit', (event) => {
 });
 
 // Submit add form
-cardFormElement.addEventListener('submit', (e) => {
+addFormElement.addEventListener('submit', (e) => {
 
     // Prevent browser default behavior
     e.preventDefault();
