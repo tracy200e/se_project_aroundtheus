@@ -140,9 +140,7 @@ editFormElement.addEventListener('submit', (event) => {
     closeModal(editModal);
 });
 
-// Submit add form
-addFormElement.addEventListener('submit', (e) => {
-
+function submitAddForm(e) {
     // Prevent browser default behavior
     e.preventDefault();
 
@@ -150,37 +148,37 @@ addFormElement.addEventListener('submit', (e) => {
     const name = e.target.title.value;
     const link = e.target.link.value;
 
-    // Create card
-    const cardView = createCardElement({
-        name,
-        link,
-    });
-
     // Render card
-    renderCard(cardView, cardsList);
+    renderCard({ name, link }, cardsList);
     
     // Clear the inputs
     e.target.reset();
 
     // Close the add card modal
     closeModal(addModal);
-})
+
+    // Disable button
+    addValidator.disableButton();
+}
+
+// Submit add form
+addFormElement.addEventListener('submit', submitAddForm);
 
 // Create card
 function createCardElement(cardData) {
-
+    
     const card = new Card(cardData, cardSelector);
 
-    return card;
+    return card.getView();
 }
 
 function renderCard(cardData, cardsList) {
 
     // Create a new card
-    const card = new Card(cardData, cardSelector);
+    const card = createCardElement(cardData);
 
     // Prepend the new card to the existing cards list
-    cardsList.prepend(card.getView());
+    cardsList.prepend(card);
 }
 
 // Create cards list

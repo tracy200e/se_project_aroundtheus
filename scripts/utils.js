@@ -21,7 +21,7 @@ function closeModalOnClick (e) {
 
 // Close modals when users press Esc
 function closeModalOnEscape(e) {
-    console.log(e); 
+    
     // If the key being pressed is Esc, close modals
     if (e.key === "Escape") {
                
@@ -33,4 +33,19 @@ function closeModalOnEscape(e) {
     }
 }
 
-export { openModal, closeModal, closeModalOnClick };
+// Close modals when users click their mouse
+function closeModalOnRemoteClick(e) {
+
+    // if they are the same then we should close the popup
+    if (e.target === e.currentTarget) { 
+        closeModal(e.target)
+    }
+}
+  
+  // when open a modal  in openModal function
+  modal.addEventListener("mousedown", closeModalOnRemoteClick)
+  
+  // when close a modal  in closeModal function
+  modal.removeEventListener("mousedown", closeModalOnRemoteClick)
+
+export { openModal, closeModal, closeModalOnClick, closeModalOnRemoteClick };
