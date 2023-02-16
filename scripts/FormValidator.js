@@ -18,7 +18,7 @@ class FormValidator {
         inputElement.classList.add(this._inputErrorClass);
     
         // Change the text content to the error message
-        errorMessageElement.textContent = errorMessageElement;
+        errorMessageElement.textContent = inputElement.validationMessage;
         
         // Add the error class to the error message's class list
         errorMessageElement.classList.add(this._errorClass);

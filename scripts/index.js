@@ -80,6 +80,8 @@ const validationSettings = {
     errorClass: "form__error_visible",
 }
 
+
+
 // Find the edit and add forms in the DOM
 const editFormElement = editModal.querySelector('.modal__form');
 const addFormElement = addModal.querySelector('.modal__form');
@@ -164,7 +166,7 @@ addFormElement.addEventListener('submit', (e) => {
     // Disable button
     const formElements = [e.target.title, e.target.link];
     const submitButton = e.target.querySelector(options.submitButtonSelector);
-    // toggleButtonState(formElements, submitButton, options);
+    toggleButtonState(formElements, submitButton, options);
 
     // Close the add card modal
     closeModal(addModal);
