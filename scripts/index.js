@@ -54,6 +54,13 @@ const formInputTag = document.querySelector('#about-me');
 // Find the card template
 const cardTemplate = document.querySelector('#card-element').content;
 
+// Find the card title and image elements
+const cardTitle = cardTemplate.querySelector('.card__title');
+const cardImage = cardTemplate.querySelector('.card__image');
+
+const inputTitle = document.querySelector('#title');
+const inputImage = document.querySelector('#link');
+
 // Define the card selector
 const cardSelector = '#card-element';
 
@@ -63,10 +70,6 @@ const cardsList = document.querySelector('.cards__list');
 // Find image and its name inside the modal
 const modalCardImage = imageModal.querySelector('.modal__image');
 const modalCardName = imageModal.querySelector('.modal__name');
-
-//////////////////////////////////////////////////
-///////////////// Validation /////////////////////
-//////////////////////////////////////////////////
 
 const validationSettings = {
     inputSelector: ".form__input",
@@ -150,64 +153,6 @@ function closeModalOnEscape(e) {
         // Close it
         closeModal(openedModal);
     }
-} 
-
-// Render card
-function renderCard(cardElement, container) {
-
-    const card = new Card(cardElement, cardSelector);
-
-    // Prepend the new card
-    container.prepend(card.getView());
-}
-
-// Create card
-function createCardElement(card) {
-
-    // Clone the content of the template tag
-    const cardElement = cardTemplate.cloneNode(true);
-
-    // Find the card title and image elements
-    const cardTitle = cardElement.querySelector('.card__title');
-    const cardImage = cardElement.querySelector('.card__image');
-
-    // Fill in the card's name and link to the corresponding fields
-    cardTitle.textContent = card.name;
-    cardImage.src = card.link;
-    cardImage.alt = card.name;
-
-    // Add event listner for like button
-    const cardLikeButton = cardElement.querySelector('.card__like-button');
-
-    cardLikeButton.addEventListener('click', () => {
-
-        // add active class to card's like button
-        cardLikeButton.classList.toggle('card__like-button_active');
-    });
-
-    // Add event listener for the delete button
-    const cardDeleteButton = cardElement.querySelector('.card__delete-button');
-    
-    // Remove element from the DOM on click
-    cardDeleteButton.addEventListener('click', (e) => {
-        e.target.closest('.card').remove();
-    });
-
-    // Add event listener for image
-    cardImage.addEventListener('click', (e) => {
-
-        // Open the modal
-        openModal(imageModal);
-
-        // Replace src with card link
-        modalCardImage.src = card.link;
-
-        // Replace alt with card title
-        modalCardImage.alt = card.name;
-        modalCardName.textContent = card.name;
-    });
-
-    return cardElement;
 }
 
 // Submit edit form
@@ -255,8 +200,16 @@ addFormElement.addEventListener('submit', (e) => {
     closeModal(addModal);
 })
 
+// Create card
+function createCardElement(cardData) {
+
+    const card = new Card(cardData, cardSelector);
+
+    return card;
+}
+
 // Create cards list
 initialCards.forEach(function (cardData) {
-    const cardView = createCardElement(cardData);
-    renderCard(cardView, cardsList);
+    const card = new Card(cardData, cardSelector);
+    cardsList.prepend(card.getView());
 });

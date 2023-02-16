@@ -37,10 +37,6 @@ class FormValidator {
         // Add the error class to the error message's class list
         errorMessageElement.classList.remove(this._errorClass);
     };
-    
-    _hasInvalidInput(inputList) {
-        return !inputList.every((inputElement) => inputElement.validity.valid);
-    }
 
     _disableButton() {
         this._submitButton.classList.add(this._inactiveButtonClass);
@@ -53,19 +49,20 @@ class FormValidator {
     };
 
     // Toggle button depending on the input's validity
-    _toggleButtonState() {
+    _toggleButtonState(inputElement) {
 
-        // If the input is invalid, disable the button
-        if (this._hasInvalidInput(this._inputList)) {
-            this._disableButton();
+        // If the input is valid, enable the button
+        if (this._hasValidInput(inputElement)) {
+            this._enableButton();
             return;
         }
 
-        // Otherwise, enable the button
-        this._enableButton();
+        // Otherwise, disable the button
+        this._disableButton();
+        
     };
 
-    _checkInputValidity(inputElement) {
+    _hasValidInput(inputElement) {
         if (!inputElement.validity.valid) {
     
             // If input element is invalid, show input error message
@@ -89,8 +86,8 @@ class FormValidator {
         // Listen for the "type" event on each input
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener("input", () => {
-                this.checkInputValidity(inputElement);
-                this._toggleButtonState();
+                this._checkInputValidity(inputElement);
+                this._toggleButtonState(inputElement);
             });
         });
     }
