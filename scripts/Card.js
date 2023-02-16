@@ -1,24 +1,10 @@
+// Import functions from utils.js
+import { openModal, closeModal } from "./utils.js";
+
 const imageModal = document.querySelector('#image-modal');
 const modalCardImage = imageModal.querySelector('.modal__image');
 const modalCardName = imageModal.querySelector('.modal__name');
 const ESC_KEYCODE = 27;
-
-const closeModal = () => {
-    imageModal.classList.remove('modal_opened');
-    document.removeEventListener('keyup', handleEscUp);
-};
-
-const handleEscUp = (e) => {
-    e.preventDefault();
-    isEscEvent(e, closeModal);
-}
-
-const isEscEvent = (e, action) => {
-    const activeModal = document.querySelector('.modal_opened');
-    if (e.which === ESC_KEYCODE) {
-        action(activeModal);
-    }
-};
 
 class Card {
 
@@ -69,12 +55,7 @@ class Card {
         modalCardName.textContent = this._name;
 
         // Open the modal
-        _openModal(imageModal);
-    }
-
-    _openModal(modal) {
-        modal.classList.add('.modal_opened');
-        document.addEventListener('keydown', closeModal);
+        openModal(imageModal);
     }
 
     _getTemplate() {

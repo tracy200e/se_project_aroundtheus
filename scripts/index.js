@@ -1,8 +1,8 @@
+// Import functions and objects from validate.js
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
-
-// Import functions and objects from validate.js
 import { options, toggleButtonState } from "./validate.js";
+import { openModal, closeModal, closeModalOnClick } from "./utils.js";
 
 // Create an initial list of cards
 const initialCards = [
@@ -89,18 +89,6 @@ const addValidator = new FormValidator(validationSettings, addFormElement);
 editValidator.enableValidation();
 addValidator.enableValidation();
 
-// Open modal
-function openModal(modal) {
-    modal.classList.add('modal_opened');
-    document.addEventListener('keydown', closeModalOnEscape);
-}
-
-// Close modal
-function closeModal(modal) {
-    modal.classList.remove('modal_opened');
-    document.removeEventListener('keydown', closeModalOnEscape);
-}
-
 // Open the modal when users click on the edit button
 editButton.addEventListener("click", () => {
 
@@ -127,33 +115,14 @@ closeButtons.forEach((button) => {
     button.addEventListener('click', () => closeModal(modal));
 });
 
-// Close modals when users click on the overlay
-function closeModalOnClick (e) {
 
-    // If the target event is the overlay, close the current modal
-    if (e.target.classList.contains('modal')) {
-        closeModal(e.target);
-    }
-}
 
 // Close the modal when users click on the overlay
 modals.forEach(modal => {
     modal.addEventListener("click", closeModalOnClick);
 })
   
-// Close modals when users press Esc
-function closeModalOnEscape(e) {
-    console.log(e); 
-    // If the key being pressed is Esc, close modals
-    if (e.key === "Escape") {
-               
-        // Search for an opened modal
-        const openedModal = document.querySelector('.modal_opened');
 
-        // Close it
-        closeModal(openedModal);
-    }
-}
 
 // Submit edit form
 editFormElement.addEventListener('submit', (event) => {
@@ -194,7 +163,7 @@ addFormElement.addEventListener('submit', (e) => {
     // Disable button
     const formElements = [e.target.title, e.target.link];
     const submitButton = e.target.querySelector(options.submitButtonSelector);
-    toggleButtonState(formElements, submitButton, options);
+    // toggleButtonState(formElements, submitButton, options);
 
     // Close the add card modal
     closeModal(addModal);
@@ -208,8 +177,18 @@ function createCardElement(cardData) {
     return card;
 }
 
+function renderCard(cardData, cardsList) {
+
+    // Create a new card
+    const card = new Card(cardData, cardSelector);
+
+    // Prepend the new card to the existing cards list
+    cardsList.prepend(card.getView());
+}
+
 // Create cards list
 initialCards.forEach(function (cardData) {
-    const card = new Card(cardData, cardSelector);
-    cardsList.prepend(card.getView());
+
+    // Render card
+    renderCard(cardData, cardsList);
 });

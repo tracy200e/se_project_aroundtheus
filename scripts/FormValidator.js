@@ -44,7 +44,7 @@ class FormValidator {
     };
 
     _enableButton () {
-        this._submitButton.remove(this._inactiveButtonClass);
+        this._submitButton.classList.remove(this._inactiveButtonClass);
         this._submitButton.disabled = false;
     };
 
@@ -86,7 +86,7 @@ class FormValidator {
         // Listen for the "type" event on each input
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener("input", () => {
-                this._checkInputValidity(inputElement);
+                this._hasValidInput(inputElement);
                 this._toggleButtonState(inputElement);
             });
         });
