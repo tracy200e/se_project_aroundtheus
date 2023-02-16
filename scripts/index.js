@@ -58,6 +58,7 @@ const cardTemplate = document.querySelector('#card-element').content;
 const cardTitle = cardTemplate.querySelector('.card__title');
 const cardImage = cardTemplate.querySelector('.card__image');
 
+// Find the card and image inputs
 const inputTitle = document.querySelector('#title');
 const inputImage = document.querySelector('#link');
 
