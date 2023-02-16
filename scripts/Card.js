@@ -21,24 +21,21 @@ class Card {
     _setEventListeners() {
 
         // Add event listner for like button
-        this._element
-            .querySelector('.card__like-button')
-            .addEventListener('click', () => this._handleLikeIcon.bind(this));
+        this.likeButton = this._element.querySelector('.card__like-button');
+        this.likeButton.addEventListener('click', () => this._handleLikeIcon());
 
         // Add event listener for the delete button
-        this._element
-            .querySelector('.card__delete-button')
-            .addEventListener('click', () => this._handleDeleteCard());
+        this.deleteButton = this._element.querySelector('.card__delete-button');
+        this.deleteButton.addEventListener('click', () => this._handleDeleteCard());
 
         // Add event listener for image
-        this._element
-            .querySelector('.card__image')
-            .addEventListener('click', () => this._handlePreviewPicture(imageModal));
+        this.imageWindow = this._element.querySelector('.card__image');
+        this.imageWindow.addEventListener('click', () => this._handlePreviewPicture(imageModal));
     }
 
     _handleLikeIcon() {
         // Add active class to card's like button
-        this._element.classList.toggle('card__like-button_active');
+        this.likeButton.classList.toggle('card__like-button_active');
     }
 
     _handleDeleteCard() {
