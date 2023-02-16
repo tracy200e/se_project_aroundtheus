@@ -54,23 +54,23 @@ class FormValidator {
         // If the input is valid, enable the button
         if (this._hasValidInput(inputElement)) {
             this._enableButton();
-            return;
+        } else {
+            // Otherwise, disable the button
+            this._disableButton();
         }
-
-        // Otherwise, disable the button
-        this._disableButton();
-        
     };
 
     _hasValidInput(inputElement) {
         if (!inputElement.validity.valid) {
     
             // If input element is invalid, show input error message
-            return this._showInputError(inputElement);
+            this._showInputError(inputElement);
+            return false;
+        } else {
+            // Otherwise, hide input error message
+            this._hideInputError(inputElement);
+            return true;
         }
-    
-        // Otherwise, hide input error message
-        this._hideInputError(inputElement);
     };
     
     _setEventListeners() {
@@ -79,9 +79,6 @@ class FormValidator {
 
         // Find the button
         this._submitButton = this._form.querySelector(this._submitButtonSelector);
-
-        // Disable the button
-        this._disableButton();
 
         // Listen for the "type" event on each input
         this._inputList.forEach((inputElement) => {

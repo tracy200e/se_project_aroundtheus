@@ -1,7 +1,6 @@
 // Import functions and objects from validate.js
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
-import { options, toggleButtonState } from "./validate.js";
 import { openModal, closeModal, closeModalOnClick } from "./utils.js";
 
 // Create an initial list of cards
@@ -162,11 +161,6 @@ addFormElement.addEventListener('submit', (e) => {
     
     // Clear the inputs
     e.target.reset();
-
-    // Disable button
-    const formElements = [e.target.title, e.target.link];
-    const submitButton = e.target.querySelector(options.submitButtonSelector);
-    toggleButtonState(formElements, submitButton, options);
 
     // Close the add card modal
     closeModal(addModal);
