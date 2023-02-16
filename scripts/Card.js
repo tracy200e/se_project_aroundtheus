@@ -1,10 +1,9 @@
 // Import functions from utils.js
-import { openModal, closeModal } from "./utils.js";
+import { openModal } from "./utils.js";
 
 const imageModal = document.querySelector('#image-modal');
 const modalCardImage = imageModal.querySelector('.modal__image');
 const modalCardName = imageModal.querySelector('.modal__name');
-const ESC_KEYCODE = 27;
 
 class Card {
 
@@ -24,15 +23,16 @@ class Card {
         // Add event listner for like button
         this._element
             .querySelector('.card__like-button')
-            .addEventListener('click', () => this._handleLikeIcon);
+            .addEventListener('click', () => this._handleLikeIcon.bind(this));
 
         // Add event listener for the delete button
         this._element
             .querySelector('.card__delete-button')
-            .addEventListener('click', () => this._handleDeleteCard);
+            .addEventListener('click', () => this._handleDeleteCard());
 
         // Add event listener for image
         this._element
+            .querySelector('.card__image')
             .addEventListener('click', () => this._handlePreviewPicture(imageModal));
     }
 
