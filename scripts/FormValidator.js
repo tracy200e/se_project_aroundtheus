@@ -1,3 +1,5 @@
+
+
 class FormValidator {
     
     constructor(settings, formElement) {
@@ -38,16 +40,19 @@ class FormValidator {
         errorMessageElement.classList.remove(this._errorClass);
     };
 
+    // Disable form button
     disableButton() {
         this._submitButton.classList.add(this._inactiveButtonClass);
         this._submitButton.disabled = true;
     };
 
+    // Enable form button
     _enableButton () {
         this._submitButton.classList.remove(this._inactiveButtonClass);
         this._submitButton.disabled = false;
     };
 
+    // Show or hide input errors based on the current input element's validity
     _toggleInputState(inputElement) {
         if (!inputElement.validity.valid) {
             // If input element is invalid, show input error message
@@ -58,8 +63,15 @@ class FormValidator {
         }
     };
 
+    // Check if the input element is invalid
+    _checkValidity(inputElement) {
+        return !inputElement.validity.valid;
+    }
+
     // Check if any element in the input list is invalid
-    _hasInvalidInput = () => this._inputList.some(_toggleInputState(this));
+    // Reference (1): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/some
+    // Reference (2): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
+    _hasInvalidInput = () => Array.from(this._inputList).some(this._checkValidity);
 
     // Toggle button depending on the input's validity
     _toggleButtonState() {
@@ -73,7 +85,9 @@ class FormValidator {
         }
     };
     
+    // Set event listeners for form elements based on the user inputs' validity
     _setEventListeners() {
+
         // Select all input elements from the form
         this._inputList = this._form.querySelectorAll(this._inputSelector);
 
@@ -92,12 +106,15 @@ class FormValidator {
         });
     }
 
+    // Validate form
     enableValidation() {
         this._form.addEventListener("submit", (e) => {
+
             // Prevent the form's default behaviour
             e.preventDefault();
         });
         
+        // Set event listeners
         this._setEventListeners();
     }
 

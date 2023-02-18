@@ -2,12 +2,14 @@
 function openModal(modal) {
     modal.classList.add('modal_opened');
     document.addEventListener('keydown', closeModalOnEscape);
+    modal.addEventListener('mousedown', closeModalOnRemoteClick)
 }
 
 // Close modal
 function closeModal(modal) {
     modal.classList.remove('modal_opened');
     document.removeEventListener('keydown', closeModalOnEscape);
+    modal.removeEventListener('mousedown', closeModalOnRemoteClick)
 }
 
 // Close modals when users click on the overlay
@@ -21,7 +23,7 @@ function closeModalOnClick (e) {
 
 // Close modals when users press Esc
 function closeModalOnEscape(e) {
-    
+
     // If the key being pressed is Esc, close modals
     if (e.key === "Escape") {
                
@@ -41,11 +43,5 @@ function closeModalOnRemoteClick(e) {
         closeModal(e.target)
     }
 }
-  
-  // when open a modal  in openModal function
-  modal.addEventListener("mousedown", closeModalOnRemoteClick)
-  
-  // when close a modal  in closeModal function
-  modal.removeEventListener("mousedown", closeModalOnRemoteClick)
 
 export { openModal, closeModal, closeModalOnClick, closeModalOnRemoteClick };
