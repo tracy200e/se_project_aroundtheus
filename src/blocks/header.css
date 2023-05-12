@@ -11,7 +11,7 @@
 .header__logo {
     width: 173px;
     height: 33px;
-    background: transparent url(../images/around-the-us-logo.svg) center no-repeat;
+    /* background: transparent url(../images/around-the-us-logo.svg) center no-repeat; */
 }
 
 @media screen and (max-width: 918px) {

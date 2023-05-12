@@ -1,33 +1,42 @@
 // Import functions and objects from validate.js
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
+import '../pages/index.css';
 import { openModal, closeModal, closeModalOnClick } from "./utils.js";
+
+// Import images for webpack to add the correct paths to the variables
+const lagoDiBraiesImage = new URL("../images/lago-di-braies.jpg", import.meta.url);
+const vanoiseNationalParkImage = new URL("../images/vanoise-national-park.jpg", import.meta.url);
+const lakeLouiseImage = new URL("../images/lake-louise.jpg", import.meta.url);
+const latemarImage = new URL("../images/latemar.jpg", import.meta.url);
+const baldMountainsImage = new URL("../images/bald-mountains.jpg", import.meta.url);
+const yosemiteValleyImage = new URL("../images/yosemite-valley.jpg", import.meta.url);
 
 // Create an initial list of cards
 const initialCards = [
     {
         name: "Lago di Braies",
-        link: "./images/lago-di-braies.jpg"
+        link: lagoDiBraiesImage
     },
     {
         name: "Vanoise National Park",
-        link: "./images/vanoise-national-park.jpg"
+        link: vanoiseNationalParkImage
     },
     {
         name: "Lake Louise",
-        link: "./images/lake-louise.jpg"
+        link: lakeLouiseImage
     },
     {
         name: "Latemar",
-        link: "./images/latemar.jpg"
+        link: latemarImage
     },
     {
         name: "Bald Mountains",
-        link: "./images/bald-mountains.jpg"
+        link: baldMountainsImage
     },
     {
         name: "Yosemite Valley",
-        link: "./images/yosemite-valley.jpg"
+        link: yosemiteValleyImage
     }
 ]
 

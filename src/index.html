@@ -7,17 +7,20 @@
     <meta name="author" content="Tracy Chen">
     <meta name="keywords" content="US, landmarks">
     <title>Around The US</title>
-    <link rel="stylesheet" href="./pages/index.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.svg">
 </head>
 <body class="page">
     <header class="header">
-        <div class="header__logo"></div>
+        <img 
+        alt="Around The U.S. Logo"
+        class="header__logo" 
+        src="<%=require('./images/around-the-us-logo.svg')%>"
+        />
     </header>
     <main class="content">
         <section class="profile">
             <img class="profile__image"
-                src="./images/jacques-cousteau.jpg"
+                src="<%=require('./images/jacques-cousteau.jpg')%>"
                 alt="Jacques Cousteau headshot"
             >
             <div class="profile__info">
@@ -118,6 +121,5 @@
             <p class="modal__name"></p>
         </div>  
     </div>
-    <script type="module" src="./scripts/index.js" defer></script>
 </body>
 </html>
