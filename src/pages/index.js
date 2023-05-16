@@ -1,4 +1,4 @@
-import '../pages/index.css';
+import './index.css';
 import { openModal, closeModal, closeModalOnClick } from '../components/utils';
 import { initialCards, selectors } from '../utils/constants';
 
@@ -20,6 +20,7 @@ const cardSection = new Section(
 );
 
 // Initialize all my instances
+console.log(initialCards);
 cardSection.renderItems(initialCards);
 
 // All the rest
