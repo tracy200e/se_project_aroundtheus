@@ -1,4 +1,3 @@
-// Import functions from utils.js
 import { openModal } from "./utils.js";
 
 const imageModal = document.querySelector('#image-modal');
@@ -7,7 +6,7 @@ const modalCardName = imageModal.querySelector('.modal__name');
 
 class Card {
 
-    constructor(data, cardSelector) {
+    constructor({ data, handleImageClick }, cardSelector) {
 
         // Find the data's name and link
         this._name = data.name;
@@ -15,6 +14,7 @@ class Card {
 
         // Find the card selector
         this._cardSelector = cardSelector;
+        this._handleImageClick = handleImageClick;
     }
 
 
@@ -30,7 +30,7 @@ class Card {
 
         // Add event listener for image
         this._imageWindow = this._element.querySelector('.card__image');
-        this._imageWindow.addEventListener('click', () => this._handlePreviewPicture(imageModal));
+        this._imageWindow.addEventListener('click', () => this._handleImageClick({link: this._link, name: this._name}));
     }
 
     _handleLikeIcon = () => {
@@ -44,18 +44,6 @@ class Card {
 
         // Remove the link to the DOM element
         this._element = null;
-    }
-
-    _handlePreviewPicture(imageModal) {
-        // Replace src with card link
-        modalCardImage.src = this._link;
-
-        // Replace alt with card title
-        modalCardImage.alt = this._name;
-        modalCardName.textContent = this._name;
-
-        // Open the modal
-        openModal(imageModal);
     }
 
     _getTemplate() {

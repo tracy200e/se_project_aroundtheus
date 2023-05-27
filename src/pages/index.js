@@ -6,21 +6,39 @@ import { initialCards, selectors } from '../utils/constants';
 import Card from '../components/Card';
 import FormValidator from '../components/FormValidator';
 import Section from '../components/Section';
+import PopupWithImage from '../components/PopupWithImage';
 
-// Create instances of the classes
+
+/* -------------------------------------------------------------------------- */
+/*                                 Popup Image                                */
+/* -------------------------------------------------------------------------- */
+
+/* ----------------------------- Create Instance ---------------------------- */
+const CardPreviewPopup = new PopupWithImage(selectors.previewPopup);
+
+/* --------------------------- Set event listeners -------------------------- */
+CardPreviewPopup.setEventListeners();
+
+
+/* -------------------------------------------------------------------------- */
+/*                                Card Section                                */
+/* -------------------------------------------------------------------------- */
+
+/* ----------------------------- Create Instance ---------------------------- */
+
 const cardSection = new Section(
     {
         items: initialCards,
-        renderer: (item) => {
-            const cardElement = new Card(item, selectors.cardTemplate);
+        renderer: (data) => {
+            const cardElement = new Card({ data, handleImageClick: (imageData) => {
+                CardPreviewPopup.open(imageData);
+            } }, selectors.cardTemplate);
             cardSection.addItem(cardElement.getView());
         },
     },
     selectors.cardsList
 );
 
-// Initialize all my instances
-console.log(initialCards);
-cardSection.renderItems(initialCards);
+/* --------------------------- Initialize Instance -------------------------- */
 
-// All the rest
+cardSection.renderItems(initialCards);

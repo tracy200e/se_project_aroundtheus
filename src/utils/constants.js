@@ -39,4 +39,5 @@ export const initialCards = [
 export const selectors = {
     cardsList: '.cards__list',
     cardTemplate: '#card-element',
+    previewPopup: '#image-modal',
 }

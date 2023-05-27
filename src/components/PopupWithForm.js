@@ -4,6 +4,7 @@ class PopupWithForm extends Popup {
     constructor(popupSelector, handleFormSubmit) {
         super({ popupSelector });
         this._popupForm = this._popupElement.querySelector('.modal__form');
+        this._handleFormSubmit = handleFormSubmit;
     }
 
     // Collects data from all the input fields and returns the data as an object
@@ -14,6 +15,8 @@ class PopupWithForm extends Popup {
 
         // Make a input data object
         const inputObject = {};
+
+        // Name each input by its value
         formInputs.forEach(input => {
             inputObject[input.name] = input.value;
         })
