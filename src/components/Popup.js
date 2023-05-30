@@ -1,5 +1,3 @@
-import { ESC_KEYCODE } from '../utils/constants';
-
 export default class Popup {
     constructor({ popupSelector }) {
         this._popupElement = document.querySelector(popupSelector);
@@ -32,5 +30,7 @@ export default class Popup {
         // sets event listeners
         this._closeButton = this._popupElement.querySelector('.modal__close-button');
         this._closeButton.addEventListener('click', () => this.close());
+        this._popupOverlay = this._popupElement.closest('.modal');
+        this._popupOverlay.addEventListener('click', () => this.close());
     }
 }

@@ -1,5 +1,3 @@
-export const ESC_KEYCODE = 27;
-
 // Import images for webpack to add the correct paths to the variables
 const lagoDiBraiesImage = new URL("../images/lago-di-braies.jpg", import.meta.url);
 const vanoiseNationalParkImage = new URL("../images/vanoise-national-park.jpg", import.meta.url);

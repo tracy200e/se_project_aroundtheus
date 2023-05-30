@@ -10,6 +10,15 @@ import Section from '../components/Section';
 import PopupWithImage from '../components/PopupWithImage';
 import PopupWithForm from '../components/PopupWithForm';
 
+// Identify edit, add and close buttons as elements
+const editButton = document.querySelector('.profile__edit-button');
+const addButton = document.querySelector('.profile__add-button');
+const closeButtons = document.querySelectorAll('.modal__close-button');
+
+addButton.addEventListener("click", () => {
+    openModal(addModal);
+});
+
 /* -------------------------------------------------------------------------- */
 /*                               Form Validation                              */
 /* -------------------------------------------------------------------------- */
@@ -30,39 +39,26 @@ addValidator.enableValidation();
 /*                                 Popup Image                                */
 /* -------------------------------------------------------------------------- */
 
-/* ----------------------------- Create Instance ---------------------------- */
 const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
-
-/* --------------------------- Set event listeners -------------------------- */
 cardPreviewPopup.setEventListeners();
 cardPreviewPopup.close();
 
 /* -------------------------------------------------------------------------- */
 /*                                  Add Form                                  */
 /* -------------------------------------------------------------------------- */
-
-/* ----------------------------- Create Instance ---------------------------- */
 const addFormPopup = new PopupWithForm(selectors.addFormPopup, () => {
-
+    
 });
 
-/* --------------------------- Set event listeners -------------------------- */
-addFormPopup.setEventListeners();
 
 /* -------------------------------------------------------------------------- */
 /*                                  Edit Form                                 */
 /* -------------------------------------------------------------------------- */
 
-/* ----------------------------- Create Instance ---------------------------- */
-
-/* --------------------------- Set event listeners -------------------------- */
-
 
 /* -------------------------------------------------------------------------- */
 /*                                Card Section                                */
 /* -------------------------------------------------------------------------- */
-
-/* ----------------------------- Create Instance ---------------------------- */
 
 const cardSection = new Section(
     {
@@ -76,7 +72,5 @@ const cardSection = new Section(
     },
     selectors.cardsList
 );
-
-/* --------------------------- Initialize Instance -------------------------- */
 
 cardSection.renderItems(initialCards);
