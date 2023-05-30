@@ -8,20 +8,23 @@ export default class Popup {
     open() {
         // opens popup
         this._popupElement.classList.add('modal_opened');
-        document.addEventListener('keyup', this._handleEscClose);
+        document.addEventListener('keyup', (event) => {
+            this._handleEscClose(event)
+        });
     }
 
     close() {
         // closes popup
         this._popupElement.classList.remove('modal_opened');
-        document.removeEventListener('keyup', this._handleEscClose);
+        document.removeEventListener('keyup', (event) => {
+            this._handleEscClose(event)
+        });
     }
 
     _handleEscClose(event) {
         // Prevent default and if event was on ESC button call the "close" method
-        event.preventDefault();
-        if (event.key === ESC_KEYCODE) {
-            this._popupElement.close();
+        if (event.key === "Escape") {
+            this.close();
         }
     }
 

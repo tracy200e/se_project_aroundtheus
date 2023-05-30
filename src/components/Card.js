@@ -14,6 +14,8 @@ class Card {
 
         // Find the card selector
         this._cardSelector = cardSelector;
+
+        // Handle the image-click function
         this._handleImageClick = handleImageClick;
     }
 
