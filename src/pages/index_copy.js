@@ -88,8 +88,6 @@ const validationSettings = {
     errorClass: "form__error_visible",
 }
 
-
-
 // Find the edit and add forms in the DOM
 const editFormElement = editModal.querySelector('.modal__form');
 const addFormElement = addModal.querySelector('.modal__form');
@@ -125,8 +123,6 @@ closeButtons.forEach((button) => {
     // Set the listener
     button.addEventListener('click', () => closeModal(modal));
 });
-
-
 
 // Close the modal when users click on the overlay
 modals.forEach(modal => {

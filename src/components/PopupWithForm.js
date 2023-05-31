@@ -4,20 +4,19 @@ export default class PopupWithForm extends Popup {
     constructor(popupSelector, handleFormSubmit) {
         super({ popupSelector });
         this._popupForm = this._popupElement.querySelector('.modal__form');
+        this._submitButton = this._popupElement.querySelector('.form__button');
+        this._formInputs = this._popupForm.querySelectorAll("input");
         this._handleFormSubmit = handleFormSubmit;
     }
 
     // Collects data from all the input fields and returns the data as an object
     _getInputValues() {
-        
-        // Collect input data from all fields
-        const formInputs = this._popupForm.querySelector("input");
 
         // Make a input data object
         const inputObject = {};
 
         // Name each input by its value
-        formInputs.forEach(input => {
+        this._formInputs.forEach(input => {
             inputObject[input.name] = input.value;
         })
 
@@ -27,10 +26,9 @@ export default class PopupWithForm extends Popup {
 
     setEventListeners() {
         // Add the 'submit' event handler to the form
-        this._submitButton = this._popupElement.querySelector('.form__button');
         this._submitButton.addEventListener('click', (event) => {
             event.preventDefault();
-            this._getInputValues();
+            this._handleFormSubmit(this._getInputValues());
         })
 
         // Add the 'click' event listener to the close icon

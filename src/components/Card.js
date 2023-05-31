@@ -4,10 +4,9 @@ const imageModal = document.querySelector('#image-modal');
 const modalCardImage = imageModal.querySelector('.modal__image');
 const modalCardName = imageModal.querySelector('.modal__name');
 
-class Card {
+export default class Card {
 
     constructor({ data, handleImageClick }, cardSelector) {
-
         // Find the data's name and link
         this._name = data.name;
         this._link = data.link;
@@ -18,7 +17,6 @@ class Card {
         // Handle the image-click function
         this._handleImageClick = handleImageClick;
     }
-
 
     _setEventListeners() {
 
@@ -76,7 +74,4 @@ class Card {
 
         return this._element;
     }
-
 }
-
-export default Card;

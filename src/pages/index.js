@@ -23,21 +23,31 @@ const profileTag = document.querySelector('.profile__tag');
 const formInputName = document.querySelector('#name');
 const formInputTag = document.querySelector('#about-me');
 
-addButton.addEventListener("click", () => {
-    openModal(addModal);
-});
+/* -------------------------------------------------------------------------- */
+/*                                 Popup Image                                */
+/* -------------------------------------------------------------------------- */
 
-// Open the modal when users click on the edit button
-editButton.addEventListener("click", () => {
+const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
+cardPreviewPopup.setEventListeners();
 
-    // Make sure the saved profile details are filled in the form when modal is opened
-    formInputName.value = profileName.textContent;
-    formInputTag.value = profileTag.textContent;
+/* -------------------------------------------------------------------------- */
+/*                                Card Section                                */
+/* -------------------------------------------------------------------------- */
 
-    // Open modal
-    openModal(editModal);
-});
+const cardSection = new Section(
+    {
+        items: initialCards,
+        renderer: (data) => {
+            const cardElement = new Card({ data, handleImageClick: (imageData) => {
+                cardPreviewPopup.open(imageData);
+            }}, selectors.cardTemplate);
+            cardSection.addItem(cardElement.getView());
+        },
+    },
+    selectors.cardsList
+);
 
+cardSection.renderItems(initialCards);
 /* -------------------------------------------------------------------------- */
 /*                               Form Validation                              */
 /* -------------------------------------------------------------------------- */
@@ -55,40 +65,43 @@ editValidator.enableValidation();
 addValidator.enableValidation();
 
 /* -------------------------------------------------------------------------- */
-/*                                 Popup Image                                */
-/* -------------------------------------------------------------------------- */
-
-const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
-cardPreviewPopup.setEventListeners();
-
-/* -------------------------------------------------------------------------- */
 /*                                  Add Form                                  */
 /* -------------------------------------------------------------------------- */
-const addFormPopup = new PopupWithForm(selectors.addFormPopup, () => {
+
+// Open the modal when users click on the add button
+addButton.addEventListener("click", () => {
+    openModal(addModal);
+});
+
+const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
+
+    // Create a new card
+    const newCard = new Card({ formData, handleImageClick: (imageData) => {
+        cardPreviewPopup.open(imageData);
+    } }, selectors.cardTemplate);
+
+    // Close the
+    addFormPopup.close
     
+    // Add the new card to the section
+    cardSection.addItem(newCard.getView());
 });
 
 addFormPopup.setEventListeners();
+
 /* -------------------------------------------------------------------------- */
 /*                                  Edit Form                                 */
 /* -------------------------------------------------------------------------- */
 
+// Open the modal when users click on the edit button
+editButton.addEventListener("click", () => {
 
-/* -------------------------------------------------------------------------- */
-/*                                Card Section                                */
-/* -------------------------------------------------------------------------- */
+    // Make sure the saved profile details are filled in the form when modal is opened
+    formInputName.value = profileName.textContent;
+    formInputTag.value = profileTag.textContent;
 
-const cardSection = new Section(
-    {
-        items: initialCards,
-        renderer: (data) => {
-            const cardElement = new Card({ data, handleImageClick: (imageData) => {
-                cardPreviewPopup.open(imageData);
-            } }, selectors.cardTemplate);
-            cardSection.addItem(cardElement.getView());
-        },
-    },
-    selectors.cardsList
-);
+    // Open modal
+    openModal(editModal);
+});
 
-cardSection.renderItems(initialCards);
+
