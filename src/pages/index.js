@@ -76,7 +76,7 @@ addButton.addEventListener("click", () => {
 const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
 
     // Create a new card
-    const newCard = new Card({ formData, handleImageClick: (imageData) => {
+    const newCard = new Card({ data: formData, handleImageClick: (imageData) => {
         cardPreviewPopup.open(imageData);
     } }, selectors.cardTemplate);
 
@@ -103,5 +103,3 @@ editButton.addEventListener("click", () => {
     // Open modal
     openModal(editModal);
 });
-
-

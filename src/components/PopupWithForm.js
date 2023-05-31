@@ -20,6 +20,9 @@ export default class PopupWithForm extends Popup {
             inputObject[input.name] = input.value;
         })
 
+        // Update the input's key's name
+        inputObject.name = inputObject.title;
+        
         // Return the data as an object
         return inputObject;
     }
