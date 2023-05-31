@@ -80,8 +80,8 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
         cardPreviewPopup.open(imageData);
     } }, selectors.cardTemplate);
 
-    // Close the
-    addFormPopup.close
+    // Close the popup
+    addFormPopup.close();
     
     // Add the new card to the section
     cardSection.addItem(newCard.getView());
