@@ -15,8 +15,27 @@ const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 const closeButtons = document.querySelectorAll('.modal__close-button');
 
+// Find profile elements
+const profileName = document.querySelector('.profile__name');
+const profileTag = document.querySelector('.profile__tag');
+
+// Find form input elements
+const formInputName = document.querySelector('#name');
+const formInputTag = document.querySelector('#about-me');
+
 addButton.addEventListener("click", () => {
     openModal(addModal);
+});
+
+// Open the modal when users click on the edit button
+editButton.addEventListener("click", () => {
+
+    // Make sure the saved profile details are filled in the form when modal is opened
+    formInputName.value = profileName.textContent;
+    formInputTag.value = profileTag.textContent;
+
+    // Open modal
+    openModal(editModal);
 });
 
 /* -------------------------------------------------------------------------- */
@@ -41,7 +60,6 @@ addValidator.enableValidation();
 
 const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 cardPreviewPopup.setEventListeners();
-cardPreviewPopup.close();
 
 /* -------------------------------------------------------------------------- */
 /*                                  Add Form                                  */
@@ -50,7 +68,7 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, () => {
     
 });
 
-
+addFormPopup.setEventListeners();
 /* -------------------------------------------------------------------------- */
 /*                                  Edit Form                                 */
 /* -------------------------------------------------------------------------- */

@@ -34,7 +34,7 @@ export default class PopupWithForm extends Popup {
         })
 
         // Add the 'click' event listener to the close icon
-        super.setEventListeners;
+        super.setEventListeners();
     }
 
     close() {

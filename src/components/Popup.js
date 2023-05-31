@@ -27,10 +27,16 @@ export default class Popup {
     }
 
     setEventListeners() {
-        // sets event listeners
+        // Closes the popup when users click on the 'Close' button
         this._closeButton = this._popupElement.querySelector('.modal__close-button');
         this._closeButton.addEventListener('click', () => this.close());
+
+        // Closes the popup when users click on the shaded area outside the modal
         this._popupOverlay = this._popupElement.closest('.modal');
-        this._popupOverlay.addEventListener('click', () => this.close());
+        this._popupOverlay.addEventListener('click', (event) => {
+            if (!event.target.closest('.modal__container')) {
+                this.close();
+            }
+        })
     }
 }

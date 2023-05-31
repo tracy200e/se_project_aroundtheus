@@ -38,8 +38,8 @@ export const selectors = {
     cardsList: '.cards__list',
     cardTemplate: '#card-element',
     previewPopup: '#image-modal',
-    editFormPopup: '#edit-profile-form',
-    addFormPopup: '#add-card-form',
+    editFormPopup: '#edit-modal',
+    addFormPopup: '#add-modal',
 }
 
 export const validationSettings = {
