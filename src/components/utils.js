@@ -1,8 +1,10 @@
+import UserInfo from "./UserInfo";
+
 // Open modal
 function openModal(modal) {
     modal.classList.add('modal_opened');
     document.addEventListener('keydown', closeModalOnEscape);
-    modal.addEventListener('mousedown', closeModalOnRemoteClick)
+    modal.addEventListener('mousedown', closeModalOnRemoteClick);
 }
 
 // Close modal

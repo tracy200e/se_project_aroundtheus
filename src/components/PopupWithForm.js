@@ -25,6 +25,7 @@ export default class PopupWithForm extends Popup {
     }
 
     setEventListeners() {
+
         // Add the 'submit' event handler to the form
         this._submitButton.addEventListener('click', (event) => {
             event.preventDefault();
@@ -36,6 +37,7 @@ export default class PopupWithForm extends Popup {
     }
 
     close() {
+        
         // Reset the form
         this._popupForm.reset();
 

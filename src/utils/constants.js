@@ -40,6 +40,8 @@ export const selectors = {
     previewPopup: '#image-modal',
     editFormPopup: '#edit-modal',
     addFormPopup: '#add-modal',
+    profileName: '.profile__name',
+    profileProfession: '.profile__profession',
 }
 
 export const validationSettings = {

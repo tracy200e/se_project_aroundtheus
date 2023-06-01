@@ -11,6 +11,7 @@ export default class FormValidator {
     }
 
     _showInputError(inputElement) {
+
         // Generate the id for error for the target element
         const errorMessageElement = this._form.querySelector(`#${inputElement.id}-error`);
     
@@ -25,6 +26,7 @@ export default class FormValidator {
     };
 
     _hideInputError(inputElement) {
+
         // Generate the id for error for the target element
         const errorMessageElement = this._form.querySelector(`#${inputElement.id}-error`);
         
@@ -106,10 +108,10 @@ export default class FormValidator {
 
     // Validate form
     enableValidation() {
-        this._form.addEventListener("submit", (e) => {
+        this._form.addEventListener("submit", (event) => {
 
             // Prevent the form's default behaviour
-            e.preventDefault();
+            event.preventDefault();
         });
         
         // Set event listeners
