@@ -29,6 +29,7 @@ const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 
 // Set event listeners for image popup
 cardPreviewPopup.setEventListeners();
+cardPreviewPopup.close();
 
 /* -------------------------------------------------------------------------- */
 /*                                Card Section                                */
@@ -89,9 +90,6 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
     const newCard = new Card({ data: formData, handleImageClick: (imageData) => {
         cardPreviewPopup.open(imageData);
     } }, selectors.cardTemplate);
-
-    // Close the popup
-    addFormPopup.close();
     
     // Add the new card to the section
     cardSection.addItem(newCard.getView());
@@ -100,6 +98,9 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
 
 // Set add form event listeners
 addFormPopup.setEventListeners();
+
+// Close the add form
+addFormPopup.close();
 
 /* -------------------------------------------------------------------------- */
 /*                             Profile Information                            */
@@ -120,6 +121,9 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, () => {
 
 // Set edit form event listeners
 editFormPopup.setEventListeners();
+
+// Close the edit form
+editFormPopup.close();
 
 /* -------------------------------------------------------------------------- */
 /*                                  Edit Form                                 */

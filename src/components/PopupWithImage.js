@@ -13,4 +13,14 @@ export default class PopupWithImage extends Popup {
         this._imageCaption.textContent = imageData.name;
         super.open();
     }
+
+    setEventListeners() {
+
+        // Close the popup when users click on the shaded area outside the modal
+        this._popupOverlay.addEventListener('click', (event) => {
+            if (!event.target.closest('.modal__popup')) {
+                this.close();
+            }
+        })
+    }
 }

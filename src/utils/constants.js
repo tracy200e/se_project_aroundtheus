@@ -42,6 +42,8 @@ export const selectors = {
     addFormPopup: '#add-modal',
     profileName: '.profile__name',
     profileProfession: '.profile__profession',
+    formModalContainer: '.modal__container',
+    imageModalContainer: '.modal__popup',
 }
 
 export const validationSettings = {
