@@ -136,6 +136,9 @@ editButton.addEventListener("click", () => {
 
     // Open modal
     editFormPopup.open();
+
+    // Disable button each time it opens
+    editValidator.disableButton();
 });
 
 // Set edit form event listeners

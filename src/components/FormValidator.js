@@ -76,7 +76,7 @@ export default class FormValidator {
     _hasInvalidInput = () => Array.from(this._inputList).some(this._checkValidity);
 
     // Toggle button depending on the input's validity
-    toggleButtonState() {
+    _toggleButtonState() {
 
         // If the input is valid, disable the button
         if (this._hasInvalidInput()) {
@@ -97,7 +97,7 @@ export default class FormValidator {
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener("input", () => {
                 this._toggleInputState(inputElement);
-                this.toggleButtonState();
+                this._toggleButtonState();
             });
         });
     }
