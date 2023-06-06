@@ -38,7 +38,7 @@ export default class Popup {
         }
     }
 
-    setEventListeners() {
+    _setEventListeners() {
         // Close the popup when users click on the shaded area outside the modal
         
         this._popupOverlay.addEventListener('click', (event) => {

@@ -8,6 +8,8 @@ export default class FormValidator {
         this._errorClass = settings.errorClass;
 
         this._form = formElement;
+        this._inputList = this._form.querySelectorAll(this._inputSelector);
+        this._submitButton = this._form.querySelector(this._submitButtonSelector);
     }
 
     _showInputError(inputElement) {
@@ -33,7 +35,7 @@ export default class FormValidator {
         // Add the input error class to the element's class list
         inputElement.classList.remove(this._inputErrorClass);
 
-        // Change the text content to the error message
+        // Clear the error message from the text content
         errorMessageElement.textContent = "";
 
         // Add the error class to the error message's class list
@@ -74,7 +76,7 @@ export default class FormValidator {
     _hasInvalidInput = () => Array.from(this._inputList).some(this._checkValidity);
 
     // Toggle button depending on the input's validity
-    _toggleButtonState() {
+    toggleButtonState() {
 
         // If the input is valid, disable the button
         if (this._hasInvalidInput()) {
@@ -88,12 +90,6 @@ export default class FormValidator {
     // Set event listeners for form elements based on the user inputs' validity
     _setEventListeners() {
 
-        // Select all input elements from the form
-        this._inputList = this._form.querySelectorAll(this._inputSelector);
-
-        // Find the button
-        this._submitButton = this._form.querySelector(this._submitButtonSelector);
-
         // Disable button
         this.disableButton();
 
@@ -101,7 +97,7 @@ export default class FormValidator {
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener("input", () => {
                 this._toggleInputState(inputElement);
-                this._toggleButtonState();
+                this.toggleButtonState();
             });
         });
     }
@@ -117,5 +113,4 @@ export default class FormValidator {
         // Set event listeners
         this._setEventListeners();
     }
-
 }

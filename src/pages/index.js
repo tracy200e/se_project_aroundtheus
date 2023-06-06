@@ -1,7 +1,6 @@
 import './index.css';
 import { openModal } from '../components/utils';
-import { initialCards, selectors } from '../utils/constants';
-import { validationSettings } from '../utils/constants';
+import { initialCards, selectors, validationSettings } from '../utils/constants';
 
 // Import all the classes
 import Card from '../components/Card';
@@ -19,6 +18,24 @@ const closeButtons = document.querySelectorAll('.modal__close-button');
 // Find form input elements
 const formInputName = document.querySelector('#name');
 const formInputProfession = document.querySelector('#profession');
+
+/* -------------------------------------------------------------------------- */
+/*                               Form Validation                              */
+/* -------------------------------------------------------------------------- */
+
+const editModal = document.querySelector('#edit-modal');
+const addModal = document.querySelector('#add-modal');
+
+const editFormElement = editModal.querySelector('.modal__form');
+const addFormElement = addModal.querySelector('.modal__form');
+
+// Create validator instances for the edit and add forms
+const editValidator = new FormValidator(validationSettings, editFormElement);
+const addValidator = new FormValidator(validationSettings, addFormElement);
+
+// Enable validation
+editValidator.enableValidation();
+addValidator.enableValidation();
 
 /* -------------------------------------------------------------------------- */
 /*                                 Popup Image                                */
@@ -57,29 +74,14 @@ const cardSection = new Section(
 cardSection.renderItems(initialCards);
 
 /* -------------------------------------------------------------------------- */
-/*                               Form Validation                              */
-/* -------------------------------------------------------------------------- */
-
-const editModal = document.querySelector('#edit-modal');
-const addModal = document.querySelector('#add-modal');
-
-const editFormElement = editModal.querySelector('.modal__form');
-const addFormElement = addModal.querySelector('.modal__form');
-
-// Create validator instances for the edit and add forms
-const editValidator = new FormValidator(validationSettings, editFormElement);
-const addValidator = new FormValidator(validationSettings, addFormElement);
-
-// Enable validation
-editValidator.enableValidation();
-addValidator.enableValidation();
-
-/* -------------------------------------------------------------------------- */
 /*                                  Add Form                                  */
 /* -------------------------------------------------------------------------- */
 
 // Open the modal when users click on the add button
 addButton.addEventListener("click", () => {
+    
+    addValidator.disableButton();
+
     openModal(addModal);
 });
 
@@ -94,7 +96,6 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
     // Add the new card to the section
     cardSection.addItem(newCard.getView());
 });
-
 
 // Set add form event listeners
 addFormPopup.setEventListeners();
@@ -119,12 +120,6 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, () => {
     editFormPopup.close();
 });
 
-// Set edit form event listeners
-editFormPopup.setEventListeners();
-
-// Close the edit form
-editFormPopup.close();
-
 /* -------------------------------------------------------------------------- */
 /*                                  Edit Form                                 */
 /* -------------------------------------------------------------------------- */
@@ -142,3 +137,9 @@ editButton.addEventListener("click", () => {
     // Open modal
     editFormPopup.open();
 });
+
+// Set edit form event listeners
+editFormPopup.setEventListeners();
+
+// Close the edit form
+editFormPopup.close();
