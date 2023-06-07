@@ -1,5 +1,3 @@
-import UserInfo from "./UserInfo";
-
 // Open modal
 function openModal(modal) {
     modal.classList.add('modal_opened');

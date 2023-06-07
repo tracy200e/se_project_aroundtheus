@@ -1,8 +1,6 @@
 import { openModal } from "./utils.js";
 
 const imageModal = document.querySelector('#image-modal');
-const modalCardImage = imageModal.querySelector('.modal__image');
-const modalCardName = imageModal.querySelector('.modal__name');
 
 export default class Card {
 
