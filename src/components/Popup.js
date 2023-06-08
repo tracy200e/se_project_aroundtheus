@@ -12,8 +12,8 @@ export default class Popup {
         this._popupElement.classList.add('modal_opened');
 
         // Listen for the "Escape" key event
-        document.addEventListener('keyup', (event) => {
-            this._handleEscClose(event)
+        document.addEventListener('keydown', (event) => {
+            this._handleEscClose(event);
         });
     }
 
@@ -23,9 +23,7 @@ export default class Popup {
         this._popupElement.classList.remove('modal_opened');
 
         // Remove listener for the "Escape" key event
-        document.removeEventListener('keyup', (event) => {
-            this._handleEscClose(event)
-        });
+        document.removeEventListener('keyup', this._handleEscClose);
 
         // Close the popup when users click on the 'close' button
         this._closeButton.addEventListener('click', () => this.close());
