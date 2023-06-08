@@ -1,8 +1,9 @@
 export default class Popup {
-    constructor({ popupSelector }) {
+    constructor({ popupSelector, modalContainer }) {
         this._popupElement = document.querySelector(popupSelector);
         this._popupOverlay = this._popupElement.closest('.modal');
         this._closeButton = this._popupElement.querySelector('.modal__close-button');
+        this._modalContainer = modalContainer;
     }
 
     open() {
@@ -39,10 +40,10 @@ export default class Popup {
     }
 
     _setEventListeners() {
+
         // Close the popup when users click on the shaded area outside the modal
-        
         this._popupOverlay.addEventListener('click', (event) => {
-            if (!event.target.closest('.modal__container')) {
+            if (!event.target.closest(this._modalContainer)) {
                 this.close();
             }
         })

@@ -42,10 +42,10 @@ addValidator.enableValidation();
 /* -------------------------------------------------------------------------- */
 
 // Create image popup instance
-const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
+const cardPreviewPopup = new PopupWithImage(selectors.previewPopup, selectors.imageModalContainer);
 
 // Set event listeners for image popup
-cardPreviewPopup.setEventListeners();
+// cardPreviewPopup.setEventListeners();
 cardPreviewPopup.close();
 
 /* -------------------------------------------------------------------------- */
@@ -86,7 +86,7 @@ addButton.addEventListener("click", () => {
 });
 
 // Create the add form instance
-const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
+const addFormPopup = new PopupWithForm(selectors.addFormPopup, selectors.formModalContainer, (formData) => {
 
     // Create a new card
     const newCard = new Card({ data: formData, handleImageClick: (imageData) => {
@@ -111,7 +111,7 @@ addFormPopup.close();
 const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession);
 
 // Create the edit form instance
-const editFormPopup = new PopupWithForm(selectors.editFormPopup, () => {
+const editFormPopup = new PopupWithForm(selectors.editFormPopup, selectors.formModalContainer, () => {
 
     // Add the form's input to the profile section
     userInfo.setUserInfo(formInputName, formInputProfession);
