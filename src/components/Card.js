@@ -1,9 +1,4 @@
-import { openModal } from "./utils.js";
-
-const imageModal = document.querySelector('#image-modal');
-
 export default class Card {
-
     constructor({ data, handleImageClick }, cardSelector) {
         // Find the data's name and link
         this._name = data.name;

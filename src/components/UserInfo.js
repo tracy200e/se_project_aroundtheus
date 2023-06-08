@@ -14,7 +14,7 @@ export default class UserInfo {
 
     // Add new profile info to the page
     setUserInfo(name, profession) {
-        this._name.textContent = name.value;
-        this._profession.textContent = profession.value;
+        this._name.textContent = name;
+        this._profession.textContent = profession;
     }
 }

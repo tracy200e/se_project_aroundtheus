@@ -44,6 +44,8 @@ export const selectors = {
     profileProfession: '.profile__profession',
     formModalContainer: '.modal__container',
     imageModalContainer: '.modal__popup',
+    formInputName: '#name',
+    formInputProfession: '#profession',
 }
 
 export const validationSettings = {
@@ -52,4 +54,5 @@ export const validationSettings = {
     inactiveButtonClass: "form__button_disabled",
     inputErrorClass: "form__input_type_error",
     errorClass: "form__error_visible",
+    formSelector: 'form',
 }

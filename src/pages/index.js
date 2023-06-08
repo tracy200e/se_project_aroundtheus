@@ -1,5 +1,4 @@
 import './index.css';
-import { openModal } from '../components/utils';
 import { initialCards, selectors, validationSettings } from '../utils/constants';
 
 // Import all the classes
@@ -13,29 +12,50 @@ import UserInfo from '../components/UserInfo';
 // Identify edit, add and close buttons as elements
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
-const closeButtons = document.querySelectorAll('.modal__close-button');
 
-// Find form input elements
+// Find edit form input elements
 const formInputName = document.querySelector('#name');
 const formInputProfession = document.querySelector('#profession');
+
+// Find form elements
+const editModal = document.querySelector('#edit-modal');
+const addModal = document.querySelector('#add-modal');
+
+const profileForm = editModal.querySelector('.modal__form');
+const addCardForm = addModal.querySelector('.modal__form');
 
 /* -------------------------------------------------------------------------- */
 /*                               Form Validation                              */
 /* -------------------------------------------------------------------------- */
 
-const editModal = document.querySelector('#edit-modal');
-const addModal = document.querySelector('#add-modal');
+// Create a form validators object
+const formValidators = {};
 
-const editFormElement = editModal.querySelector('.modal__form');
-const addFormElement = addModal.querySelector('.modal__form');
+// Create validator instances for all forms
+const enableValidation = (validationSettings) => {
 
-// Create validator instances for the edit and add forms
-const editValidator = new FormValidator(validationSettings, editFormElement);
-const addValidator = new FormValidator(validationSettings, addFormElement);
+    // Create an array of all forms
+    const formList = Array.from(document.querySelectorAll(validationSettings.formSelector));
 
-// Enable validation
-editValidator.enableValidation();
-addValidator.enableValidation();
+    // Create a validator for each form
+    formList.forEach((formElement) => {
+
+        // Create a validator instance for the current instance
+        const validator = new FormValidator(validationSettings, formElement);
+
+        // Retrieve the form element by its name
+        const formName = formElement.getAttribute('name');
+
+        // Store the current form validator in the validators object
+        formValidators[formName] = validator;
+
+        // Enable validation for the current form
+        validator.enableValidation();
+    });
+};
+
+// Enable validation for all forms
+enableValidation(validationSettings);
 
 /* -------------------------------------------------------------------------- */
 /*                                 Popup Image                                */
@@ -44,13 +64,21 @@ addValidator.enableValidation();
 // Create image popup instance
 const cardPreviewPopup = new PopupWithImage(selectors.previewPopup, selectors.imageModalContainer);
 
-// Set event listeners for image popup
-// cardPreviewPopup.setEventListeners();
+// Close image popup preview
 cardPreviewPopup.close();
 
 /* -------------------------------------------------------------------------- */
 /*                                Card Section                                */
 /* -------------------------------------------------------------------------- */
+
+// This function creates a new card
+function createCard(data) {
+    const cardElement = new Card({ data, handleImageClick: (imageData) => {
+        cardPreviewPopup.open(imageData);
+    }}, selectors.cardTemplate);
+
+    return cardElement;
+}
 
 // Create a section of cards
 const cardSection = new Section(
@@ -59,9 +87,7 @@ const cardSection = new Section(
         renderer: (data) => {
 
             // Create a new card
-            const cardElement = new Card({ data, handleImageClick: (imageData) => {
-                cardPreviewPopup.open(imageData);
-            }}, selectors.cardTemplate);
+            const cardElement = createCard(data);
 
             // Display each card
             cardSection.addItem(cardElement.getView());
@@ -77,27 +103,28 @@ cardSection.renderItems(initialCards);
 /*                                  Add Form                                  */
 /* -------------------------------------------------------------------------- */
 
-// Open the modal when users click on the add button
-addButton.addEventListener("click", () => {
-    
-    addValidator.resetValidation();
-
-    openModal(addModal);
-});
 
 // Create the add form instance
 const addFormPopup = new PopupWithForm(selectors.addFormPopup, selectors.formModalContainer, (formData) => {
 
     // Create a new card
-    const newCard = new Card({ data: formData, handleImageClick: (imageData) => {
-        cardPreviewPopup.open(imageData);
-    } }, selectors.cardTemplate);
+    const newCard = createCard(formData);
     
     // Close the add form
     addFormPopup.close();
 
     // Add the new card to the section
     cardSection.addItem(newCard.getView());
+});
+
+// Open the modal when users click on the add button
+addButton.addEventListener("click", () => {
+    
+    // Reset validation for the add card form
+    formValidators[addCardForm.getAttribute('name')].resetValidation();
+
+    // Open the add card form
+    addFormPopup.open();
 });
 
 // Set add form event listeners
@@ -115,7 +142,7 @@ const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession
 const editFormPopup = new PopupWithForm(selectors.editFormPopup, selectors.formModalContainer, () => {
 
     // Add the form's input to the profile section
-    userInfo.setUserInfo(formInputName, formInputProfession);
+    userInfo.setUserInfo(formInputName.value, formInputProfession.value);
 
     // Close the edit form
     editFormPopup.close();
@@ -136,7 +163,7 @@ editButton.addEventListener("click", () => {
     formInputProfession.value = profileInfo.profession;
 
     // Disable button each time it opens
-    editValidator.disableButton();
+    formValidators[profileForm.getAttribute('name')].resetValidation();
 
     // Open modal
     editFormPopup.open();
