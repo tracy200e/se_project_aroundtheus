@@ -113,4 +113,15 @@ export default class FormValidator {
         // Set event listeners
         this._setEventListeners();
     }
+
+    resetValidation() {
+
+        // Reset submit button
+        this._toggleButtonState();
+
+        // Clear error messages
+        this._inputList.forEach((inputElement) => {
+            this._hideInputError(inputElement)
+        });
+    }
 }

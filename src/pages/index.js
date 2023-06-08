@@ -80,7 +80,7 @@ cardSection.renderItems(initialCards);
 // Open the modal when users click on the add button
 addButton.addEventListener("click", () => {
     
-    addValidator.disableButton();
+    addValidator.resetValidation();
 
     openModal(addModal);
 });
@@ -134,11 +134,11 @@ editButton.addEventListener("click", () => {
     formInputName.value = profileInfo.name;
     formInputProfession.value = profileInfo.profession;
 
-    // Open modal
-    editFormPopup.open();
-
     // Disable button each time it opens
     editValidator.disableButton();
+
+    // Open modal
+    editFormPopup.open();
 });
 
 // Set edit form event listeners
