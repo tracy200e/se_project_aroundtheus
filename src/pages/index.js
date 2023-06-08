@@ -163,7 +163,7 @@ editButton.addEventListener("click", () => {
     formInputProfession.value = profileInfo.profession;
 
     // Disable button each time it opens
-    formValidators[profileForm.getAttribute('name')].resetValidation();
+    formValidators[profileForm.getAttribute('name')].disableButton();
 
     // Open modal
     editFormPopup.open();
