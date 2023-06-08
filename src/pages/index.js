@@ -93,6 +93,9 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, selectors.formMod
         cardPreviewPopup.open(imageData);
     } }, selectors.cardTemplate);
     
+    // Close the add form
+    addFormPopup.close();
+
     // Add the new card to the section
     cardSection.addItem(newCard.getView());
 });
@@ -100,8 +103,6 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, selectors.formMod
 // Set add form event listeners
 addFormPopup.setEventListeners();
 
-// Close the add form
-addFormPopup.close();
 
 /* -------------------------------------------------------------------------- */
 /*                             Profile Information                            */
@@ -143,6 +144,3 @@ editButton.addEventListener("click", () => {
 
 // Set edit form event listeners
 editFormPopup.setEventListeners();
-
-// Close the edit form
-editFormPopup.close();
