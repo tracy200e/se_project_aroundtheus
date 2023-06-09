@@ -1,8 +1,8 @@
 import Popup from './Popup.js';
 
 export default class PopupWithForm extends Popup {
-    constructor(popupSelector, modalContainer, handleFormSubmit) {
-        super({ popupSelector, modalContainer });
+    constructor(popupSelector, handleFormSubmit) {
+        super({ popupSelector });
         this._popupForm = this._popupElement.querySelector('.modal__form');
         this._submitButton = this._popupElement.querySelector('.form__button');
         this._formInputs = this._popupForm.querySelectorAll("input");
@@ -27,7 +27,7 @@ export default class PopupWithForm extends Popup {
     setEventListeners() {
 
         // Add the 'click' event listener to the close icon
-        super._setEventListeners();
+        super.setEventListeners();
 
         // Add the 'submit' event handler to the form
         this._popupForm.addEventListener('submit', (event) => {

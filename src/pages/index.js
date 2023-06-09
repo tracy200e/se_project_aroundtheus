@@ -18,11 +18,8 @@ const formInputName = document.querySelector('#name');
 const formInputProfession = document.querySelector('#profession');
 
 // Find form elements
-const editModal = document.querySelector('#edit-modal');
-const addModal = document.querySelector('#add-modal');
-
-const profileForm = editModal.querySelector('.modal__form');
-const addCardForm = addModal.querySelector('.modal__form');
+const profileForm = document.forms['profile-form'];
+const addCardForm = document.forms['card-form'];
 
 /* -------------------------------------------------------------------------- */
 /*                               Form Validation                              */
@@ -62,7 +59,7 @@ enableValidation(validationSettings);
 /* -------------------------------------------------------------------------- */
 
 // Create image popup instance
-const cardPreviewPopup = new PopupWithImage(selectors.previewPopup, selectors.imageModalContainer);
+const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 
 // Close image popup preview
 cardPreviewPopup.close();
@@ -75,9 +72,10 @@ cardPreviewPopup.close();
 function createCard(data) {
     const cardElement = new Card({ data, handleImageClick: (imageData) => {
         cardPreviewPopup.open(imageData);
+
     }}, selectors.cardTemplate);
 
-    return cardElement;
+    return cardElement.getView();
 }
 
 // Create a section of cards
@@ -90,7 +88,7 @@ const cardSection = new Section(
             const cardElement = createCard(data);
 
             // Display each card
-            cardSection.addItem(cardElement.getView());
+            cardSection.addItem(cardElement);
         },
     },
     selectors.cardsList
@@ -105,7 +103,7 @@ cardSection.renderItems(initialCards);
 
 
 // Create the add form instance
-const addFormPopup = new PopupWithForm(selectors.addFormPopup, selectors.formModalContainer, (formData) => {
+const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
 
     // Create a new card
     const newCard = createCard(formData);
@@ -114,7 +112,7 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, selectors.formMod
     addFormPopup.close();
 
     // Add the new card to the section
-    cardSection.addItem(newCard.getView());
+    cardSection.addItem(newCard);
 });
 
 // Open the modal when users click on the add button
@@ -139,7 +137,7 @@ addFormPopup.setEventListeners();
 const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession);
 
 // Create the edit form instance
-const editFormPopup = new PopupWithForm(selectors.editFormPopup, selectors.formModalContainer, () => {
+const editFormPopup = new PopupWithForm(selectors.editFormPopup, () => {
 
     // Add the form's input to the profile section
     userInfo.setUserInfo(formInputName.value, formInputProfession.value);

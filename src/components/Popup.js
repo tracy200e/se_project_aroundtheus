@@ -1,9 +1,7 @@
 export default class Popup {
-    constructor({ popupSelector, modalContainer }) {
+    constructor({ popupSelector }) {
         this._popupElement = document.querySelector(popupSelector);
-        this._popupOverlay = this._popupElement.closest('.modal');
         this._closeButton = this._popupElement.querySelector('.modal__close-button');
-        this._modalContainer = modalContainer;
     }
 
     open() {
@@ -12,9 +10,7 @@ export default class Popup {
         this._popupElement.classList.add('modal_opened');
 
         // Listen for the "Escape" key event
-        document.addEventListener('keydown', (event) => {
-            this._handleEscClose(event);
-        });
+        document.addEventListener('keydown', this._handleEscClose);
     }
 
     close() {
@@ -23,10 +19,7 @@ export default class Popup {
         this._popupElement.classList.remove('modal_opened');
 
         // Remove listener for the "Escape" key event
-        document.removeEventListener('keyup', this._handleEscClose);
-
-        // Close the popup when users click on the 'close' button
-        this._closeButton.addEventListener('click', () => this.close());
+        document.removeEventListener('keydown', this._handleEscClose);
     }
 
     _handleEscClose(event) {
@@ -37,13 +30,16 @@ export default class Popup {
         }
     }
 
-    _setEventListeners() {
+    setEventListeners() {
 
         // Close the popup when users click on the shaded area outside the modal
-        this._popupOverlay.addEventListener('click', (event) => {
-            if (!event.target.closest(this._modalContainer)) {
+        this._popupElement.addEventListener('click', (event) => {
+            if (event.target === event.currentTarget) {
                 this.close();
             }
         })
+
+        // Close the popup when users click on the 'close' button
+        this._closeButton.addEventListener('click', () => this.close());
     }
 }
