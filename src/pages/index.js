@@ -137,10 +137,10 @@ addFormPopup.setEventListeners();
 const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession);
 
 // Create the edit form instance
-const editFormPopup = new PopupWithForm(selectors.editFormPopup, () => {
+const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
 
     // Add the form's input to the profile section
-    userInfo.setUserInfo(formInputName.value, formInputProfession.value);
+    userInfo.setUserInfo(values.name, values.profession);
 
     // Close the edit form
     editFormPopup.close();
