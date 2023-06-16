@@ -8,6 +8,7 @@ import Section from '../components/Section';
 import PopupWithImage from '../components/PopupWithImage';
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
+import Api from '../components/Api';
 
 // Identify edit, add and close buttons as elements
 const editButton = document.querySelector('.profile__edit-button');
@@ -20,6 +21,15 @@ const formInputProfession = document.querySelector('#profession');
 // Find form elements
 const profileForm = document.forms['profile-form'];
 const addCardForm = document.forms['card-form'];
+
+const api = new Api({
+    baseUrl: "https://around.nomoreparties.co/v1/group-42",
+  headers: {
+    authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
+    "Content-Type": "application/json"
+  }
+});
+
 
 /* -------------------------------------------------------------------------- */
 /*                               Form Validation                              */
@@ -78,24 +88,28 @@ function createCard(data) {
     return cardElement.getView();
 }
 
+let cardSection;
+
 // Create a section of cards
-const cardSection = new Section(
-    {
-        items: initialCards,
-        renderer: (data) => {
-
-            // Create a new card
-            const cardElement = createCard(data);
-
-            // Display each card
-            cardSection.addItem(cardElement);
-        },
-    },
-    selectors.cardsList
-);
-
-// Render the initial list of cards on the page
-cardSection.renderItems(initialCards);
+api.getInitialCards()
+    .then(cards => {
+        cardSection = new Section(
+            {
+                items: cards,
+                renderer: (data) => {
+        
+                    // Create a new card
+                    const cardElement = createCard(data);
+        
+                    // Display each card
+                    cardSection.addItem(cardElement);
+                },
+            },
+            selectors.cardsList
+        );
+        // Render the initial list of cards on the page
+        cardSection.renderItems(cards);
+    })
 
 /* -------------------------------------------------------------------------- */
 /*                                  Add Form                                  */
@@ -132,6 +146,14 @@ addFormPopup.setEventListeners();
 /* -------------------------------------------------------------------------- */
 /*                             Profile Information                            */
 /* -------------------------------------------------------------------------- */
+
+api.loadUserInfo()
+    .then((result) => {
+        console.log(result);
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 
 // Create the user info instance
 const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession);
