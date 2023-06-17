@@ -10,6 +10,10 @@ import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
 import Api from '../components/Api';
 
+// Identify profile elements
+const userName = document.querySelector(selectors.profileName);
+const userProfession = document.querySelector(selectors.profileProfession);
+
 // Identify edit, add and close buttons as elements
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
@@ -23,11 +27,11 @@ const profileForm = document.forms['profile-form'];
 const addCardForm = document.forms['card-form'];
 
 const api = new Api({
-    baseUrl: "https://around.nomoreparties.co/v1/group-42",
-  headers: {
-    authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
-    "Content-Type": "application/json"
-  }
+    baseURL: "https://around.nomoreparties.co/v1/group-12",
+    headers: {
+        authorization: "1eaa27b9-0188-4ade-8d81-d0c83875c056",
+        "Content-Type": "application/json"
+    }
 });
 
 
@@ -91,7 +95,8 @@ function createCard(data) {
 let cardSection;
 
 // Create a section of cards
-api.getInitialCards()
+function getCards() {
+    return api.getInitialCards()
     .then(cards => {
         cardSection = new Section(
             {
@@ -110,6 +115,7 @@ api.getInitialCards()
         // Render the initial list of cards on the page
         cardSection.renderItems(cards);
     })
+}
 
 /* -------------------------------------------------------------------------- */
 /*                                  Add Form                                  */
@@ -147,15 +153,21 @@ addFormPopup.setEventListeners();
 /*                             Profile Information                            */
 /* -------------------------------------------------------------------------- */
 
-api.loadUserInfo()
-    .then((result) => {
-        console.log(result);
+// Load user information from the api
+function loadUserInfo() {
+    return api.loadUserInfo()
+    .then((userInfo) => {
+        userName.textContent = userInfo.name;
+        userProfession.textContent = userInfo.about; 
     })
     .catch((err) => {
         console.log(err);
     })
+}
 
-// Create the user info instance
+api.loadPromises([loadUserInfo(), getCards()]);
+
+// Create new user info instance
 const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession);
 
 // Create the edit form instance

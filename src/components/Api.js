@@ -1,14 +1,13 @@
 export default class Api {
     constructor(options) {
         // constructor body
-        this._options = options;
+        this._baseURL = options.baseURL;
+        this._headers = options.headers;
     }
 
     getInitialCards() {
-        return fetch("https://around.nomoreparties.co/v1/group-12/cards", {
-            headers: {
-                authorization: "1eaa27b9-0188-4ade-8d81-d0c83875c056"
-            }
+        return fetch(`${this._baseURL}/cards`, {
+            headers: this._headers
         })
         .then(res => {
 
@@ -19,14 +18,15 @@ export default class Api {
 
             // If the server returns an error, reject the promise
             return Promise.reject(`Error: ${res.status}`);
-        });
+        })
+        .catch(err => {
+            console.log(err);
+        }) 
     }
 
     loadUserInfo() {
-        return fetch("https://around.nomoreparties.co/v1/group-12/users/me", {
-            headers: {
-                authorization: "1eaa27b9-0188-4ade-8d81-d0c83875c056"
-            }
+        return fetch(`${this._baseURL}/users/me`, {
+            headers: this._headers
         })
         .then(res => {
             if (res.ok) {
