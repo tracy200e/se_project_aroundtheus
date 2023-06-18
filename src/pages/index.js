@@ -95,7 +95,7 @@ function createCard(data) {
 let cardSection;
 
 // Create a section of cards
-function getCards() {
+async function getCards() {
     return api.getInitialCards()
     .then(cards => {
         cardSection = new Section(
@@ -154,7 +154,7 @@ addFormPopup.setEventListeners();
 /* -------------------------------------------------------------------------- */
 
 // Load user information from the api
-function loadUserInfo() {
+async function loadUserInfo() {
     return api.loadUserInfo()
     .then((userInfo) => {
         userName.textContent = userInfo.name;
@@ -165,8 +165,6 @@ function loadUserInfo() {
     })
 }
 
-api.loadPromises([loadUserInfo(), getCards()]);
-
 // Create new user info instance
 const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession);
 
@@ -175,6 +173,9 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
 
     // Add the form's input to the profile section
     userInfo.setUserInfo(values.name, values.profession);
+
+    // Update the user info in the server
+    api.updateUserinfo(values.name, values.profession);
 
     // Close the edit form
     editFormPopup.close();
@@ -203,3 +204,6 @@ editButton.addEventListener("click", () => {
 
 // Set edit form event listeners
 editFormPopup.setEventListeners();
+
+// Make sure promises are loaded in the correct sequence
+api.loadPromises([loadUserInfo(), getCards()]);

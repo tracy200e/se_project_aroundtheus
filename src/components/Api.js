@@ -5,7 +5,7 @@ export default class Api {
         this._headers = options.headers;
     }
 
-    getInitialCards() {
+    async getInitialCards() {
         return fetch(`${this._baseURL}/cards`, {
             headers: this._headers
         })
@@ -24,7 +24,7 @@ export default class Api {
         }) 
     }
 
-    loadUserInfo() {
+    async loadUserInfo() {
         return fetch(`${this._baseURL}/users/me`, {
             headers: this._headers
         })
@@ -36,7 +36,25 @@ export default class Api {
         })
     }
 
-    loadPromises([loadUserInfo, getInitialCards]) {
-        return Promise.all([loadUserInfo, getInitialCards]);
+    loadPromises(promises) {
+        return Promise.all(promises);
+    }
+
+    async updateUserinfo(name, profession) {
+        return fetch(`${this._baseURL}/users/me`, {
+            method: "PATCH",
+            headers: this._headers,
+            body: JSON.stringify({
+                name: name,
+                about: profession
+            })
+        })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Error: ${res.status}`);
+        })
+        
     }
 }
