@@ -4,6 +4,7 @@ export default class Card {
         this._name = data.name;
         this._link = data.link;
         this._cardOwnerId = data.owner._id;
+        this._cardId = data._id;
 
         // Find the card selector
         this._cardSelector = cardSelector;
@@ -64,6 +65,7 @@ export default class Card {
 
             // If it does, remove the delete button
             this._deleteButton.remove();
+
         } else {
 
             // Otherwise, add event listener for the delete button

@@ -93,7 +93,7 @@ deletePopup.setEventListeners();
 // This function creates a new card
 function createCard(data, userId) {
     const cardElement = new Card({ 
-        data, 
+        data,
         handleImageClick: (imageData) => {
             cardPreviewPopup.open(imageData);
         },
@@ -143,19 +143,20 @@ api.getAppInfo()
 /*                                  Add Form                                  */
 /* -------------------------------------------------------------------------- */
 
-
 // Create the add form instance
 const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
+    api.addNewCard(formData)
+    .then((formData) => {
 
-    // Create a new card
-    const newCard = createCard(formData);
-    api.addNewCard(formData);
-    
-    // Close the add form
-    addFormPopup.close();
+        // Create a new card
+        const newCard = createCard(formData, userId);
 
-    // Add the new card to the section
-    cardSection.addItem(newCard);
+        // Add the new card to the section
+        cardSection.addItem(newCard);
+
+        // Close the add form
+        addFormPopup.close();
+    })
 });
 
 // Open the modal when users click on the add button
