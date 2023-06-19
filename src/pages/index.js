@@ -1,5 +1,5 @@
 import './index.css';
-import { initialCards, selectors, validationSettings } from '../utils/constants';
+import { selectors, validationSettings } from '../utils/constants';
 
 // Import all the classes
 import Card from '../components/Card';
@@ -9,12 +9,13 @@ import PopupWithImage from '../components/PopupWithImage';
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
 import Api from '../components/Api';
+import Popup from '../components/Popup';
 
 // Identify profile elements
 const userName = document.querySelector(selectors.profileName);
 const userProfession = document.querySelector(selectors.profileProfession);
 
-// Identify edit, add and close buttons as elements
+// Identify edit, add and delete buttons as elements
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
@@ -34,7 +35,19 @@ const api = new Api({
     }
 });
 
+// Load user information from the api
+async function loadUserInfo() {
+    return api.loadUserInfo()
+    .then((userInfo) => {
+        userName.textContent = userInfo.name;
+        userProfession.textContent = userInfo.about;
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+}
 
+loadUserInfo();
 /* -------------------------------------------------------------------------- */
 /*                               Form Validation                              */
 /* -------------------------------------------------------------------------- */
@@ -79,43 +92,63 @@ const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 cardPreviewPopup.close();
 
 /* -------------------------------------------------------------------------- */
+/*                                Delete Popup                                */
+/* -------------------------------------------------------------------------- */
+
+// Create the delete popup instance
+const deletePopup = new Popup({ popupSelector: selectors.deletePopup });
+deletePopup.setEventListeners();
+
+/* -------------------------------------------------------------------------- */
 /*                                Card Section                                */
 /* -------------------------------------------------------------------------- */
 
 // This function creates a new card
-function createCard(data) {
-    const cardElement = new Card({ data, handleImageClick: (imageData) => {
-        cardPreviewPopup.open(imageData);
-    }}, selectors.cardTemplate);
+function createCard(data, userId) {
+    const cardElement = new Card({ 
+        data, 
+        handleImageClick: (imageData) => {
+            cardPreviewPopup.open(imageData);
+        },
+        handleDeleteClick: () => {
+            deletePopup.open();
+        }
+    }, selectors.cardTemplate,
+    userId);
 
     return cardElement.getView();
 }
 
 let cardSection;
+let userId;
 
-// Create a section of cards
-async function getCards() {
-    return api.getInitialCards()
-    .then(cards => {
+// Make sure promises are loaded in the correct sequence
+api.getAppInfo()
+    .then(([cards, userData]) => {
+
+        // Find the user id
+        userId = userData._id;
+
+        // Create cards section
         cardSection = new Section(
             {
                 items: cards,
-                renderer: (data) => {
-        
+                renderer: (card) => {
+
                     // Create a new card
-                    const cardElement = createCard(data);
+                    const cardElement = createCard(card, userId);
         
                     // Display each card
                     cardSection.addItem(cardElement);
                 },
             },
-            selectors.cardsList
+            selectors.cardsList,
+            userId
         );
 
-        // Render the initial list of cards on the page
+        // Render the entire list of cards on the page
         cardSection.renderItems(cards);
     })
-}
 
 /* -------------------------------------------------------------------------- */
 /*                                  Add Form                                  */
@@ -153,18 +186,6 @@ addFormPopup.setEventListeners();
 /* -------------------------------------------------------------------------- */
 /*                             Profile Information                            */
 /* -------------------------------------------------------------------------- */
-
-// Load user information from the api
-async function loadUserInfo() {
-    return api.loadUserInfo()
-    .then((userInfo) => {
-        userName.textContent = userInfo.name;
-        userProfession.textContent = userInfo.about; 
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-}
 
 // Create new user info instance
 const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession);
@@ -206,5 +227,3 @@ editButton.addEventListener("click", () => {
 // Set edit form event listeners
 editFormPopup.setEventListeners();
 
-// Make sure promises are loaded in the correct sequence
-api.loadPromises([loadUserInfo(), getCards()]);

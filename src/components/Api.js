@@ -5,7 +5,7 @@ export default class Api {
         this._headers = options.headers;
     }
 
-    async getInitialCards() {
+    async getCards() {
         return fetch(`${this._baseURL}/cards`, {
             headers: this._headers
         })
@@ -36,8 +36,8 @@ export default class Api {
         })
     }
 
-    loadPromises(promises) {
-        return Promise.all(promises);
+    getAppInfo() {
+        return Promise.all([this.getCards(), this.loadUserInfo()]);
     }
 
     async updateUserinfo(name, profession) {

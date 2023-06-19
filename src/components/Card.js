@@ -1,14 +1,21 @@
 export default class Card {
-    constructor({ data, handleImageClick }, cardSelector) {
-        // Find the data's name and link
+    constructor({ data, handleImageClick, handleDeleteClick }, cardSelector, userId) {
+        // Find the card's name, link and owner's id
         this._name = data.name;
         this._link = data.link;
+        this._cardOwnerId = data.owner._id;
 
         // Find the card selector
         this._cardSelector = cardSelector;
 
+        // Find card and current user ids
+        this._userId = userId;
+
         // Handle the image-click function
         this._handleImageClick = handleImageClick;
+
+        // Handle the delete-button click
+        this._handleDeleteClick = handleDeleteClick;
     }
 
     _setEventListeners() {
@@ -16,10 +23,6 @@ export default class Card {
         // Add event listner for like button
         this._likeButton = this._element.querySelector('.card__like-button');
         this._likeButton.addEventListener('click', this._handleLikeIcon);
-
-        // Add event listener for the delete button
-        const deleteButton = this._element.querySelector('.card__delete-button');
-        deleteButton.addEventListener('click', () => this._handleDeleteCard());
 
         // Add event listener for image
         this._imageWindow = this._element.querySelector('.card__image');
@@ -52,6 +55,20 @@ export default class Card {
         
         // Create card template
         this._element = this._getTemplate();
+
+        // Display bin icon on cards created by the user
+        this._deleteButton = this._element.querySelector('.card__delete-button');
+
+        // Check if the user id matches the card owner's id
+        if (this._userId !== this._cardOwnerId) {
+
+            // If it does, remove the delete button
+            this._deleteButton.remove();
+        } else {
+
+            // Otherwise, add event listener for the delete button
+            this._deleteButton.addEventListener('click', () => this._handleDeleteClick());
+        }
         
         // Set the image link
         const cardImage = this._element.querySelector('.card__image');        
