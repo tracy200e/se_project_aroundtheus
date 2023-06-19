@@ -86,7 +86,6 @@ cardPreviewPopup.close();
 function createCard(data) {
     const cardElement = new Card({ data, handleImageClick: (imageData) => {
         cardPreviewPopup.open(imageData);
-
     }}, selectors.cardTemplate);
 
     return cardElement.getView();
@@ -112,6 +111,7 @@ async function getCards() {
             },
             selectors.cardsList
         );
+
         // Render the initial list of cards on the page
         cardSection.renderItems(cards);
     })
@@ -127,6 +127,7 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
 
     // Create a new card
     const newCard = createCard(formData);
+    api.addNewCard(formData);
     
     // Close the add form
     addFormPopup.close();

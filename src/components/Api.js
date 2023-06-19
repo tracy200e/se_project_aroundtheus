@@ -55,6 +55,22 @@ export default class Api {
             }
             return Promise.reject(`Error: ${res.status}`);
         })
-        
+    }
+
+    async addNewCard({ name, link }) {
+        return fetch(`${this._baseURL}/cards`, {
+            method: "POST",
+            headers: this._headers,
+            body: JSON.stringify({
+                name,
+                link
+            })
+        })
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Error: ${res.status}`);
+        })
     }
 }
