@@ -35,19 +35,6 @@ const api = new Api({
     }
 });
 
-// Load user information from the api
-async function loadUserInfo() {
-    return api.loadUserInfo()
-    .then((userInfo) => {
-        userName.textContent = userInfo.name;
-        userProfession.textContent = userInfo.about;
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-}
-
-loadUserInfo();
 /* -------------------------------------------------------------------------- */
 /*                               Form Validation                              */
 /* -------------------------------------------------------------------------- */
@@ -128,6 +115,8 @@ api.getAppInfo()
 
         // Find the user id
         userId = userData._id;
+        userName.textContent = userData.name;
+        userProfession.textContent = userData.about;
 
         // Create cards section
         cardSection = new Section(
