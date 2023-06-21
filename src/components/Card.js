@@ -35,7 +35,7 @@ export default class Card {
         this._likeButton.classList.toggle('card__like-button_active');
     }
 
-    _handleDeleteCard() {
+    handleDeleteCard() {
         // Remove element from the DOM on click
         this._element.remove();
 
@@ -44,7 +44,7 @@ export default class Card {
     }
 
     // Display bin icon on cards created by the user
-    handleDeleteButton() {
+    _handleDeleteButton() {
 
         // Check if the user id matches the card owner's id
         if (this._userId !== this._cardOwnerId) {
@@ -71,7 +71,7 @@ export default class Card {
         
         // Display the bin icon on the user's cards
         this._deleteButton = this._element.querySelector('.card__delete-button');
-        this.handleDeleteButton();
+        this._handleDeleteButton();
         this._deleteButton.addEventListener('click', () => this._handleDeleteClick());
         
         // Set the image link

@@ -10,6 +10,7 @@ import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
 import Api from '../components/Api';
 import Popup from '../components/Popup';
+import PopupWithConfirm from '../components/PopupWithConfirm';
 
 // Identify profile elements
 const userName = document.querySelector(selectors.profileName);
@@ -89,8 +90,8 @@ cardPreviewPopup.close();
 /* -------------------------------------------------------------------------- */
 
 // Create the delete popup instance
-const deletePopup = new Popup({ popupSelector: selectors.deletePopup });
-deletePopup.setEventListeners();
+// const deletePopup = new PopupWithConfirm(selectors.deletePopup);
+// deletePopup.setEventListeners();
 
 /* -------------------------------------------------------------------------- */
 /*                                Card Section                                */
@@ -106,11 +107,30 @@ function createCard(data, userId) {
             cardPreviewPopup.open(imageData);
         },
         handleDeleteClick: () => {
+            
+            // Create the delete popup instance
+            const deletePopup = new PopupWithConfirm(selectors.deletePopup, () => {
+
+                // Handle card deletion
+                api.deleteCard(data._id)
+                .then(() => {
+
+                    // Close the confirmation popup
+                    deletePopup.close();
+
+                    // Reload the page after delete successfully
+                    location.reload();
+                })
+            });
 
             // Open confirmation popup on click
             deletePopup.open();
+
+            // Set the event listeners for the confirmation popup
+            deletePopup.setEventListeners();
         }
-    }, selectors.cardTemplate, 
+    }, 
+    selectors.cardTemplate, 
     userId);
 
     return cardElement.getView();
