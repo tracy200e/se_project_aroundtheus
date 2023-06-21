@@ -27,13 +27,19 @@ const formInputProfession = document.querySelector('#profession');
 const profileForm = document.forms['profile-form'];
 const addCardForm = document.forms['card-form'];
 
-const api = new Api({
+/* -------------------------------------------------------------------------- */
+/*                                     Api                                    */
+/* -------------------------------------------------------------------------- */
+
+const config = {
     baseURL: "https://around.nomoreparties.co/v1/group-12",
     headers: {
         authorization: "1eaa27b9-0188-4ade-8d81-d0c83875c056",
         "Content-Type": "application/json"
     }
-});
+};
+
+const api = new Api(config);
 
 /* -------------------------------------------------------------------------- */
 /*                               Form Validation                              */
@@ -95,12 +101,16 @@ function createCard(data, userId) {
     const cardElement = new Card({ 
         data,
         handleImageClick: (imageData) => {
+
+            // Open image popup on click
             cardPreviewPopup.open(imageData);
         },
         handleDeleteClick: () => {
+
+            // Open confirmation popup on click
             deletePopup.open();
         }
-    }, selectors.cardTemplate,
+    }, selectors.cardTemplate, 
     userId);
 
     return cardElement.getView();

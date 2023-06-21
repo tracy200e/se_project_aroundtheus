@@ -5,7 +5,7 @@ export default class Api {
         this._headers = options.headers;
     }
 
-    async getCards() {
+    getCards() {
         return fetch(`${this._baseURL}/cards`, {
             headers: this._headers
         })
@@ -24,7 +24,7 @@ export default class Api {
         }) 
     }
 
-    async loadUserInfo() {
+    loadUserInfo() {
         return fetch(`${this._baseURL}/users/me`, {
             headers: this._headers
         })
@@ -40,7 +40,7 @@ export default class Api {
         return Promise.all([this.getCards(), this.loadUserInfo()]);
     }
 
-    async updateUserinfo(name, profession) {
+    updateUserinfo(name, profession) {
         return fetch(`${this._baseURL}/users/me`, {
             method: "PATCH",
             headers: this._headers,
@@ -57,7 +57,7 @@ export default class Api {
         })
     }
 
-    async addNewCard({ name, link }) {
+    addNewCard({ name, link }) {
         return fetch(`${this._baseURL}/cards`, {
             method: "POST",
             headers: this._headers,
@@ -74,7 +74,7 @@ export default class Api {
         })
     }
 
-    async deleteCard(cardId) {
+    deleteCard(cardId) {
         return fetch(`${this._baseURL}/cards/${cardId}`, {
             method: "DELETE",
             headers: this._headers

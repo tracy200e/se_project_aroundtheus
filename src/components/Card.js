@@ -43,6 +43,17 @@ export default class Card {
         this._element = null;
     }
 
+    // Display bin icon on cards created by the user
+    handleDeleteButton() {
+
+        // Check if the user id matches the card owner's id
+        if (this._userId !== this._cardOwnerId) {
+
+            // If it does, remove the delete button
+            this._deleteButton.remove();
+        }
+    }
+
     _getTemplate() {
 
         // Get card template
@@ -57,20 +68,11 @@ export default class Card {
         // Create card template
         this._element = this._getTemplate();
 
-        // Display bin icon on cards created by the user
+        
+        // Display the bin icon on the user's cards
         this._deleteButton = this._element.querySelector('.card__delete-button');
-
-        // Check if the user id matches the card owner's id
-        if (this._userId !== this._cardOwnerId) {
-
-            // If it does, remove the delete button
-            this._deleteButton.remove();
-
-        } else {
-
-            // Otherwise, add event listener for the delete button
-            this._deleteButton.addEventListener('click', () => this._handleDeleteClick());
-        }
+        this.handleDeleteButton();
+        this._deleteButton.addEventListener('click', () => this._handleDeleteClick());
         
         // Set the image link
         const cardImage = this._element.querySelector('.card__image');        
