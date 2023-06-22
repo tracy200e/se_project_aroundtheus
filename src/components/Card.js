@@ -47,6 +47,14 @@ export default class Card {
         }
     }
 
+    handleDeleteCard() {
+        // Remove element from the DOM on click
+        this._element.remove();
+
+        // Remove the link to the DOM element
+        this._element = null;
+    }
+
     _getTemplate() {
 
         // Get card template

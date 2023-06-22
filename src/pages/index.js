@@ -110,8 +110,8 @@ function createCard(data, userId) {
                     // Close the confirmation popup
                     deletePopup.close();
 
-                    // Reload the page after delete successfully
-                    location.reload();
+                    // Delete the card on the page
+                    cardElement.handleDeleteCard();
                 })
             });
 
