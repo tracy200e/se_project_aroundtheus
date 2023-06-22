@@ -5,6 +5,7 @@ export default class Card {
         this._link = data.link;
         this._cardOwnerId = data.owner._id;
         this._cardId = data._id;
+        this._cardLikes = data.likes;
 
         // Find the card selector
         this._cardSelector = cardSelector;
@@ -33,14 +34,6 @@ export default class Card {
     _handleLikeIcon = () => {
         // Add active class to card's like button
         this._likeButton.classList.toggle('card__like-button_active');
-    }
-
-    handleDeleteCard() {
-        // Remove element from the DOM on click
-        this._element.remove();
-
-        // Remove the link to the DOM element
-        this._element = null;
     }
 
     // Display bin icon on cards created by the user
@@ -74,6 +67,13 @@ export default class Card {
         this._handleDeleteButton();
         this._deleteButton.addEventListener('click', () => this._handleDeleteClick());
         
+        // Display the number of likes
+        this._likeNumber = this._element.querySelector('.card__like-number');
+        this._likeNumber.textContent = this._cardLikes.length;
+
+        // this._likeButton = this._element.querySelector('.card__like-button');
+        // this._likeButton.addEventListener('click', () => this._handleLikeClick);
+
         // Set the image link
         const cardImage = this._element.querySelector('.card__image');        
         cardImage.src = this._link;

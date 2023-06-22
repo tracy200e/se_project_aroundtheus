@@ -86,14 +86,6 @@ const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 cardPreviewPopup.close();
 
 /* -------------------------------------------------------------------------- */
-/*                                Delete Popup                                */
-/* -------------------------------------------------------------------------- */
-
-// Create the delete popup instance
-// const deletePopup = new PopupWithConfirm(selectors.deletePopup);
-// deletePopup.setEventListeners();
-
-/* -------------------------------------------------------------------------- */
 /*                                Card Section                                */
 /* -------------------------------------------------------------------------- */
 
@@ -159,6 +151,8 @@ api.getAppInfo()
         
                     // Display each card
                     cardSection.addItem(cardElement);
+
+                    // console.log(card);
                 },
             },
             selectors.cardsList,
