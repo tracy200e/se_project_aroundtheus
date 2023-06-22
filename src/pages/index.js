@@ -240,4 +240,3 @@ editButton.addEventListener("click", () => {
 
 // Set edit form event listeners
 editFormPopup.setEventListeners();
-
