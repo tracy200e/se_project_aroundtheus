@@ -50,6 +50,7 @@ export default class Card {
     }
 
     updateLikeCount(likes) {
+        this._cardLikes = likes;
         return this._likeCounter.textContent = likes.length;
     }
 
