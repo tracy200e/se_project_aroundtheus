@@ -1,5 +1,5 @@
 export default class Card {
-    constructor({ data, handleImageClick, handleDeleteClick }, cardSelector, userId) {
+    constructor({ data, handleImageClick, handleDeleteClick, handleLikeClick }, cardSelector, userId) {
         // Find the card's name, link and owner's id
         this._name = data.name;
         this._link = data.link;
@@ -18,22 +18,51 @@ export default class Card {
 
         // Handle the delete-button click
         this._handleDeleteClick = handleDeleteClick;
+
+        // Update like count
+        this._handleLikeClick = handleLikeClick;
     }
 
     _setEventListeners() {
 
         // Add event listner for like button
         this._likeButton = this._element.querySelector('.card__like-button');
-        this._likeButton.addEventListener('click', this._handleLikeIcon);
+        this._likeButton.addEventListener('click', this._handleLikeClick);
 
         // Add event listener for image
         this._imageWindow = this._element.querySelector('.card__image');
         this._imageWindow.addEventListener('click', () => this._handleImageClick({link: this._link, name: this._name}));
     }
 
-    _handleLikeIcon = () => {
-        // Add active class to card's like button
-        this._likeButton.classList.toggle('card__like-button_active');
+    // Check if the card is liked by the user
+    isLiked() {
+        return this._cardLikes.some((cardLike) => {
+            return cardLike._id === this._userId;
+        })
+    }
+
+    displayLikeIcon() {
+        if (this.isLiked()) {
+            this._likeButton.classList.add('card__like-button_active');
+        } else {
+            this._likeButton.classList.remove('card__like-button_active');
+        }
+    }
+
+    updateLikeCount(likes) {
+        return this._likeCounter.textContent = likes.length;
+    }
+
+    addLikeIcon() {
+        this._likeButton.classList.add('card__like-button_active');
+    }
+
+    removeLikeIcon() {
+        this._likeButton.classList.remove('card__like-button_active');
+    }
+
+    displayLikeCount() {
+        return this._likeCounter.textContent = this._cardLikes.length;
     }
 
     // Display bin icon on cards created by the user
@@ -76,11 +105,12 @@ export default class Card {
         this._deleteButton.addEventListener('click', () => this._handleDeleteClick());
         
         // Display the number of likes
-        this._likeNumber = this._element.querySelector('.card__like-number');
-        this._likeNumber.textContent = this._cardLikes.length;
+        this._likeCounter = this._element.querySelector('.card__like-number');
+        this.displayLikeCount();
 
-        // this._likeButton = this._element.querySelector('.card__like-button');
-        // this._likeButton.addEventListener('click', () => this._handleLikeClick);
+        // Change the like button color
+        this._likeButton = this._element.querySelector('.card__like-button');
+        this.displayLikeIcon();
 
         // Set the image link
         const cardImage = this._element.querySelector('.card__image');        

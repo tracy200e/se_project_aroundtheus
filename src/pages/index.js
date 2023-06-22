@@ -89,6 +89,7 @@ cardPreviewPopup.close();
 /*                                Card Section                                */
 /* -------------------------------------------------------------------------- */
 
+
 // This function creates a new card
 function createCard(data, userId) {
     const cardElement = new Card({ 
@@ -120,6 +121,21 @@ function createCard(data, userId) {
 
             // Set the event listeners for the confirmation popup
             deletePopup.setEventListeners();
+        },
+        handleLikeClick: () => {
+            if (cardElement.isLiked()) {
+                api.removeLike(data._id)
+                .then((card) => {
+                    cardElement.updateLikeCount(card.likes);
+                    cardElement.removeLikeIcon();
+                })
+            } else {
+                api.addLike(data._id)
+                .then((card) => {
+                    cardElement.updateLikeCount(card.likes);
+                    cardElement.addLikeIcon();
+                })
+            }
         }
     }, 
     selectors.cardTemplate, 
