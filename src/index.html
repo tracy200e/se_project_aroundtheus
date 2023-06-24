@@ -19,10 +19,10 @@
     </header>
     <main class="content">
         <section class="profile">
-            <img class="profile__image"
-                src="<%=require('./images/jacques-cousteau.jpg')%>"
-                alt="Jacques Cousteau headshot"
-            >
+            <div class="profile__image-container">
+                <img class="profile__image">
+                <div class="profile__image-overlay"></div>
+            </div>
             <div class="profile__info">
                 <h1 class="profile__name">Jacques Cousteau</h1>
                 <button class="profile__edit-button" type="button"></button>
@@ -49,7 +49,7 @@
         </section>
     </main>
     <footer class="footer">
-        <p class="footer__copyright">© 2022 Around The U.S.</p>
+        <p class="footer__copyright">© 2023 Around The U.S.</p>
     </footer>
     <div class="modal" id="edit-modal">
         <div class="modal__container">
@@ -129,6 +129,26 @@
             <button type="button" class="modal__close-button"></button>
                 <h2 class="modal__title">Are you sure?</h2>
                 <button type="submit" class="modal__button" id="delete-card">Yes</button>
+        </div>
+    </div>
+    <div class="modal" id="avatar-modal">
+        <div class="modal__container">
+            <button type="button" class="modal__close-button"></button>
+            <h2 class="modal__title">Change profile picture</h2>
+            <form class="form modal__form" id="avatar-form" name="avatar-form">
+                <label class="form__label">
+                    <input
+                    required
+                    type="url"
+                    class="form__input"
+                    id="avatar"
+                    name="avatar"
+                    placeholder="Profile picture link"
+                    >
+                    <span class="form__error" id="avatar-error"></span>
+                </label>
+                <button type="submit" class="form__button">Save</button>
+            </form>
         </div>
     </div>
 </body>

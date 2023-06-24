@@ -9,7 +9,6 @@ import PopupWithImage from '../components/PopupWithImage';
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
 import Api from '../components/Api';
-import Popup from '../components/Popup';
 import PopupWithConfirm from '../components/PopupWithConfirm';
 
 // Identify profile elements
@@ -27,6 +26,10 @@ const formInputProfession = document.querySelector('#profession');
 // Find form elements
 const profileForm = document.forms['profile-form'];
 const addCardForm = document.forms['card-form'];
+
+// Find avatar elements
+const avatarEditButton = document.querySelector('.profile__image-overlay');
+const userImage = document.querySelector(selectors.profileImage);
 
 /* -------------------------------------------------------------------------- */
 /*                                     Api                                    */
@@ -155,6 +158,7 @@ api.getAppInfo()
         userId = userData._id;
         userName.textContent = userData.name;
         userProfession.textContent = userData.about;
+        userImage.src = userData.avatar;
 
         // Create cards section
         cardSection = new Section(
@@ -218,7 +222,7 @@ addFormPopup.setEventListeners();
 /* -------------------------------------------------------------------------- */
 
 // Create new user info instance
-const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession);
+const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession, selectors.profileImage);
 
 // Create the edit form instance
 const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
@@ -231,6 +235,21 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
 
     // Close the edit form
     editFormPopup.close();
+});
+
+/* -------------------------------------------------------------------------- */
+/*                             Update Avatar Form                             */
+/* -------------------------------------------------------------------------- */
+
+// Open the avatar popup when user clicks on the avatar's edit button
+avatarEditButton.addEventListener('click', () => {
+    const avatarPopup = new PopupWithForm(selectors.avatarPopup, (formData) => {
+        api.updateAvatar(formData);
+        userInfo.setUserImage(formData.avatar);
+        avatarPopup.close();
+    })    
+    avatarPopup.open();
+    avatarPopup.setEventListeners();
 });
 
 /* -------------------------------------------------------------------------- */

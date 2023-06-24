@@ -1,6 +1,6 @@
 export default class Card {
     constructor({ data, handleImageClick, handleDeleteClick, handleLikeClick }, cardSelector, userId) {
-        // Find the card's name, link and owner's id
+        // Find the card's elements
         this._name = data.name;
         this._link = data.link;
         this._cardOwnerId = data.owner._id;
@@ -10,19 +10,16 @@ export default class Card {
         // Find the card selector
         this._cardSelector = cardSelector;
 
-        // Find card and current user ids
+        // Find the user id
         this._userId = userId;
 
-        // Handle the image-click function
+        // Functions
         this._handleImageClick = handleImageClick;
-
-        // Handle the delete-button click
         this._handleDeleteClick = handleDeleteClick;
-
-        // Update like count
         this._handleLikeClick = handleLikeClick;
     }
 
+    // Set the card's event listeners
     _setEventListeners() {
 
         // Add event listner for like button
@@ -41,6 +38,18 @@ export default class Card {
         })
     }
 
+    // Update the card's number of likes
+    updateLikeCount(likes) {
+        this._cardLikes = likes;
+        return this._likeCounter.textContent = likes.length;
+    }
+
+    // Display the number of likes
+    displayLikeCount() {
+        return this._likeCounter.textContent = this._cardLikes.length;
+    }
+
+    // Display the like icon based on its status
     displayLikeIcon() {
         if (this.isLiked()) {
             this._likeButton.classList.add('card__like-button_active');
@@ -49,21 +58,14 @@ export default class Card {
         }
     }
 
-    updateLikeCount(likes) {
-        this._cardLikes = likes;
-        return this._likeCounter.textContent = likes.length;
-    }
-
+    // Activate the like icon
     addLikeIcon() {
         this._likeButton.classList.add('card__like-button_active');
     }
 
+    // Deactivate the like icon
     removeLikeIcon() {
         this._likeButton.classList.remove('card__like-button_active');
-    }
-
-    displayLikeCount() {
-        return this._likeCounter.textContent = this._cardLikes.length;
     }
 
     // Display bin icon on cards created by the user
@@ -77,6 +79,7 @@ export default class Card {
         }
     }
 
+    // Handle the deletion of cards
     handleDeleteCard() {
         // Remove element from the DOM on click
         this._element.remove();
@@ -85,15 +88,16 @@ export default class Card {
         this._element = null;
     }
 
+    // Get card template
     _getTemplate() {
-
-        // Get card template
+        
         return document
             .querySelector(this._cardSelector)
             .content.querySelector('.card')
             .cloneNode(true);
     }
 
+    // Render the card
     getView() {
         
         // Create card template
