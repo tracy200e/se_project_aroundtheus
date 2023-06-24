@@ -1,5 +1,5 @@
 import './index.css';
-import { selectors, validationSettings } from '../utils/constants';
+import { selectors, validationSettings, config } from '../utils/constants';
 
 // Import all the classes
 import Card from '../components/Card';
@@ -26,23 +26,29 @@ const formInputProfession = document.querySelector('#profession');
 // Find form elements
 const profileForm = document.forms['profile-form'];
 const addCardForm = document.forms['card-form'];
+const formButton = document.querySelector('.form__button');
 
 // Find avatar elements
 const avatarEditButton = document.querySelector('.profile__image-overlay');
 const userImage = document.querySelector(selectors.profileImage);
 
+// Render loading
+function renderLoading(isLoading, selector) {
+    const formButton = document.querySelector(selector);
+
+    if (isLoading) {
+        formButton.textContent = 'ing...';
+    }
+    else {
+        formButton.textContent = 'e';
+    }
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                     Api                                    */
 /* -------------------------------------------------------------------------- */
 
-const config = {
-    baseURL: "https://around.nomoreparties.co/v1/group-12",
-    headers: {
-        authorization: "1eaa27b9-0188-4ade-8d81-d0c83875c056",
-        "Content-Type": "application/json"
-    }
-};
-
+// Create the app instance
 const api = new Api(config);
 
 /* -------------------------------------------------------------------------- */
@@ -126,16 +132,30 @@ function createCard(data, userId) {
             deletePopup.setEventListeners();
         },
         handleLikeClick: () => {
+
+            // If the user has liked the card, remove the like; vice versa
             if (cardElement.isLiked()) {
+
+                // Remove like from the server if user has already liked the card
                 api.removeLike(data._id)
                 .then((card) => {
+
+                    // Update like count
                     cardElement.updateLikeCount(card.likes);
+
+                    // Deactivate like icon
                     cardElement.removeLikeIcon();
                 })
             } else {
+
+                // Add like to the server if user has not liked the card
                 api.addLike(data._id)
                 .then((card) => {
+
+                    // Update like count
                     cardElement.updateLikeCount(card.likes);
+
+                    // Activate like icon
                     cardElement.addLikeIcon();
                 })
             }
@@ -144,13 +164,14 @@ function createCard(data, userId) {
     selectors.cardTemplate, 
     userId);
 
+    // Display the card
     return cardElement.getView();
 }
 
 let cardSection;
 let userId;
 
-// Make sure promises are loaded in the correct sequence
+// Get the app's information and make sure promises are loaded in the correct sequence
 api.getAppInfo()
     .then(([cards, userData]) => {
 
@@ -171,8 +192,6 @@ api.getAppInfo()
         
                     // Display each card
                     cardSection.addItem(cardElement);
-
-                    // console.log(card);
                 },
             },
             selectors.cardsList,
@@ -189,6 +208,11 @@ api.getAppInfo()
 
 // Create the add form instance
 const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
+    
+    // Render loading status
+    renderLoading(true, selectors.addFormButton);
+
+    // Add the new card to the server
     api.addNewCard(formData)
     .then((formData) => {
 
@@ -197,6 +221,11 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
 
         // Add the new card to the section
         cardSection.addItem(newCard);
+    })
+    .finally(() => {
+
+        // Restore pre-loading status
+        renderLoading(false, selectors.addFormButton);
 
         // Close the add form
         addFormPopup.close();
@@ -227,14 +256,24 @@ const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession
 // Create the edit form instance
 const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
 
-    // Add the form's input to the profile section
-    userInfo.setUserInfo(values.name, values.profession);
+    // Render loading status
+    renderLoading(true, selectors.editFormButton);
 
     // Update the user info in the server
-    api.updateUserinfo(values.name, values.profession);
+    api.updateUserinfo(values.name, values.profession)
+    .then(values => {
 
-    // Close the edit form
-    editFormPopup.close();
+        // Add the form's input to the profile section
+        userInfo.setUserInfo(values.name, values.profession);
+    })
+    .finally(() => {
+
+        // Restore pre-loading status
+        renderLoading(false, selectors.editFormButton);
+
+        // Close the edit form
+        editFormPopup.close();
+    })
 });
 
 /* -------------------------------------------------------------------------- */
@@ -243,12 +282,34 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
 
 // Open the avatar popup when user clicks on the avatar's edit button
 avatarEditButton.addEventListener('click', () => {
+
+    // Create the avatar form
     const avatarPopup = new PopupWithForm(selectors.avatarPopup, (formData) => {
-        api.updateAvatar(formData);
-        userInfo.setUserImage(formData.avatar);
-        avatarPopup.close();
-    })    
+        
+        // Render loading status
+        renderLoading(true, selectors.avatarFormButton);
+
+        // Update the user's image in the server
+        api.updateAvatar(formData)
+        .then(userData => {
+
+            // Set the user's image
+            userInfo.setUserImage(userData.avatar);
+        })
+        .finally (() => {
+
+            // Restore pre-loading status
+            renderLoading(false, selectors.avatarFormButton);
+
+            // Close the avatar popup
+            avatarPopup.close();
+        })
+    })
+
+    // Open the avatar popup
     avatarPopup.open();
+
+    // Set the event listeners for the avatar popup
     avatarPopup.setEventListeners();
 });
 
