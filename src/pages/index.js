@@ -8,7 +8,7 @@ import Section from '../components/Section';
 import PopupWithImage from '../components/PopupWithImage';
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
-import Api from '../components/Api';
+import Api from '../utils/Api';
 import PopupWithConfirm from '../components/PopupWithConfirm';
 
 // Identify profile elements
@@ -38,8 +38,7 @@ function renderLoading(isLoading, selector) {
 
     if (isLoading) {
         formButton.textContent = 'ing...';
-    }
-    else {
+    } else {
         formButton.textContent = 'e';
     }
 }
@@ -260,11 +259,10 @@ addButton.addEventListener("click", () => {
 
     // Open the add card form
     addFormPopup.open();
+
+    // Set add form event listeners
+    addFormPopup.setEventListeners();
 });
-
-// Set add form event listeners
-addFormPopup.setEventListeners();
-
 
 /* -------------------------------------------------------------------------- */
 /*                             Profile Information                            */
@@ -304,45 +302,45 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
 /*                             Update Avatar Form                             */
 /* -------------------------------------------------------------------------- */
 
+// Create the avatar form
+const avatarPopup = new PopupWithForm(selectors.avatarPopup, (formData) => {
+        
+    // Render loading status
+    renderLoading(true, selectors.avatarFormButton);
+
+    // Update the user's image in the server
+    api.updateAvatar(formData)
+    .then(userData => {
+
+        // Set the user's image
+        userInfo.setUserImage(userData.avatar);
+    })
+    .then(() => {
+
+        // Close the avatar popup
+        avatarPopup.close();
+    })
+    .catch(err => {
+
+        // If the server returns an error, reject the promise
+        return Promise.reject(`Error: ${err.status}`);
+    })
+    .finally (() => {
+
+        // Restore pre-loading status
+        renderLoading(false, selectors.avatarFormButton);
+    })
+});
+
 // Open the avatar popup when user clicks on the avatar's edit button
 avatarEditButton.addEventListener('click', () => {
 
-    // Create the avatar form
-    const avatarPopup = new PopupWithForm(selectors.avatarPopup, (formData) => {
-        
-        // Render loading status
-        renderLoading(true, selectors.avatarFormButton);
+        // Open the avatar popup
+        avatarPopup.open();
 
-        // Update the user's image in the server
-        api.updateAvatar(formData)
-        .then(userData => {
-
-            // Set the user's image
-            userInfo.setUserImage(userData.avatar);
-        })
-        .then(() => {
-
-            // Close the avatar popup
-            avatarPopup.close();
-        })
-        .catch(err => {
-
-            // If the server returns an error, reject the promise
-            return Promise.reject(`Error: ${err.status}`);
-        })
-        .finally (() => {
-
-            // Restore pre-loading status
-            renderLoading(false, selectors.avatarFormButton);
-        })
+        // Set the event listeners for the avatar popup
+        avatarPopup.setEventListeners();
     })
-
-    // Open the avatar popup
-    avatarPopup.open();
-
-    // Set the event listeners for the avatar popup
-    avatarPopup.setEventListeners();
-});
 
 /* -------------------------------------------------------------------------- */
 /*                                  Edit Form                                 */
@@ -363,7 +361,7 @@ editButton.addEventListener("click", () => {
 
     // Open modal
     editFormPopup.open();
-});
 
-// Set edit form event listeners
-editFormPopup.setEventListeners();
+    // Set edit form event listeners
+    editFormPopup.setEventListeners();
+});

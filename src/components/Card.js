@@ -79,6 +79,7 @@ export default class Card {
 
     // Handle the deletion of cards
     handleDeleteCard() {
+
         // Remove element from the DOM on click
         this._element.remove();
 
@@ -100,7 +101,6 @@ export default class Card {
         
         // Create card template
         this._element = this._getTemplate();
-
         
         // Display the bin icon on the user's cards
         this._deleteButton = this._element.querySelector('.card__delete-button');
