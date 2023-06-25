@@ -122,7 +122,7 @@ function createCard(data, userId) {
                 .catch(err => {
 
                     // If the server returns an error, reject the promise
-                    return Promise.reject(`Error: ${err.status}`);
+                    console.error(`Error: ${err.status}`);
                 }) 
             });
 
@@ -147,6 +147,11 @@ function createCard(data, userId) {
                     // Deactivate like icon
                     cardElement.removeLikeIcon();
                 })
+                .catch(err => {
+
+                    // If the server returns an error, reject the promise
+                    console.error(`Error: ${err.status}`);
+                })
             } else {
 
                 // Add like to the server if user has not liked the card
@@ -162,7 +167,7 @@ function createCard(data, userId) {
                 .catch(err => {
 
                     // If the server returns an error, reject the promise
-                    return Promise.reject(`Error: ${err.status}`);
+                    console.error(`Error: ${err.status}`);
                 }) 
             }
         }
@@ -209,6 +214,11 @@ api.getAppInfo()
         // Render the entire list of cards on the page
         cardSection.renderItems(cards);
     })
+    .catch((err) => {
+
+        // If the server returns an error, reject the promise
+        console.error(`Error: ${err.status}`);
+    })
 
 /* -------------------------------------------------------------------------- */
 /*                                  Add Form                                  */
@@ -238,7 +248,7 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
     .catch(err => {
 
         // If the server returns an error, reject the promise
-        return Promise.reject(`Error: ${err.status}`);
+        console.error(`Error: ${err.status}`);
     }) 
     .finally(() => {
 
@@ -285,7 +295,7 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
     .catch(err => {
 
         // If the server returns an error, reject the promise
-        return Promise.reject(`Error: ${err.status}`);
+        console.error(`Error: ${err.status}`);
     }) 
     .finally(() => {
 
@@ -319,7 +329,7 @@ const avatarPopup = new PopupWithForm(selectors.avatarPopup, (formData) => {
     .catch(err => {
 
         // If the server returns an error, reject the promise
-        return Promise.reject(`Error: ${err.status}`);
+        console.error(`Error: ${err.status}`);
     })
     .finally (() => {
 
