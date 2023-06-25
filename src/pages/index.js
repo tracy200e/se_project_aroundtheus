@@ -11,10 +11,6 @@ import UserInfo from '../components/UserInfo';
 import Api from '../utils/Api';
 import PopupWithConfirm from '../components/PopupWithConfirm';
 
-// Identify profile elements
-const userName = document.querySelector(selectors.profileName);
-const userProfession = document.querySelector(selectors.profileProfession);
-
 // Identify edit, add and delete buttons as elements
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
