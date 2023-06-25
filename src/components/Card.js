@@ -33,9 +33,7 @@ export default class Card {
 
     // Check if the card is liked by the user
     isLiked() {
-        return this._cardLikes.some((cardLike) => {
-            return cardLike._id === this._userId;
-        })
+        return this._cardLikes.some((cardLike) => cardLike._id === this._userId)
     }
 
     // Update the card's number of likes
