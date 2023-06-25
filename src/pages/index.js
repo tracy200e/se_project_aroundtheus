@@ -98,7 +98,6 @@ cardPreviewPopup.close();
 /*                                Card Section                                */
 /* -------------------------------------------------------------------------- */
 
-
 // This function creates a new card
 function createCard(data, userId) {
     const cardElement = new Card({ 
@@ -181,15 +180,17 @@ function createCard(data, userId) {
 let cardSection;
 let userId;
 
+// Create new user info instance
+const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession, selectors.profileImage);
+
 // Get the app's information and make sure promises are loaded in the correct sequence
 api.getAppInfo()
     .then(([cards, userData]) => {
 
         // Find the user id
         userId = userData._id;
-        userName.textContent = userData.name;
-        userProfession.textContent = userData.about;
-        userImage.src = userData.avatar;
+        userInfo.setUserInfo(userData.name, userData.about);
+        userInfo.setUserImage(userData.avatar);
 
         // Create cards section
         cardSection = new Section(
@@ -264,9 +265,6 @@ addFormPopup.setEventListeners();
 /* -------------------------------------------------------------------------- */
 /*                             Profile Information                            */
 /* -------------------------------------------------------------------------- */
-
-// Create new user info instance
-const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession, selectors.profileImage);
 
 // Create the edit form instance
 const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
