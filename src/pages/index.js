@@ -116,11 +116,13 @@ function createCard(data, userId) {
                 api.deleteCard(data._id)
                 .then(() => {
 
-                    // Close the confirmation popup
-                    deletePopup.close();
-
                     // Delete the card on the page
                     cardElement.handleDeleteCard();
+                })
+                .then(() => {
+                    
+                    // Close the confirmation popup
+                    deletePopup.close();
                 })
                 .catch(err => {
 
@@ -233,6 +235,11 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
         // Add the new card to the section
         cardSection.addItem(newCard);
     })
+    .then(() => {
+
+        // Close the add form
+        addFormPopup.close();
+    })
     .catch(err => {
 
         // If the server returns an error, reject the promise
@@ -242,9 +249,6 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
 
         // Restore pre-loading status
         renderLoading(false, selectors.addFormButton);
-
-        // Close the add form
-        addFormPopup.close();
     })
 });
 
@@ -279,6 +283,11 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
         // Add the form's input to the profile section
         userInfo.setUserInfo(values.name, values.profession);
     })
+    .then(() => {
+
+        // Close the edit form
+        editFormPopup.close();
+    })
     .catch(err => {
 
         // If the server returns an error, reject the promise
@@ -288,9 +297,6 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
 
         // Restore pre-loading status
         renderLoading(false, selectors.editFormButton);
-
-        // Close the edit form
-        editFormPopup.close();
     })
 });
 
@@ -314,6 +320,11 @@ avatarEditButton.addEventListener('click', () => {
             // Set the user's image
             userInfo.setUserImage(userData.avatar);
         })
+        .then(() => {
+            
+            // Close the avatar popup
+            avatarPopup.close();
+        })
         .catch(err => {
 
             // If the server returns an error, reject the promise
@@ -323,9 +334,6 @@ avatarEditButton.addEventListener('click', () => {
 
             // Restore pre-loading status
             renderLoading(false, selectors.avatarFormButton);
-
-            // Close the avatar popup
-            avatarPopup.close();
         })
     })
 
