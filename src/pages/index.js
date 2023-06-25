@@ -281,7 +281,7 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
     .then(values => {
 
         // Add the form's input to the profile section
-        userInfo.setUserInfo(values.name, values.profession);
+        userInfo.setUserInfo(values.name, values.about);
     })
     .then(() => {
 
@@ -321,7 +321,7 @@ avatarEditButton.addEventListener('click', () => {
             userInfo.setUserImage(userData.avatar);
         })
         .then(() => {
-            
+
             // Close the avatar popup
             avatarPopup.close();
         })
