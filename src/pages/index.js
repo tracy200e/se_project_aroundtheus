@@ -123,6 +123,11 @@ function createCard(data, userId) {
                     // Delete the card on the page
                     cardElement.handleDeleteCard();
                 })
+                .catch(err => {
+
+                    // If the server returns an error, reject the promise
+                    return Promise.reject(`Error: ${err.status}`);
+                }) 
             });
 
             // Open confirmation popup on click
@@ -158,6 +163,11 @@ function createCard(data, userId) {
                     // Activate like icon
                     cardElement.addLikeIcon();
                 })
+                .catch(err => {
+
+                    // If the server returns an error, reject the promise
+                    return Promise.reject(`Error: ${err.status}`);
+                }) 
             }
         }
     }, 
@@ -222,6 +232,11 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
         // Add the new card to the section
         cardSection.addItem(newCard);
     })
+    .catch(err => {
+
+        // If the server returns an error, reject the promise
+        return Promise.reject(`Error: ${err.status}`);
+    }) 
     .finally(() => {
 
         // Restore pre-loading status
@@ -266,6 +281,11 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
         // Add the form's input to the profile section
         userInfo.setUserInfo(values.name, values.profession);
     })
+    .catch(err => {
+
+        // If the server returns an error, reject the promise
+        return Promise.reject(`Error: ${err.status}`);
+    }) 
     .finally(() => {
 
         // Restore pre-loading status
@@ -295,6 +315,11 @@ avatarEditButton.addEventListener('click', () => {
 
             // Set the user's image
             userInfo.setUserImage(userData.avatar);
+        })
+        .catch(err => {
+
+            // If the server returns an error, reject the promise
+            return Promise.reject(`Error: ${err.status}`);
         })
         .finally (() => {
 

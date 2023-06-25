@@ -5,35 +5,27 @@ export default class Api {
         this._headers = options.headers;
     }
 
-    getCards() {
-        return fetch(`${this._baseURL}/cards`, {
-            headers: this._headers
-        })
-        .then(res => {
+    // Check if the response is good to move forward with
+    _processResponse(res) {
 
             // If the server returns the data okay, parse the JSON data
             if (res.ok) {
                 return res.json();
             }
+    }
 
-            // If the server returns an error, reject the promise
-            return Promise.reject(`Error: ${res.status}`);
+    getCards() {
+        return fetch(`${this._baseURL}/cards`, {
+            headers: this._headers
         })
-        .catch(err => {
-            console.log(err);
-        }) 
+        .then(this._processResponse)
     }
 
     loadUserInfo() {
         return fetch(`${this._baseURL}/users/me`, {
             headers: this._headers
         })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Error: ${res.status}`);
-        })
+        .then(this._processResponse)
     }
 
     getAppInfo() {
@@ -49,12 +41,7 @@ export default class Api {
                 about: profession
             })
         })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Error: ${res.status}`);
-        })
+        .then(this._processResponse)
     }
 
     addNewCard({ name, link }) {
@@ -66,12 +53,7 @@ export default class Api {
                 link
             })
         })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Error: ${res.status}`);
-        })
+        .then(this._processResponse)
     }
 
     deleteCard(cardId) {
@@ -79,12 +61,7 @@ export default class Api {
             method: "DELETE",
             headers: this._headers
         })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Error: ${res.status}`);
-        })
+        .then(this._processResponse)
     }
 
     addLike(cardId) {
@@ -92,12 +69,7 @@ export default class Api {
             method: "PUT",
             headers: this._headers
         })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Error: ${res.status}`);
-        })
+        .then(this._processResponse)
     }
 
     removeLike(cardId) {
@@ -105,12 +77,7 @@ export default class Api {
             method: "DELETE",
             headers: this._headers
         })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Error: ${res.status}`);
-        })
+        .then(this._processResponse)
     }
 
     updateAvatar(avatar) {
@@ -119,11 +86,6 @@ export default class Api {
             headers: this._headers,
             body: JSON.stringify(avatar)
         })
-        .then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Error: ${res.status}`);
-        })
+        .then(this._processResponse)
     }
 }
