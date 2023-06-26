@@ -39,7 +39,7 @@ export default class Card {
     // Update the card's number of likes
     updateLikeCount(likes) {
         this._cardLikes = likes;
-        return this._likeCounter.textContent = likes.length;
+        this._likeCounter.textContent = likes.length;
     }
 
     // Display the number of likes
@@ -78,7 +78,7 @@ export default class Card {
     }
 
     // Handle the deletion of cards
-    handleDeleteCard() {
+    deleteCard() {
 
         // Remove element from the DOM on click
         this._element.remove();

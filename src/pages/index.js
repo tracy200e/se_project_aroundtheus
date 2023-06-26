@@ -1,5 +1,6 @@
 import './index.css';
 import { selectors, validationSettings, config } from '../utils/constants';
+import { renderLoading } from '../utils/functions';
 
 // Import all the classes
 import Card from '../components/Card';
@@ -14,7 +15,6 @@ import Popup from '../components/Popup';
 // Identify edit, add and confirmation buttons as elements
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
-const confirmButton = document.querySelector('#delete-card');
 
 // Find edit form input elements
 const formInputName = document.querySelector('#name');
@@ -23,22 +23,10 @@ const formInputProfession = document.querySelector('#profession');
 // Find form elements
 const profileForm = document.forms['profile-form'];
 const addCardForm = document.forms['card-form'];
-const formButton = document.querySelector('.form__button');
 
 // Find avatar elements
 const avatarEditButton = document.querySelector('.profile__image-overlay');
 const userImage = document.querySelector(selectors.profileImage);
-
-// Render loading
-function renderLoading(isLoading, selector) {
-    const formButton = document.querySelector(selector);
-
-    if (isLoading) {
-        formButton.textContent = 'ing...';
-    } else {
-        formButton.textContent = 'e';
-    }
-}
 
 /* -------------------------------------------------------------------------- */
 /*                                     Api                                    */
@@ -122,7 +110,7 @@ function createCard(data, userId) {
             .then(() => {
 
                 // Remove the card from the page
-                cardElement.handleDeleteCard();
+                cardElement.deleteCard();
             })
             .then(() => {
                 
@@ -187,8 +175,6 @@ let userId;
 
 // Create new user info instance
 const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession, selectors.profileImage);
-
-
 
 // Get the app's information and make sure promises are loaded in the correct sequence
 api.getAppInfo()
