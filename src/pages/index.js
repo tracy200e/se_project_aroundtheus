@@ -9,11 +9,12 @@ import PopupWithImage from '../components/PopupWithImage';
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
 import Api from '../utils/Api';
-import PopupWithConfirm from '../components/PopupWithConfirm';
+import Popup from '../components/Popup';
 
-// Identify edit, add and delete buttons as elements
+// Identify edit, add and confirmation buttons as elements
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
+const confirmButton = document.querySelector('#delete-card');
 
 // Find edit form input elements
 const formInputName = document.querySelector('#name');
@@ -90,6 +91,15 @@ const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 cardPreviewPopup.close();
 
 /* -------------------------------------------------------------------------- */
+/*                                Delete Popup                                */
+/* -------------------------------------------------------------------------- */
+
+// Create the delete popup instance
+const deletePopup = new Popup({ popupSelector: selectors.deletePopup });
+
+deletePopup.setEventListeners();
+
+/* -------------------------------------------------------------------------- */
 /*                                Card Section                                */
 /* -------------------------------------------------------------------------- */
 
@@ -102,35 +112,28 @@ function createCard(data, userId) {
             // Open image popup on click
             cardPreviewPopup.open(imageData);
         },
-        handleDeleteClick: () => {
-            
-            // Create the delete popup instance
-            const deletePopup = new PopupWithConfirm(selectors.deletePopup, () => {
-
-                // Handle card deletion
-                api.deleteCard(data._id)
-                .then(() => {
-
-                    // Delete the card on the page
-                    cardElement.handleDeleteCard();
-                })
-                .then(() => {
-                    
-                    // Close the confirmation popup
-                    deletePopup.close();
-                })
-                .catch(err => {
-
-                    // If the server returns an error, reject the promise
-                    console.error(`Error: ${err.status}`);
-                }) 
-            });
+        handleDeleteClick: (card) => {
 
             // Open confirmation popup on click
             deletePopup.open();
 
-            // Set the event listeners for the confirmation popup
-            deletePopup.setEventListeners();
+            // Handle card deletion
+            api.deleteCard(data._id)
+            .then(() => {
+
+                // Remove the card from the page
+                cardElement.handleDeleteCard();
+            })
+            .then(() => {
+                
+                // Close the confirmation popup
+                deletePopup.close();
+            })
+            .catch(err => {
+
+                // If the server returns an error, reject the promise
+                console.error(`Error: ${err.status}`);
+            })
         },
         handleLikeClick: () => {
 
@@ -185,40 +188,42 @@ let userId;
 // Create new user info instance
 const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession, selectors.profileImage);
 
+
+
 // Get the app's information and make sure promises are loaded in the correct sequence
 api.getAppInfo()
-    .then(([cards, userData]) => {
+.then(([cards, userData]) => {
 
-        // Find the user id
-        userId = userData._id;
-        userInfo.setUserInfo(userData.name, userData.about);
-        userInfo.setUserImage(userData.avatar);
+    // Find the user id
+    userId = userData._id;
+    userInfo.setUserInfo(userData.name, userData.about);
+    userInfo.setUserImage(userData.avatar);
 
-        // Create cards section
-        cardSection = new Section(
-            {
-                items: cards,
-                renderer: (card) => {
+    // Create cards section
+    cardSection = new Section(
+        {
+            items: cards,
+            renderer: (card) => {
 
-                    // Create a new card
-                    const cardElement = createCard(card, userId);
-        
-                    // Display each card
-                    cardSection.addItem(cardElement);
-                },
+                // Create a new card
+                const cardElement = createCard(card, userId);
+    
+                // Display each card
+                cardSection.addItem(cardElement);
             },
-            selectors.cardsList,
-            userId
-        );
+        },
+        selectors.cardsList,
+        userId
+    );
 
-        // Render the entire list of cards on the page
-        cardSection.renderItems(cards);
-    })
-    .catch((err) => {
+    // Render the entire list of cards on the page
+    cardSection.renderItems(cards);
+})
+.catch((err) => {
 
-        // If the server returns an error, reject the promise
-        console.error(`Error: ${err.status}`);
-    })
+    // If the server returns an error, reject the promise
+    console.error(`Error: ${err.status}`);
+})
 
 /* -------------------------------------------------------------------------- */
 /*                                  Add Form                                  */
@@ -331,7 +336,7 @@ const avatarPopup = new PopupWithForm(selectors.avatarPopup, (formData) => {
         // If the server returns an error, reject the promise
         console.error(`Error: ${err.status}`);
     })
-    .finally (() => {
+    .finally(() => {
 
         // Restore pre-loading status
         renderLoading(false, selectors.avatarFormButton);

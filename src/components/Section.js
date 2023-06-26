@@ -12,7 +12,7 @@ export default class Section {
         });
     }
 
-    addItem(element){
+    addItem(element) {
         // Adds the DOM element to the container
         this._container.prepend(element);
     }
