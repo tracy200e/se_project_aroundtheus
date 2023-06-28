@@ -28,6 +28,7 @@ const addCardForm = document.forms['card-form'];
 const addCreateButton = addCardForm.querySelector('.form__button');
 const avatarForm = document.forms['avatar-form'];
 const avatarSaveButton = avatarForm.querySelector('.form__button');
+const deleteConfirmButton = document.querySelector('#delete-card');
 
 /* -------------------------------------------------------------------------- */
 /*                                     Api                                    */
@@ -110,6 +111,9 @@ function createCard(data, userId) {
             api.deleteCard(data._id)
             .then(() => {
 
+                // Render loading status
+                renderLoading(true, deleteConfirmButton, 'Deleting...');
+
                 // Remove the card from the page
                 cardElement.deleteCard();
             })
@@ -122,6 +126,11 @@ function createCard(data, userId) {
 
                 // If the server returns an error, reject the promise
                 console.error(`Error: ${err.status}`);
+            })
+            .finally(() => {
+
+                // Restore pre-loading status
+                renderLoading(false, deleteConfirmButton, 'Deleting...');
             })
         },
         handleLikeClick: () => {
