@@ -107,12 +107,12 @@ function createCard(data, userId) {
             // Open confirmation popup on click
             deletePopup.open();
 
-            // Render loading status
-            setSubmitButtonText(deleteConfirmButton, 'Deleting...');
-
             // Handle card deletion
             api.deleteCard(data._id)
             .then(() => {
+
+                // Render loading status
+                setSubmitButtonText(deleteConfirmButton, 'Deleting...');
 
                 // Remove the card from the page
                 cardElement.deleteCard();

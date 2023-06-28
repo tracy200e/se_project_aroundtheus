@@ -98,11 +98,8 @@ export default class Card {
         this._handleDeleteButton();
         this._deleteButton.addEventListener('click', () => this._handleDeleteClick());
         
-        // Display the number of likes
+        // Render likes
         this._likeCounter = this._element.querySelector('.card__like-number');
-        this._displayLikeCount();
-
-        // Change the like button color
         this._likeButton = this._element.querySelector('.card__like-button');
         this._renderLikes();
 
