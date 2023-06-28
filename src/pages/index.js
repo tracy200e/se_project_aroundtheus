@@ -15,6 +15,7 @@ import Popup from '../components/Popup';
 // Identify edit, add and confirmation buttons as elements
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
+const avatarEditButton = document.querySelector('.profile__image-overlay');
 
 // Find edit form input elements
 const formInputName = document.querySelector('#name');
@@ -22,11 +23,11 @@ const formInputProfession = document.querySelector('#profession');
 
 // Find form elements
 const profileForm = document.forms['profile-form'];
+const profileSaveButton = profileForm.querySelector('.form__button');
 const addCardForm = document.forms['card-form'];
-
-// Find avatar elements
-const avatarEditButton = document.querySelector('.profile__image-overlay');
-const userImage = document.querySelector(selectors.profileImage);
+const addCreateButton = addCardForm.querySelector('.form__button');
+const avatarForm = document.forms['avatar-form'];
+const avatarSaveButton = avatarForm.querySelector('.form__button');
 
 /* -------------------------------------------------------------------------- */
 /*                                     Api                                    */
@@ -100,7 +101,7 @@ function createCard(data, userId) {
             // Open image popup on click
             cardPreviewPopup.open(imageData);
         },
-        handleDeleteClick: (card) => {
+        handleDeleteClick: () => {
 
             // Open confirmation popup on click
             deletePopup.open();
@@ -133,7 +134,7 @@ function createCard(data, userId) {
                 .then((card) => {
 
                     // Update like count
-                    cardElement.updateLikeCount(card.likes);
+                    cardElement.setLikes(card.likes);
 
                     // Deactivate like icon
                     cardElement.removeLikeIcon();
@@ -150,7 +151,7 @@ function createCard(data, userId) {
                 .then((card) => {
 
                     // Update like count
-                    cardElement.updateLikeCount(card.likes);
+                    cardElement.setLikes(card.likes);
 
                     // Activate like icon
                     cardElement.addLikeIcon();
@@ -208,7 +209,7 @@ api.getAppInfo()
 .catch((err) => {
 
     // If the server returns an error, reject the promise
-    console.error(`Error: ${err.status}`);
+    console.error(`Error: ${err}`);
 })
 
 /* -------------------------------------------------------------------------- */
@@ -219,7 +220,7 @@ api.getAppInfo()
 const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
     
     // Render loading status
-    renderLoading(true, selectors.addFormButton);
+    renderLoading(true, addCreateButton, 'Creating...');
 
     // Add the new card to the server
     api.addNewCard(formData)
@@ -244,7 +245,7 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
     .finally(() => {
 
         // Restore pre-loading status
-        renderLoading(false, selectors.addFormButton);
+        renderLoading(false, addCreateButton, 'Creating...');
     })
 });
 
@@ -269,7 +270,7 @@ addButton.addEventListener("click", () => {
 const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
 
     // Render loading status
-    renderLoading(true, selectors.editFormButton);
+    renderLoading(true, profileSaveButton, 'Saving...');
 
     // Update the user info in the server
     api.updateUserinfo(values.name, values.profession)
@@ -291,7 +292,7 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
     .finally(() => {
 
         // Restore pre-loading status
-        renderLoading(false, selectors.editFormButton);
+        renderLoading(false, profileSaveButton, 'Saving...');
     })
 });
 
@@ -303,7 +304,7 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
 const avatarPopup = new PopupWithForm(selectors.avatarPopup, (formData) => {
         
     // Render loading status
-    renderLoading(true, selectors.avatarFormButton);
+    renderLoading(true, avatarSaveButton, 'Saving...');
 
     // Update the user's image in the server
     api.updateAvatar(formData)
@@ -325,7 +326,7 @@ const avatarPopup = new PopupWithForm(selectors.avatarPopup, (formData) => {
     .finally(() => {
 
         // Restore pre-loading status
-        renderLoading(false, selectors.avatarFormButton);
+        renderLoading(false, avatarSaveButton, 'Saving...');
     })
 });
 

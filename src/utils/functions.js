@@ -1,10 +1,9 @@
 // Render loading
-export function renderLoading(isLoading, selector) {
-    const formButton = document.querySelector(selector);
+export function renderLoading(isLoading, buttonElement, loadingText) {
 
     if (isLoading) {
-        formButton.textContent = 'ing...';
+        buttonElement.textContent = loadingText;
     } else {
-        formButton.textContent = 'e';
+        return buttonElement;
     }
 }

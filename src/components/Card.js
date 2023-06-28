@@ -33,27 +33,28 @@ export default class Card {
 
     // Check if the card is liked by the user
     isLiked() {
-        return this._cardLikes.some((cardLike) => cardLike._id === this._userId)
+        return this._cardLikes.some((cardLike) => cardLike._id === this._userId);
     }
 
     // Update the card's number of likes
-    updateLikeCount(likes) {
+    setLikes(likes) {
         this._cardLikes = likes;
-        this._likeCounter.textContent = likes.length;
+        this._renderLikes();
     }
 
     // Display the number of likes
-    displayLikeCount() {
+    _displayLikeCount() {
         return this._likeCounter.textContent = this._cardLikes.length;
     }
 
     // Display the like icon based on its status
-    displayLikeIcon() {
+    _renderLikes() {
         if (this.isLiked()) {
             this._likeButton.classList.add('card__like-button_active');
         } else {
             this._likeButton.classList.remove('card__like-button_active');
         }
+        this._displayLikeCount();
     }
 
     // Activate the like icon
@@ -109,11 +110,11 @@ export default class Card {
         
         // Display the number of likes
         this._likeCounter = this._element.querySelector('.card__like-number');
-        this.displayLikeCount();
+        this._displayLikeCount();
 
         // Change the like button color
         this._likeButton = this._element.querySelector('.card__like-button');
-        this.displayLikeIcon();
+        this._renderLikes();
 
         // Set the image link
         const cardImage = this._element.querySelector('.card__image');        
