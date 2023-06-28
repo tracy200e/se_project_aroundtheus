@@ -1,6 +1,6 @@
 import './index.css';
 import { selectors, validationSettings, config } from '../utils/constants';
-import { renderLoading } from '../utils/functions';
+import { setSubmitButtonText } from '../utils/functions';
 
 // Import all the classes
 import Card from '../components/Card';
@@ -107,12 +107,12 @@ function createCard(data, userId) {
             // Open confirmation popup on click
             deletePopup.open();
 
+            // Render loading status
+            setSubmitButtonText(deleteConfirmButton, 'Deleting...');
+
             // Handle card deletion
             api.deleteCard(data._id)
             .then(() => {
-
-                // Render loading status
-                renderLoading(true, deleteConfirmButton, 'Deleting...');
 
                 // Remove the card from the page
                 cardElement.deleteCard();
@@ -129,8 +129,8 @@ function createCard(data, userId) {
             })
             .finally(() => {
 
-                // Restore pre-loading status
-                renderLoading(false, deleteConfirmButton, 'Deleting...');
+                // Restore button text
+                setSubmitButtonText(deleteConfirmButton, 'Yes');
             })
         },
         handleLikeClick: () => {
@@ -144,9 +144,6 @@ function createCard(data, userId) {
 
                     // Update like count
                     cardElement.setLikes(card.likes);
-
-                    // Deactivate like icon
-                    cardElement.removeLikeIcon();
                 })
                 .catch(err => {
 
@@ -161,9 +158,6 @@ function createCard(data, userId) {
 
                     // Update like count
                     cardElement.setLikes(card.likes);
-
-                    // Activate like icon
-                    cardElement.addLikeIcon();
                 })
                 .catch(err => {
 
@@ -229,7 +223,7 @@ api.getAppInfo()
 const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
     
     // Render loading status
-    renderLoading(true, addCreateButton, 'Creating...');
+    setSubmitButtonText(addCreateButton, 'Creating...');
 
     // Add the new card to the server
     api.addNewCard(formData)
@@ -250,11 +244,11 @@ const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
 
         // If the server returns an error, reject the promise
         console.error(`Error: ${err.status}`);
-    }) 
+    })
     .finally(() => {
 
-        // Restore pre-loading status
-        renderLoading(false, addCreateButton, 'Creating...');
+        // Restore button text
+        setSubmitButtonText(addCreateButton, 'Create');
     })
 });
 
@@ -279,7 +273,7 @@ addButton.addEventListener("click", () => {
 const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
 
     // Render loading status
-    renderLoading(true, profileSaveButton, 'Saving...');
+    setSubmitButtonText(profileSaveButton, 'Saving...');
 
     // Update the user info in the server
     api.updateUserinfo(values.name, values.profession)
@@ -287,8 +281,6 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
 
         // Add the form's input to the profile section
         userInfo.setUserInfo(values.name, values.about);
-    })
-    .then(() => {
 
         // Close the edit form
         editFormPopup.close();
@@ -297,11 +289,11 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
 
         // If the server returns an error, reject the promise
         console.error(`Error: ${err.status}`);
-    }) 
+    })
     .finally(() => {
 
-        // Restore pre-loading status
-        renderLoading(false, profileSaveButton, 'Saving...');
+        // Restore button text
+        setSubmitButtonText(profileSaveButton, 'Save');
     })
 });
 
@@ -311,9 +303,9 @@ const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
 
 // Create the avatar form
 const avatarPopup = new PopupWithForm(selectors.avatarPopup, (formData) => {
-        
+
     // Render loading status
-    renderLoading(true, avatarSaveButton, 'Saving...');
+    setSubmitButtonText(avatarSaveButton, 'Saving...');
 
     // Update the user's image in the server
     api.updateAvatar(formData)
@@ -334,20 +326,20 @@ const avatarPopup = new PopupWithForm(selectors.avatarPopup, (formData) => {
     })
     .finally(() => {
 
-        // Restore pre-loading status
-        renderLoading(false, avatarSaveButton, 'Saving...');
+        // Restore button text
+        setSubmitButtonText(avatarSaveButton, 'Save');
     })
 });
 
 // Open the avatar popup when user clicks on the avatar's edit button
 avatarEditButton.addEventListener('click', () => {
 
-        // Open the avatar popup
-        avatarPopup.open();
+    // Open the avatar popup
+    avatarPopup.open();
 
-        // Set the event listeners for the avatar popup
-        avatarPopup.setEventListeners();
-    })
+    // Set the event listeners for the avatar popup
+    avatarPopup.setEventListeners();
+})
 
 /* -------------------------------------------------------------------------- */
 /*                                  Edit Form                                 */

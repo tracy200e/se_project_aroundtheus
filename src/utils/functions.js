@@ -1,9 +1,6 @@
 // Render loading
-export function renderLoading(isLoading, buttonElement, loadingText) {
+export function setSubmitButtonText(buttonElement, text) {
 
-    if (isLoading) {
-        buttonElement.textContent = loadingText;
-    } else {
-        return buttonElement;
-    }
+    // Set button element text
+    buttonElement.textContent = text;
 }

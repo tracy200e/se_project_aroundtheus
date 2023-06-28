@@ -57,16 +57,6 @@ export default class Card {
         this._displayLikeCount();
     }
 
-    // Activate the like icon
-    addLikeIcon() {
-        this._likeButton.classList.add('card__like-button_active');
-    }
-
-    // Deactivate the like icon
-    removeLikeIcon() {
-        this._likeButton.classList.remove('card__like-button_active');
-    }
-
     // Display bin icon on cards created by the user
     _handleDeleteButton() {
 
