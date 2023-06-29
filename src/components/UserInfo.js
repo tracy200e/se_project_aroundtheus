@@ -12,7 +12,7 @@ export default class UserInfo {
             profession: this._profession.textContent,
         }
     }
-
+    
     // Add new profile info to the page
     setUserInfo(name, profession) {
         this._name.textContent = name;

@@ -96,7 +96,7 @@ export default class Card {
         // Display the bin icon on the user's cards
         this._deleteButton = this._element.querySelector('.card__delete-button');
         this._handleDeleteButton();
-        this._deleteButton.addEventListener('click', () => this._handleDeleteClick());
+        this._deleteButton.addEventListener('click', this._handleDeleteClick);
         
         // Render likes
         this._likeCounter = this._element.querySelector('.card__like-number');

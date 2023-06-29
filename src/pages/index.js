@@ -10,7 +10,7 @@ import PopupWithImage from '../components/PopupWithImage';
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
 import Api from '../utils/Api';
-import Popup from '../components/Popup';
+import PopupWithConfirmation from '../components/PopupWithConfirmation';
 
 // Identify edit, add and confirmation buttons as elements
 const editButton = document.querySelector('.profile__edit-button');
@@ -85,8 +85,9 @@ cardPreviewPopup.close();
 /* -------------------------------------------------------------------------- */
 
 // Create the delete popup instance
-const deletePopup = new Popup({ popupSelector: selectors.deletePopup });
+const deletePopup = new PopupWithConfirmation(selectors.deletePopup);
 
+// Set event listeners
 deletePopup.setEventListeners();
 
 /* -------------------------------------------------------------------------- */
@@ -103,35 +104,37 @@ function createCard(data, userId) {
             cardPreviewPopup.open(imageData);
         },
         handleDeleteClick: () => {
-
-            // Open confirmation popup on click
-            deletePopup.open();
-
-            // Handle card deletion
-            api.deleteCard(data._id)
-            .then(() => {
+            
+            // Set the deletion action
+            deletePopup.setAction(() => {                
 
                 // Render loading status
                 setSubmitButtonText(deleteConfirmButton, 'Deleting...');
 
-                // Remove the card from the page
-                cardElement.deleteCard();
-            })
-            .then(() => {
-                
-                // Close the confirmation popup
-                deletePopup.close();
-            })
-            .catch(err => {
+                // Handle card deletion
+                api.deleteCard(data._id)
+                .then(() => {
 
-                // If the server returns an error, reject the promise
-                console.error(`Error: ${err.status}`);
-            })
-            .finally(() => {
+                    // Delete card from page
+                    cardElement.deleteCard();
 
-                // Restore button text
-                setSubmitButtonText(deleteConfirmButton, 'Yes');
-            })
+                    // Close the confirmation popup
+                    deletePopup.close();
+                })
+                .catch(err => {
+
+                    // If the server returns an error, reject the promise
+                    console.error(`Error: ${err.status}`);
+                })
+                .finally(() => {
+
+                    // Restore button text
+                    setSubmitButtonText(deleteConfirmButton, 'Yes');
+                })
+            });
+
+            // Open confirmation popup on click
+            deletePopup.open();
         },
         handleLikeClick: () => {
 
