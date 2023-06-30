@@ -2,7 +2,7 @@
     "name": "practicum",
     "version": "0.0.1",
     "repository": {
-        "url": "git+https://github.com/tracy200e/se_project_aroundtheus"
+        "url": "git+https://github.com/tracy200e/se_project_aroundtheus.git"
     },
     "description": "Educational platform",
     "main": "index.js",

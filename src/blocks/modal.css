@@ -85,6 +85,22 @@
     margin-top: 10px;
 }
 
+.modal__button {
+    background: #000000;
+    border-radius: 2px;
+    width: 83%;
+    height: 50px;
+    font-family: 'Inter', Arial, sans-serif;
+    color: #FFFFFF;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+    margin: 17px 36px 36px 36px;
+    border-style: none;
+    padding: 0;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 488px) {
     .modal__container {
         width: 282px;

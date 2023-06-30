@@ -19,14 +19,14 @@
     </header>
     <main class="content">
         <section class="profile">
-            <img class="profile__image"
-                src="<%=require('./images/jacques-cousteau.jpg')%>"
-                alt="Jacques Cousteau headshot"
-            >
+            <div class="profile__image-container">
+                <img class="profile__image">
+                <div class="profile__image-overlay"></div>
+            </div>
             <div class="profile__info">
-                <h1 class="profile__name">Jacques Cousteau</h1>
+                <h1 class="profile__name"></h1>
                 <button class="profile__edit-button" type="button"></button>
-                <p class="profile__profession">Explorer</p>
+                <p class="profile__profession"></p>
             </div>
             <button class="profile__add-button" type="button"></button>
         </section>
@@ -38,7 +38,10 @@
                         <button class="card__delete-button" type="button"></button>
                         <div class="card__description">
                             <h2 class="card__title"></h2>
-                            <button class="card__like-button" type="button"></button>
+                            <div class="card__likes">
+                                <button class="card__like-button" type="button"></button>
+                                <p class="card__like-number"></p>
+                            </div>   
                         </div>
                     </li>
                 </template>
@@ -46,7 +49,7 @@
         </section>
     </main>
     <footer class="footer">
-        <p class="footer__copyright">© 2022 Around The U.S.</p>
+        <p class="footer__copyright">© 2023 Around The U.S.</p>
     </footer>
     <div class="modal" id="edit-modal">
         <div class="modal__container">
@@ -120,6 +123,33 @@
             <img class="modal__image">
             <p class="modal__name"></p>
         </div>  
+    </div>
+    <div class="modal" id="delete-modal">
+        <div class="modal__container">
+            <button type="button" class="modal__close-button"></button>
+            <h2 class="modal__title">Are you sure?</h2>
+            <button type="submit" class="modal__button" id="delete-card">Yes</button>
+        </div>
+    </div>
+    <div class="modal" id="avatar-modal">
+        <div class="modal__container">
+            <button type="button" class="modal__close-button"></button>
+            <h2 class="modal__title">Change profile picture</h2>
+            <form class="form modal__form" id="avatar-form" name="avatar-form">
+                <label class="form__label">
+                    <input
+                    required
+                    type="url"
+                    class="form__input"
+                    id="avatar"
+                    name="avatar"
+                    placeholder="Profile picture link"
+                    >
+                    <span class="form__error" id="avatar-error"></span>
+                </label>
+                <button type="submit" class="form__button">Save</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

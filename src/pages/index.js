@@ -1,5 +1,6 @@
 import './index.css';
-import { initialCards, selectors, validationSettings } from '../utils/constants';
+import { selectors, validationSettings, config } from '../utils/constants';
+import { setSubmitButtonText } from '../utils/functions';
 
 // Import all the classes
 import Card from '../components/Card';
@@ -8,10 +9,13 @@ import Section from '../components/Section';
 import PopupWithImage from '../components/PopupWithImage';
 import PopupWithForm from '../components/PopupWithForm';
 import UserInfo from '../components/UserInfo';
+import Api from '../utils/Api';
+import PopupWithConfirmation from '../components/PopupWithConfirmation';
 
-// Identify edit, add and close buttons as elements
+// Identify edit, add and confirmation buttons as elements
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
+const avatarEditButton = document.querySelector('.profile__image-overlay');
 
 // Find edit form input elements
 const formInputName = document.querySelector('#name');
@@ -19,7 +23,19 @@ const formInputProfession = document.querySelector('#profession');
 
 // Find form elements
 const profileForm = document.forms['profile-form'];
+const profileSaveButton = profileForm.querySelector('.form__button');
 const addCardForm = document.forms['card-form'];
+const addCreateButton = addCardForm.querySelector('.form__button');
+const avatarForm = document.forms['avatar-form'];
+const avatarSaveButton = avatarForm.querySelector('.form__button');
+const deleteConfirmButton = document.querySelector('#delete-card');
+
+/* -------------------------------------------------------------------------- */
+/*                                     Api                                    */
+/* -------------------------------------------------------------------------- */
+
+// Create the app instance
+const api = new Api(config);
 
 /* -------------------------------------------------------------------------- */
 /*                               Form Validation                              */
@@ -65,54 +81,178 @@ const cardPreviewPopup = new PopupWithImage(selectors.previewPopup);
 cardPreviewPopup.close();
 
 /* -------------------------------------------------------------------------- */
+/*                                Delete Popup                                */
+/* -------------------------------------------------------------------------- */
+
+// Create the delete popup instance
+const deletePopup = new PopupWithConfirmation(selectors.deletePopup);
+
+// Set event listeners
+deletePopup.setEventListeners();
+
+/* -------------------------------------------------------------------------- */
 /*                                Card Section                                */
 /* -------------------------------------------------------------------------- */
 
 // This function creates a new card
-function createCard(data) {
-    const cardElement = new Card({ data, handleImageClick: (imageData) => {
-        cardPreviewPopup.open(imageData);
+function createCard(data, userId) {
+    const cardElement = new Card({ 
+        data,
+        handleImageClick: (imageData) => {
 
-    }}, selectors.cardTemplate);
+            // Open image popup on click
+            cardPreviewPopup.open(imageData);
+        },
+        handleDeleteClick: () => {
 
+            // Set the deletion action
+            deletePopup.setAction(() => {                
+
+                // Render loading status
+                setSubmitButtonText(deleteConfirmButton, 'Deleting...');
+
+                // Handle card deletion
+                api.deleteCard(data._id)
+                .then(() => {
+
+                    // Delete card from page
+                    cardElement.deleteCard();
+
+                    // Close the confirmation popup
+                    deletePopup.close();
+                })
+                .catch(err => {
+
+                    // If the server returns an error, reject the promise
+                    console.error(`Error: ${err.status}`);
+                })
+                .finally(() => {
+
+                    // Restore button text
+                    setSubmitButtonText(deleteConfirmButton, 'Yes');
+                })
+            });
+
+            // Open confirmation popup on click
+            deletePopup.open();
+        },
+        handleLikeClick: () => {
+
+            // If the user has liked the card, remove the like; vice versa
+            if (cardElement.isLiked()) {
+
+                // Remove like from the server if user has already liked the card
+                api.removeLike(data._id)
+                .then((card) => {
+
+                    // Update like count
+                    cardElement.setLikes(card.likes);
+                })
+                .catch(err => {
+
+                    // If the server returns an error, reject the promise
+                    console.error(`Error: ${err.status}`);
+                })
+            } else {
+
+                // Add like to the server if user has not liked the card
+                api.addLike(data._id)
+                .then((card) => {
+
+                    // Update like count
+                    cardElement.setLikes(card.likes);
+                })
+                .catch(err => {
+
+                    // If the server returns an error, reject the promise
+                    console.error(`Error: ${err.status}`);
+                }) 
+            }
+        }
+    }, 
+    selectors.cardTemplate, 
+    userId);
+
+    // Display the card
     return cardElement.getView();
 }
 
-// Create a section of cards
-const cardSection = new Section(
-    {
-        items: initialCards,
-        renderer: (data) => {
+let cardSection;
+let userId;
 
-            // Create a new card
-            const cardElement = createCard(data);
+// Create new user info instance
+const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession, selectors.profileImage);
 
-            // Display each card
-            cardSection.addItem(cardElement);
+// Get the app's information and make sure promises are loaded in the correct sequence
+api.getAppInfo()
+.then(([cards, userData]) => {
+
+    // Find the user id
+    userId = userData._id;
+    userInfo.setUserInfo(userData.name, userData.about);
+    userInfo.setUserImage(userData.avatar);
+
+    // Create cards section
+    cardSection = new Section(
+        {
+            items: cards,
+            renderer: (card) => {
+
+                // Create a new card
+                const cardElement = createCard(card, userId);
+    
+                // Display each card
+                cardSection.addItem(cardElement);
+            },
         },
-    },
-    selectors.cardsList
-);
+        selectors.cardsList,
+        userId
+    );
 
-// Render the initial list of cards on the page
-cardSection.renderItems(initialCards);
+    // Render the entire list of cards on the page
+    cardSection.renderItems(cards);
+})
+.catch((err) => {
+
+    // If the server returns an error, reject the promise
+    console.error(`Error: ${err}`);
+})
 
 /* -------------------------------------------------------------------------- */
 /*                                  Add Form                                  */
 /* -------------------------------------------------------------------------- */
 
-
 // Create the add form instance
 const addFormPopup = new PopupWithForm(selectors.addFormPopup, (formData) => {
-
-    // Create a new card
-    const newCard = createCard(formData);
     
-    // Close the add form
-    addFormPopup.close();
+    // Render loading status
+    setSubmitButtonText(addCreateButton, 'Creating...');
 
-    // Add the new card to the section
-    cardSection.addItem(newCard);
+    // Add the new card to the server
+    api.addNewCard(formData)
+    .then((formData) => {
+
+        // Create a new card
+        const newCard = createCard(formData, userId);
+
+        // Add the new card to the section
+        cardSection.addItem(newCard);
+    })
+    .then(() => {
+
+        // Close the add form
+        addFormPopup.close();
+    })
+    .catch(err => {
+
+        // If the server returns an error, reject the promise
+        console.error(`Error: ${err.status}`);
+    })
+    .finally(() => {
+
+        // Restore button text
+        setSubmitButtonText(addCreateButton, 'Create');
+    })
 });
 
 // Open the modal when users click on the add button
@@ -123,28 +263,86 @@ addButton.addEventListener("click", () => {
 
     // Open the add card form
     addFormPopup.open();
+
+    // Set add form event listeners
+    addFormPopup.setEventListeners();
 });
-
-// Set add form event listeners
-addFormPopup.setEventListeners();
-
 
 /* -------------------------------------------------------------------------- */
 /*                             Profile Information                            */
 /* -------------------------------------------------------------------------- */
 
-// Create the user info instance
-const userInfo = new UserInfo(selectors.profileName, selectors.profileProfession);
-
 // Create the edit form instance
 const editFormPopup = new PopupWithForm(selectors.editFormPopup, (values) => {
 
-    // Add the form's input to the profile section
-    userInfo.setUserInfo(values.name, values.profession);
+    // Render loading status
+    setSubmitButtonText(profileSaveButton, 'Saving...');
 
-    // Close the edit form
-    editFormPopup.close();
+    // Update the user info in the server
+    api.updateUserinfo(values.name, values.profession)
+    .then(values => {
+
+        // Add the form's input to the profile section
+        userInfo.setUserInfo(values.name, values.about);
+
+        // Close the edit form
+        editFormPopup.close();
+    })
+    .catch(err => {
+
+        // If the server returns an error, reject the promise
+        console.error(`Error: ${err.status}`);
+    })
+    .finally(() => {
+
+        // Restore button text
+        setSubmitButtonText(profileSaveButton, 'Save');
+    })
 });
+
+/* -------------------------------------------------------------------------- */
+/*                             Update Avatar Form                             */
+/* -------------------------------------------------------------------------- */
+
+// Create the avatar form
+const avatarPopup = new PopupWithForm(selectors.avatarPopup, (formData) => {
+
+    // Render loading status
+    setSubmitButtonText(avatarSaveButton, 'Saving...');
+
+    // Update the user's image in the server
+    api.updateAvatar(formData)
+    .then(userData => {
+
+        // Set the user's image
+        userInfo.setUserImage(userData.avatar);
+    })
+    .then(() => {
+
+        // Close the avatar popup
+        avatarPopup.close();
+    })
+    .catch(err => {
+
+        // If the server returns an error, reject the promise
+        console.error(`Error: ${err.status}`);
+    })
+    .finally(() => {
+
+        // Restore button text
+        setSubmitButtonText(avatarSaveButton, 'Save');
+    })
+});
+
+// Open the avatar popup when user clicks on the avatar's edit button
+avatarEditButton.addEventListener('click', () => {
+
+    // Open the avatar popup
+    avatarPopup.open();
+
+    // Set the event listeners for the avatar popup
+    avatarPopup.setEventListeners();
+})
 
 /* -------------------------------------------------------------------------- */
 /*                                  Edit Form                                 */
@@ -165,7 +363,7 @@ editButton.addEventListener("click", () => {
 
     // Open modal
     editFormPopup.open();
-});
 
-// Set edit form event listeners
-editFormPopup.setEventListeners();
+    // Set edit form event listeners
+    editFormPopup.setEventListeners();
+});

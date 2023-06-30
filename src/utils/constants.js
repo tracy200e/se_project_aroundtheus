@@ -1,53 +1,26 @@
-// Import images for webpack to add the correct paths to the variables
-const lagoDiBraiesImage = new URL("../images/lago-di-braies.jpg", import.meta.url);
-const vanoiseNationalParkImage = new URL("../images/vanoise-national-park.jpg", import.meta.url);
-const lakeLouiseImage = new URL("../images/lake-louise.jpg", import.meta.url);
-const latemarImage = new URL("../images/latemar.jpg", import.meta.url);
-const baldMountainsImage = new URL("../images/bald-mountains.jpg", import.meta.url);
-const yosemiteValleyImage = new URL("../images/yosemite-valley.jpg", import.meta.url);
 
-// Create an initial list of cards
-export const initialCards = [
-    {
-        name: "Lago di Braies",
-        link: lagoDiBraiesImage
-    },
-    {
-        name: "Vanoise National Park",
-        link: vanoiseNationalParkImage
-    },
-    {
-        name: "Lake Louise",
-        link: lakeLouiseImage
-    },
-    {
-        name: "Latemar",
-        link: latemarImage
-    },
-    {
-        name: "Bald Mountains",
-        link: baldMountainsImage
-    },
-    {
-        name: "Yosemite Valley",
-        link: yosemiteValleyImage
-    }
-];
-
+// Selectors of DOM elements
 export const selectors = {
     cardsList: '.cards__list',
     cardTemplate: '#card-element',
     previewPopup: '#image-modal',
     editFormPopup: '#edit-modal',
+    editFormButton: '#edit-profile-button',
     addFormPopup: '#add-modal',
+    addFormButton: '#add-card-button',
+    deletePopup: '#delete-modal',
+    avatarPopup: '#avatar-modal',
+    avatarFormButton: '#avatar-form-button',
     profileName: '.profile__name',
     profileProfession: '.profile__profession',
+    profileImage: '.profile__image',
     formModalContainer: '.modal__container',
     imageModalContainer: '.modal__popup',
     formInputName: '#name',
     formInputProfession: '#profession',
 }
 
+// Validation settings
 export const validationSettings = {
     inputSelector: ".form__input",
     submitButtonSelector: ".form__button",
@@ -56,3 +29,12 @@ export const validationSettings = {
     errorClass: "form__error_visible",
     formSelector: 'form',
 }
+
+// Api's configuration
+export const config = {
+    baseURL: "https://around.nomoreparties.co/v1/group-12",
+    headers: {
+        authorization: "1eaa27b9-0188-4ade-8d81-d0c83875c056",
+        "Content-Type": "application/json"
+    }
+};

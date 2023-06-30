@@ -11,7 +11,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 25px 20px;
+    padding: 19px 20px;
     background-color: #FFFFFF;
 }
 
@@ -75,7 +75,22 @@
     width: 21px;
     height: 19px;
     padding: 0;
-    flex: 0 0 25px;
+    flex: 0 0 21px;
+}
+
+.card__likes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card__like-number {
+    color: #000000;
+    font-weight: 400;
+    font-size: 13px;
+    text-align: center;
+    padding: 0;
+    margin: 0;
 }
 
 .card__add-button_inactive {
