@@ -104,7 +104,7 @@ function createCard(data, userId) {
             cardPreviewPopup.open(imageData);
         },
         handleDeleteClick: () => {
-            
+
             // Set the deletion action
             deletePopup.setAction(() => {                
 
